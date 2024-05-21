@@ -1,0 +1,7 @@
+<p>login works!</p>
+@if (angularFireAuth.authState | async) {
+<!-- <p>hi {{ angularFireAuth.currentUser }}</p> -->
+<button (click)="logOut()">Log out</button>
+} @else {
+<button googleSso>Sign in with google</button>
+}
