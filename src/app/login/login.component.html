@@ -1,7 +1,12 @@
 <p>login works!</p>
-@if (angularFireAuth.authState | async) {
-<!-- <p>hi {{ angularFireAuth.currentUser }}</p> -->
-<button (click)="logOut()">Log out</button>
-} @else {
-<button googleSso>Sign in with google</button>
-}
+
+<div *ngIf="user$ | async as user; else login">
+  <p>Username: {{ user.displayName }}</p>
+  <p>Email: {{ user.email }}</p>
+  <button (click)="logOut()">Log Out</button>
+</div>
+<ng-template #login>
+  <p>Please log in.</p>
+  <button googleSso>Login with Google</button>
+  <!-- Your login form here if needed -->
+</ng-template>
