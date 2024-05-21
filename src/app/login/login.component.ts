@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import firebase from 'firebase/compat/app'; // Ensure this import for compatibility
 
 @Component({
-  selector: 'app-signin',
+  selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })

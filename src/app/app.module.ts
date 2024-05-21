@@ -9,9 +9,16 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { environment } from './environments/environment';
 import { LoginComponent } from './login/login.component';
 import { GoogleSsoDirective } from './google-sso.directive';
-import { RequireAuthComponent } from './require-auth/require-auth.component';
+import { HomeComponent } from './home/home.component';
+import { AnalyticsComponent } from './analytics/analytics.component';
 @NgModule({
-  declarations: [AppComponent, LoginComponent, GoogleSsoDirective, RequireAuthComponent],
+  declarations: [
+    AppComponent,
+    LoginComponent,
+    GoogleSsoDirective,
+    HomeComponent,
+    AnalyticsComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,

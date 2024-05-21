@@ -1,18 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RequireAuthComponent } from './require-auth.component';
+import { HomeComponent } from './home.component';
 
 describe('RequireAuthComponent', () => {
-  let component: RequireAuthComponent;
-  let fixture: ComponentFixture<RequireAuthComponent>;
+  let component: HomeComponent;
+  let fixture: ComponentFixture<HomeComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [RequireAuthComponent]
-    })
-    .compileComponents();
-    
-    fixture = TestBed.createComponent(RequireAuthComponent);
+      declarations: [HomeComponent],
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(HomeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
