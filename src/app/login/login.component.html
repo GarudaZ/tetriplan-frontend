@@ -3,6 +3,8 @@
 <div *ngIf="user$ | async as user; else login">
   <p>Username: {{ user.displayName }}</p>
   <p>Email: {{ user.email }}</p>
+  <p>UID: {{ user.uid }}</p>
+  <img src="{{ user.photoURL }}" />
   <button (click)="logOut()">Log Out</button>
 </div>
 <ng-template #login>
