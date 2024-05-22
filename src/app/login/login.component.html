@@ -1,25 +1,27 @@
 <p>login works!</p>
 
-<div *ngIf="user$ | async as user; else login">
+<div *ngIf="user$ | async as user; else loginTemplate">
   <p>Username: {{ user.displayName }}</p>
   <p>Email: {{ user.email }}</p>
   <button (click)="logOut()">Log Out</button>
 </div>
-<ng-template #login>
+<ng-template #loginTemplate>
   <p>Please log in.</p>
-  
-  <!-- Your login form here if needed -->
+
   <form>
-  <div>
-    <label for="email">Email:</label>
-    <input id="email" name="email" type="email"  required />
-  </div>
-  <div>
-    <label for="password">Password:</label>
-    <input id="password" name="password" type="password"  required />
+    <div>
+      <label for="email">Email:</label>
+      <input id="email" name="email" type="email" [(ngModel)]="email" required />
     </div>
-    <button type="submit">Sign in with Email/Password</button>
-    <button class="gsi-material-button" googleSso>
+    <div>
+      <label for="password">Password:</label>
+      <input id="password" name="password" type="password" [(ngModel)]="password" required />
+    </div>
+   
+    <button type="button" (click)="login()">Sign in with Email/Password</button>
+    <a href="/register" style="text-decoration: none;">Need Account? <span class="text-danger">Register</span></a>
+    <a href="/forgot-password" class="text-dark" style="text-decoration: none;">Forgot Password?</a>
+    <button type="button" class="gsi-material-button" (click)="loginWithGoogle()">
       <div class="gsi-material-button-state"></div>
       <div class="gsi-material-button-content-wrapper">
         <div class="gsi-material-button-icon">

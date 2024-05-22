@@ -4,9 +4,14 @@ import { LoginComponent } from './login/login.component';
 import { AnalyticsComponent } from './analytics/analytics.component';
 import { HomeComponent } from './home/home.component';
 import { authGuard } from './auth.guard';
+import { RegisterComponent } from './register/register.component';
 
 const routes: Routes = [
-  { path: 'login', component: LoginComponent },
+  { path: 'login',
+   component: LoginComponent },
+
+  {path: 'register',
+   component : RegisterComponent},
   {
     path: 'home',
     component: HomeComponent,
