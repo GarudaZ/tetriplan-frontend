@@ -13,7 +13,8 @@ import { GoogleSsoDirective } from './google-sso.directive';
 import { HomeComponent } from './home/home.component';
 import { AnalyticsComponent } from './analytics/analytics.component';
 import { RegisterComponent } from './register/register.component';
-import { AuthService } from './auth.service'; // Import your AuthService
+import { AuthService } from './auth.service';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component'; // Import your AuthService
 
 
 
@@ -25,6 +26,7 @@ import { AuthService } from './auth.service'; // Import your AuthService
     HomeComponent,
     AnalyticsComponent,
     RegisterComponent,
+    ForgotPasswordComponent,
   ],
   imports: [
     BrowserModule,
