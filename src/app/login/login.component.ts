@@ -11,6 +11,8 @@ import firebase from 'firebase/compat/app'; // Ensure this import for compatibil
 })
 export class LoginComponent implements OnInit {
   user$!: Observable<firebase.User | null>; // Use firebase.User for correct typing
+  email: string = '';
+  password: string = '';
 
   constructor(
     public angularFireAuth: AngularFireAuth,
@@ -23,5 +25,16 @@ export class LoginComponent implements OnInit {
 
   logOut() {
     this.angularFireAuth.signOut();
+  }
+  loginWithGoogle() {
+    this.authService.loginWithGoogle();
+  }
+
+  async loginWithEmailPassword() {
+    try {
+      await this.angularFireAuth.signInWithEmailAndPassword(this.email, this.password);
+    } catch (error) {
+      console.error('Error during login with email and password', error);
+    }
   }
 }

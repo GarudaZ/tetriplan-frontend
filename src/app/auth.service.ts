@@ -16,4 +16,8 @@ export class AuthService {
   getUserInfo(): Observable<firebase.User | null> {
     return this.user$;
   }
+  loginWithGoogle() {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    return this.afAuth.signInWithPopup(provider);
+  }
 }
