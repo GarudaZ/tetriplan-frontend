@@ -4,9 +4,7 @@
 <div class="task-list">
   <h2>Task List</h2>
   <div *ngIf="user">
-    <!-- <p>home works!</p>
-    <p>Username: {{ user.displayName }}</p>
-    <p>Email: {{ user.email }}</p> -->
+
     <p>UID: {{ user.uid }}</p>
   </div>
   <ul>
@@ -14,6 +12,7 @@
       <p>Task Name: {{ task.taskName }}</p>
       <p>Category: {{ task.category }}</p>
       <p>Date: {{ task.date }}</p>
+      <p>Start: {{ task.startTime }}</p>
       <p>Estimate: {{ task.duration }}m</p>
     </li>
   </ul>

@@ -20,6 +20,8 @@ import { AuthService } from './auth.service';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { CalendarComponent } from './home/calendar/calendar.component';
 
+import { FullCalendarModule } from '@fullcalendar/angular';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,6 +40,7 @@ import { CalendarComponent } from './home/calendar/calendar.component';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     FormsModule,
+    FullCalendarModule,
   ],
   providers: [AuthService],
   bootstrap: [AppComponent],
