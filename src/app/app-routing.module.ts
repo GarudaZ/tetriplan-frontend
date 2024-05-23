@@ -8,6 +8,10 @@ import { RegisterComponent } from './register/register.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 const routes: Routes = [
+
+  { path: '', 
+   component: LoginComponent },
+  
   { path: 'login',
    component: LoginComponent },
 
@@ -16,6 +20,7 @@ const routes: Routes = [
 
    {path: 'forgot-password', 
    component : ForgotPasswordComponent},
+
   {
     path: 'home',
     component: HomeComponent,
