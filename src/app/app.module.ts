@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { FormsModule } from '@angular/forms';
 
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
@@ -11,7 +12,14 @@ import { LoginComponent } from './login/login.component';
 import { GoogleSsoDirective } from './google-sso.directive';
 import { HomeComponent } from './home/home.component';
 import { AnalyticsComponent } from './analytics/analytics.component';
+
 import { TaskListComponent } from './home/task-list/task-list.component';
+
+import { RegisterComponent } from './register/register.component';
+import { AuthService } from './auth.service';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,14 +28,18 @@ import { TaskListComponent } from './home/task-list/task-list.component';
     HomeComponent,
     AnalyticsComponent,
     TaskListComponent,
+    RegisterComponent,
+    ForgotPasswordComponent,
+
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
+    FormsModule, 
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
