@@ -54,7 +54,7 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 
     FormsModule, // Include FormsModule in the imports array
     BsDatepickerModule.forRoot(), // Come back to this again
-    NgbModule
+    NgbModule,
 
     FormsModule,
     FullCalendarModule,
