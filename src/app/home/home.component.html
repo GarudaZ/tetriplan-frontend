@@ -1,7 +1,15 @@
-<div *ngIf="user">
-  <p>home works!</p>
-  <p>Username: {{ user.displayName }}</p>
-  <p>Email: {{ user.email }}</p>
+<div class="container">
+  <div class="sidebar" *ngIf="user">
+    <p>home works!</p>
+    <p>Username: {{ user.displayName }}</p>
+    <p>Email: {{ user.email }}</p>
+  </div>
+  <div class="task-list">
+    <app-task-list></app-task-list>
+  </div>
+  <div class="calendar">
+    <app-calendar></app-calendar>
+  </div>
 </div>
 
 
