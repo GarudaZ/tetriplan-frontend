@@ -11,6 +11,7 @@ import { LoginComponent } from './login/login.component';
 import { GoogleSsoDirective } from './google-sso.directive';
 import { HomeComponent } from './home/home.component';
 import { AnalyticsComponent } from './analytics/analytics.component';
+import { TaskListComponent } from './home/task-list/task-list.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,6 +19,7 @@ import { AnalyticsComponent } from './analytics/analytics.component';
     GoogleSsoDirective,
     HomeComponent,
     AnalyticsComponent,
+    TaskListComponent,
   ],
   imports: [
     BrowserModule,
