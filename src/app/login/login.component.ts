@@ -48,11 +48,5 @@ export class LoginComponent implements OnInit {
   }
 }
 
-  // async loginWithEmailPassword() {
-  //   try {
-  //     await this.angularFireAuth.signInWithEmailAndPassword(this.email, this.password);
-  //   } catch (error) {
-  //     console.error('Error during login with email and password', error);
-  //   }
-  // }
+ 
 
