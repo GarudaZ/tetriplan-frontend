@@ -18,7 +18,9 @@ import { TaskListComponent } from './home/task-list/task-list.component';
 import { RegisterComponent } from './register/register.component';
 import { AuthService } from './auth.service';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { CalendarComponent } from './home/calendar/calendar.component';
 
+import { FullCalendarModule } from '@fullcalendar/angular';
 
 @NgModule({
   declarations: [
@@ -30,14 +32,15 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
     TaskListComponent,
     RegisterComponent,
     ForgotPasswordComponent,
-
+    CalendarComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
-    FormsModule, 
+    FormsModule,
+    FullCalendarModule,
   ],
   providers: [AuthService],
   bootstrap: [AppComponent],
