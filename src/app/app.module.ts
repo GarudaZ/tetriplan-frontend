@@ -29,6 +29,7 @@ import { CalendarComponent } from './home/calendar/calendar.component';
 
 
 import { FullCalendarModule } from '@fullcalendar/angular';
+import { TaskCardComponent } from './home/task-card/task-card.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { FullCalendarModule } from '@fullcalendar/angular';
     MiniCalendarComponent,
 
     CalendarComponent,
+     TaskCardComponent,
 
   ],
   imports: [

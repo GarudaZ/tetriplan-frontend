@@ -4,16 +4,11 @@
 <div class="task-list">
   <h2>Task List</h2>
   <div *ngIf="user">
-
     <p>UID: {{ user.uid }}</p>
   </div>
-  <ul>
-    <li *ngFor="let task of tasks">
-      <p>Task Name: {{ task.taskName }}</p>
-      <p>Category: {{ task.category }}</p>
-      <p>Date: {{ task.date }}</p>
-      <p>Start: {{ task.startTime }}</p>
-      <p>Estimate: {{ task.duration }}m</p>
-    </li>
-  </ul>
+  
+  <div *ngFor="let task of tasks">
+    <app-task-card [task]="task"></app-task-card>
+  </div>
 </div>
+
