@@ -8,8 +8,9 @@
   <div class="task-list">
     <app-task-list></app-task-list>
   </div>
-  <div class="calendar">
+  <div class="calendar" [class.expanded]="isExpanded">
     <app-calendar></app-calendar>
+    <button (click)="toggleCalendar()">Expand</button>
   </div>
 </div>
 

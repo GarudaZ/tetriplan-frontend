@@ -82,7 +82,18 @@ mock.onGet('/tasks/viU4gxMCWJXdvsEq3az5E7bi2N92').reply(200, {
       label: 'Personal',
       priority: 'low',
     },
+    {
+      _id: '664b15334e1f1eb9edc1ert8',
+      userID: 'viU4gxMCWJXdvsEq3az5E7bi2N00',
+      taskName: 'Test 4 Dragging',
+      description: 'Drag me',
+      duration: 30,
+      completionStatus: false,
+    },
   ],
+});
+mock.onPut(new RegExp('/tasks/*')).reply(200, {
+  message: 'Task updated successfully',
 });
 
 export interface Task {
@@ -105,12 +116,11 @@ export interface Task {
 })
 export class TaskService {
   constructor() {}
-
   // fetch tasks from the server using axios
-  getTasks(): Observable<Task[]> {
+  getTasks(uid: string): Observable<Task[]> {
     return new Observable((observer) => {
       axios
-        .get('/tasks/viU4gxMCWJXdvsEq3az5E7bi2N92')
+        .get(`/tasks/${uid}`)
         .then((response) => {
           observer.next(response.data.tasks);
           observer.complete();
@@ -122,8 +132,8 @@ export class TaskService {
   }
 
   // convert tasks to FullCalendar events
-  getCalendarEvents(): Observable<any[]> {
-    return this.getTasks().pipe(
+  getCalendarEvents(uid: string): Observable<any[]> {
+    return this.getTasks(uid).pipe(
       map((tasks) =>
         tasks.map((task) => ({
           title: task.taskName,
@@ -138,5 +148,20 @@ export class TaskService {
         }))
       )
     );
+  }
+
+  // update task on the server
+  updateTask(task: Task): Observable<any> {
+    return new Observable((observer) => {
+      axios
+        .put(`/tasks/${task._id}`, task)
+        .then((response) => {
+          observer.next(response.data);
+          observer.complete();
+        })
+        .catch((error) => {
+          observer.error(error);
+        });
+    });
   }
 }

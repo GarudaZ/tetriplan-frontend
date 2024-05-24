@@ -9,6 +9,11 @@ import firebase from 'firebase/compat/app';
 })
 export class HomeComponent implements OnInit {
   user: firebase.User | null = null;
+  isExpanded = false;
+
+  toggleCalendar(){
+    this.isExpanded = !this.isExpanded
+  }
 
   constructor(private authService: AuthService) {}
 
