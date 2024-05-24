@@ -1,0 +1,9 @@
+<!-- <p>task-card works!</p> -->
+<div class="task-card" *ngIf="task">
+    <p>Task Name: {{ task.taskName }}</p>
+    <p>Category: {{ task.category }}</p>
+    <p>Date: {{ task.date }}</p>
+    <p>Start: {{ task.startTime }}</p>
+    <p *ngIf="task.duration !== undefined">Estimate: {{ task.duration }}m</p>
+  </div>
+  

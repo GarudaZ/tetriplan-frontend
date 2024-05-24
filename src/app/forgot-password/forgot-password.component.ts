@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
+import { Observable } from 'rxjs';
+import firebase from 'firebase/compat/app'; 
 
 @Component({
   selector: 'app-forgot-password',
@@ -7,16 +9,23 @@ import { AuthService } from '../auth.service';
   styleUrl: './forgot-password.component.css'
 })
 export class ForgotPasswordComponent  implements OnInit {
-
+  user$!: Observable<firebase.User | null>;
   email : string = '';
 
-  constructor(private auth : AuthService) { }
+  constructor(
+    private authService: AuthService
+  ) { }
 
   ngOnInit(): void {
+    this.user$ = this.authService.getUserInfo();
   }
 
   forgotPassword() {
-    this.auth.forgotPassword(this.email);
+    if (!this.email) {
+      alert('Please register');
+      return;
+    }
+    this.authService.forgotPassword(this.email);
     this.email = '';
   }
 

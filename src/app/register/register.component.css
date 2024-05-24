@@ -1,4 +1,4 @@
-:host {
+ :host {
     display: block;
     max-width: 400px;
     margin: 0 auto;
@@ -95,7 +95,7 @@
   
   .gsi-material-button-icon {
     margin-right: 8px; /* Adjust the spacing as needed */
-  }
+   }
   
   .gsi-material-button-icon svg {
     width: 20px;
@@ -111,4 +111,8 @@
   .ng-template {
     text-align: center;
   }
-  
+
+div[_ngcontent-ng-c891415993] {
+  display: contents;
+  flex-direction: column;
+} 

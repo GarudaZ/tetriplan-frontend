@@ -29,7 +29,7 @@ export class RegisterComponent implements OnInit {
       return;
     }
     if (this.displayName === '') {
-      alert('Please enter password');
+      alert('Please enter full name');
       return;
     }
 
