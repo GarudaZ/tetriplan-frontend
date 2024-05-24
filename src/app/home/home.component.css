@@ -16,9 +16,16 @@
 .calendar {
   flex: 2;
   max-height: 100%;
+  max-width: 50%;
 }
 
 .sidebar {
   flex: 1;
   margin-right: 20px;
+}
+
+@media (max-width: 1000px) {
+  .sidebar {
+    display: none;
+  }
 }

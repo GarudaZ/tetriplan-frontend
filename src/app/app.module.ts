@@ -6,7 +6,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { environment } from './environments/environment';
@@ -21,12 +20,11 @@ import { RegisterComponent } from './register/register.component';
 import { AuthService } from './auth.service';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
-import { MiniCalendarComponent } from './mini-calendar/mini-calendar.component'; // Import your AuthService
+import { MiniCalendarComponent } from './home/mini-calendar/mini-calendar.component'; // Import your AuthService
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 import { CalendarComponent } from './home/calendar/calendar.component';
-
 
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { TaskCardComponent } from './home/task-card/task-card.component';
@@ -45,8 +43,7 @@ import { TaskCardComponent } from './home/task-card/task-card.component';
     MiniCalendarComponent,
 
     CalendarComponent,
-     TaskCardComponent,
-
+    TaskCardComponent,
   ],
   imports: [
     BrowserModule,
@@ -60,7 +57,6 @@ import { TaskCardComponent } from './home/task-card/task-card.component';
 
     FormsModule,
     FullCalendarModule,
-
   ],
   providers: [AuthService, provideAnimationsAsync()],
   bootstrap: [AppComponent, MiniCalendarComponent],
