@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TaskService } from '../../task.service';
+import { AuthService } from '../../auth.service';
+import firebase from 'firebase/compat/app';
 import { CalendarOptions } from '@fullcalendar/core';
 import timeGridPlugin from '@fullcalendar/timegrid';
 @Component({
@@ -23,12 +25,23 @@ export class CalendarComponent implements OnInit {
     slotMaxTime: '22:00:00',
     nowIndicator: true,
   };
+  user: firebase.User | null = null;
 
-  constructor(private taskService: TaskService) {}
+  constructor(
+    private taskService: TaskService,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {
-    this.taskService.getCalendarEvents().subscribe((events) => {
-      this.calendarOptions.events = events; 
+    this.authService.getUserInfo().subscribe((user) => {
+      this.user = user;
+      if (this.user) {
+        this.taskService
+          .getCalendarEvents(this.user.uid)
+          .subscribe((events) => {
+            this.calendarOptions.events = events;
+          });
+      }
     });
   }
 }

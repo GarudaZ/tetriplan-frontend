@@ -21,13 +21,13 @@ export class TaskListComponent implements OnInit {
     this.authService.getUserInfo().subscribe((user) => {
       this.user = user;
       if (this.user) {
-        this.getTasks();
+        this.getTasks(this.user.uid);
       }
     });
   }
 
-  getTasks(): void {
-    this.taskService.getTasks().subscribe(
+  getTasks(uid: string): void {
+    this.taskService.getTasks(uid).subscribe(
       (tasks) => {
         this.tasks = tasks;
         console.log('Tasks:', this.tasks);

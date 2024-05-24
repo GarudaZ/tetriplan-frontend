@@ -105,12 +105,11 @@ export interface Task {
 })
 export class TaskService {
   constructor() {}
-
   // fetch tasks from the server using axios
-  getTasks(): Observable<Task[]> {
+  getTasks(uid: string): Observable<Task[]> {
     return new Observable((observer) => {
       axios
-        .get('/tasks/viU4gxMCWJXdvsEq3az5E7bi2N92')
+        .get(`/tasks/${uid}`)
         .then((response) => {
           observer.next(response.data.tasks);
           observer.complete();
@@ -122,8 +121,8 @@ export class TaskService {
   }
 
   // convert tasks to FullCalendar events
-  getCalendarEvents(): Observable<any[]> {
-    return this.getTasks().pipe(
+  getCalendarEvents(uid: string): Observable<any[]> {
+    return this.getTasks(uid).pipe(
       map((tasks) =>
         tasks.map((task) => ({
           title: task.taskName,
