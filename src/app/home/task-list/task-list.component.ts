@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TaskService, Task } from '../../task.service';
 import { AuthService } from '../../auth.service';
 import firebase from 'firebase/compat/app';
+import { Draggable } from '@fullcalendar/interaction';
 
 @Component({
   selector: 'app-task-list',
@@ -24,6 +25,23 @@ export class TaskListComponent implements OnInit {
         this.getTasks(this.user.uid);
       }
     });
+  }
+
+  ngAfterViewInit(): void {
+    let draggableEl = document.getElementById('task-list');
+    if (draggableEl) {
+      new Draggable(draggableEl, {
+        itemSelector: '.fc-event',
+        eventData: function (eventEl) {
+          let title = eventEl.getAttribute('data-taskName');
+          let date = eventEl.getAttribute('data-date');
+          return {
+            title: title,
+            start: date,
+          };
+        },
+      });
+    }
   }
 
   getTasks(uid: string): void {

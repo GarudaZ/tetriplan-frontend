@@ -82,7 +82,18 @@ mock.onGet('/tasks/viU4gxMCWJXdvsEq3az5E7bi2N92').reply(200, {
       label: 'Personal',
       priority: 'low',
     },
+    {
+      _id: '664b15334e1f1eb9edc1ert8',
+      userID: 'viU4gxMCWJXdvsEq3az5E7bi2N00',
+      taskName: 'Test 4 Dragging',
+      description: 'Drag me',
+      duration: 30,
+      completionStatus: false,
+    },
   ],
+});
+mock.onPut(new RegExp('/tasks/*')).reply(200, {
+  message: 'Task updated successfully',
 });
 
 export interface Task {
@@ -137,5 +148,20 @@ export class TaskService {
         }))
       )
     );
+  }
+
+  // update task on the server
+  updateTask(task: Task): Observable<any> {
+    return new Observable((observer) => {
+      axios
+        .put(`/tasks/${task._id}`, task)
+        .then((response) => {
+          observer.next(response.data);
+          observer.complete();
+        })
+        .catch((error) => {
+          observer.error(error);
+        });
+    });
   }
 }
