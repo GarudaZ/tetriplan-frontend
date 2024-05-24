@@ -10,7 +10,9 @@ export class DisableDatepickerDirective implements OnInit {
 
   ngOnInit(): void {
     if (this.isDisabled) {
-      this.renderer.setAttribute(this.el.nativeElement, 'disabled', 'true');
+      // Disable the ngb-datepicker element
+      this.renderer.setProperty(this.el.nativeElement, 'disabled', true);
     }
   }
 }
+
