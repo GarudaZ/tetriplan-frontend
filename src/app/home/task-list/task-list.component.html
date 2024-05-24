@@ -7,7 +7,7 @@
     <p>UID: {{ user.uid }}</p>
   </div>
   
-  <div *ngFor="let task of tasks">
+  <div *ngFor="let task of tasks" (click)="openTaskDetailsDialog(task)">
     <app-task-card [task]="task"></app-task-card>
   </div>
 </div>

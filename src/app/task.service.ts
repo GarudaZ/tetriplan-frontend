@@ -96,6 +96,7 @@ export interface Task {
   endTime: string;
   duration: number;
   completionStatus: boolean;
+  tags: string[]; // Thi line Ladan added
   label: string;
   priority: string;
 }
