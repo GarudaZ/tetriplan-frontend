@@ -1,6 +1,5 @@
 
-<!-- <input type="date" (change)="onDateSelected($event)"> -->
-
-    <ngb-datepicker #dp appDisableDatepicker></ngb-datepicker>
-  
+<div class="calendar-container">
+    <ngb-datepicker [(ngModel)]="selectedDate" (ngModelChange)="onDateSelect($event)"></ngb-datepicker>
+  </div>
   
