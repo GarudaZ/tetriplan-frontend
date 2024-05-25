@@ -7,9 +7,15 @@ import { Component } from '@angular/core';
 })
 export class MiniCalendarComponent {
   isDisabled: boolean = true;
+  selectedDate: any;
 
   constructor() { }
+
+  onDateSelect(date: any): void {
+    console.log("Hey You made it");
+  }
 }
+
 
 
 
