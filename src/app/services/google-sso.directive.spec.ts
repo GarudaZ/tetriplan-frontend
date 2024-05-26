@@ -1,4 +1,4 @@
-import { GoogleSsoDirective } from './google-sso.directive';
+import { GoogleSsoDirective } from '../services/google-sso.directive';
 
 describe('GoogleSsoDirective', () => {
   it('should create an instance', () => {
