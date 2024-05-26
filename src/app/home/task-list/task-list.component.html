@@ -12,6 +12,15 @@
     <app-task-card [task]="task"></app-task-card>
   </div>
 </div> -->
+
+
+<!-- 
 <div id="task-list">
   <app-task-card *ngFor="let task of tasks" [task]="task"></app-task-card>
-</div>
+</div>   Gareth created this --> 
+
+<div id="task-list">
+  <div *ngFor="let task of tasks" (click)="openTaskDetailsDialog(task)">
+    <app-task-card [task]="task"></app-task-card>
+  </div>
+</div> 

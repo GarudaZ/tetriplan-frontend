@@ -4,6 +4,9 @@ import { AuthService } from '../../auth.service';
 import firebase from 'firebase/compat/app';
 import { Draggable } from '@fullcalendar/interaction';
 
+import { MatDialog } from '@angular/material/dialog';
+import { TaskDetailsPopupComponent } from '../task-details-popup/task-details-popup.component';
+
 @Component({
   selector: 'app-task-list',
   templateUrl: './task-list.component.html',
@@ -15,7 +18,8 @@ export class TaskListComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private taskService: TaskService
+    private taskService: TaskService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -24,6 +28,13 @@ export class TaskListComponent implements OnInit {
       if (this.user) {
         this.getTasks(this.user.uid);
       }
+    });
+  }
+
+  openTaskDetailsDialog(task: Task): void {
+    this.dialog.open(TaskDetailsPopupComponent, {
+      width: '600px',
+      data: task
     });
   }
 

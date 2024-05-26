@@ -1,0 +1,19 @@
+<h2 mat-dialog-title>Task Details</h2>
+<div mat-dialog-content>
+  <p class="task-detail">Task Name: {{ data.taskName }}</p>
+  <p class="task-detail">Category: {{ data.category }}</p>
+  <p class="task-detail">Date: {{ data.date }}</p>
+  <p class="task-detail">Start: {{ data.startTime }}</p>
+  <p class="task-detail">End: {{ data.endTime }}</p>
+  <p class="task-detail" *ngIf="data.duration !== undefined">Estimate: {{ data.duration }}m</p>
+  <p class="task-detail">Complete: {{ data.completionStatus }}</p>
+  <!-- <p class="task-detail">Tags:</p>
+  <ul class="tag-list">
+    <li *ngFor="let tag of data.tags" class="tag-item">{{ tag }}</li>
+  </ul> -->
+  <p class="task-detail">Label: {{ data.label }}</p>
+  <p class="task-detail">Priority: {{ data.priority }}</p>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="closeDialog()">Close</button>
+</div>

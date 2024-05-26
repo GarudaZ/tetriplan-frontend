@@ -28,6 +28,13 @@ import { CalendarComponent } from './home/calendar/calendar.component';
 
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { TaskCardComponent } from './home/task-card/task-card.component';
+import { TaskDetailsPopupComponent } from './home/task-details-popup/task-details-popup.component';
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+
+
 
 @NgModule({
   declarations: [
@@ -44,6 +51,8 @@ import { TaskCardComponent } from './home/task-card/task-card.component';
 
     CalendarComponent,
     TaskCardComponent,
+    TaskDetailsPopupComponent,
+   
   ],
   imports: [
     BrowserModule,
@@ -57,6 +66,9 @@ import { TaskCardComponent } from './home/task-card/task-card.component';
 
     FormsModule,
     FullCalendarModule,
+    BrowserAnimationsModule,
+    MatButtonModule,
+    MatDialogModule,
   ],
   providers: [AuthService, provideAnimationsAsync()],
   bootstrap: [AppComponent, MiniCalendarComponent],
