@@ -12,6 +12,7 @@ export class TaskRefreshService {
     .pipe(concatMap(() => [null]));
 
   triggerReloadTasks() {
+    // this.isLoading = true
     this.reloadTasksSubject.next();
   }
 }

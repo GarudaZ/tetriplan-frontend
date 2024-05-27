@@ -1,3 +1,6 @@
-<div #calendar>
+<div #calendar class="calendar-container">
+  <div *ngIf="isLoading" class="loading-overlay">
+    <div class="spinner"></div>
+  </div>
   <full-calendar [options]="calendarOptions"></full-calendar>
 </div>
