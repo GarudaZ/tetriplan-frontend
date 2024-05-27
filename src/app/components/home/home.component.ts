@@ -11,6 +11,11 @@ export class HomeComponent implements OnInit {
   user: firebase.User | null = null;
   isExpanded = false;
 
+  // onTaskAdded(event: { taskName: string, category: string }) {
+  //   // Implement your logic to handle the task added event
+  //   console.log('Task added:', event);
+  // }
+
   toggleCalendar(){
     this.isExpanded = !this.isExpanded
   }

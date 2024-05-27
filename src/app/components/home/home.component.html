@@ -6,7 +6,10 @@
     <p>UID: {{ user.uid }}</p>
     <app-mini-calendar></app-mini-calendar>
   </div>
-  <div class="task-list">
+  <div class="task-list"> 
+    <app-add-task-button></app-add-task-button>
+    <!-- TaskListPopupComponent (if needed) -->
+    <!-- <app-task-list-popup (taskAdded)="onTaskAdded($event)"></app-task-list-popup> -->
     <app-task-list></app-task-list>
   </div>
   <div class="calendar" [class.expanded]="isExpanded">

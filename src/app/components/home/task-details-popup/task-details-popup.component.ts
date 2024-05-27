@@ -5,7 +5,7 @@ import { Task } from '../../../services/task.service';
 @Component({
   selector: 'app-task-details-popup',
   templateUrl: './task-details-popup.component.html',
-  styleUrls: ['./task-details-popup.component.css'] // Corrected styleUrls to plural
+  styleUrls: ['./task-details-popup.component.css'] 
 })
 export class TaskDetailsPopupComponent {
 
