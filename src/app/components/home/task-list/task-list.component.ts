@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { TaskService, Task } from '../../../services/task.service';
 import { AuthService } from '../../../services/auth.service';
-
-'../../auth.service'
+import { TaskRefreshService } from '../../../services/task-refresh.service';
 import firebase from 'firebase/compat/app';
 import { Draggable } from '@fullcalendar/interaction';
 
@@ -14,13 +13,15 @@ import { TaskDetailsPopupComponent } from '../task-details-popup/task-details-po
   templateUrl: './task-list.component.html',
   styleUrls: ['./task-list.component.css'],
 })
-export class TaskListComponent implements OnInit {
+export class TaskListComponent implements OnInit, AfterViewInit {
   tasks: Task[] = [];
+  filteredTasks: Task[] = [];
   user: firebase.User | null = null;
 
   constructor(
     private authService: AuthService,
     private taskService: TaskService,
+    private taskRefreshService: TaskRefreshService,
     private dialog: MatDialog
   ) {}
 
@@ -28,7 +29,13 @@ export class TaskListComponent implements OnInit {
     this.authService.getUserInfo().subscribe((user) => {
       this.user = user;
       if (this.user) {
-        this.getTasks(this.user.uid);
+        this.loadListTasks(this.user.uid);
+      }
+    });
+
+    this.taskRefreshService.reloadTasks$.subscribe(() => {
+      if (this.user) {
+        this.loadListTasks(this.user.uid);
       }
     });
   }
@@ -36,7 +43,7 @@ export class TaskListComponent implements OnInit {
   openTaskDetailsDialog(task: Task): void {
     this.dialog.open(TaskDetailsPopupComponent, {
       width: '600px',
-      data: task
+      data: task,
     });
   }
 
@@ -57,15 +64,22 @@ export class TaskListComponent implements OnInit {
     }
   }
 
-  getTasks(uid: string): void {
+  loadListTasks(uid: string): void {
     this.taskService.getTasks(uid).subscribe(
       (tasks) => {
         this.tasks = tasks;
-        console.log('Tasks:', this.tasks);
+        this.filterTasks();
+        console.log('Tasks:', this.filteredTasks);
       },
       (error) => {
         console.error('There was an error fetching the tasks!', error);
       }
+    );
+  }
+
+  filterTasks(): void {
+    this.filteredTasks = this.tasks.filter(
+      (task) => !task.startTime || !task.endTime
     );
   }
 }

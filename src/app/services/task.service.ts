@@ -226,6 +226,7 @@ export class TaskService {
     return this.getTasks(uid).pipe(
       map((tasks) =>
         tasks.map((task) => ({
+          id: task._id,
           title: task.taskName,
           start: `${task.date}T${task.startTime}`,
           end: `${task.date}T${task.endTime}`,
@@ -242,9 +243,13 @@ export class TaskService {
 
   // update task on the server
   updateTask(task: Task): Observable<any> {
+    const { _id, userID, ...taskUpdateData } = task;
+
+    console.log('Updating task:', taskUpdateData);
+
     return new Observable((observer) => {
       axios
-        .put(`/tasks/${task._id}`, task)
+        .patch(`/api/tasks/${task._id}`, taskUpdateData)
         .then((response) => {
           observer.next(response.data);
           observer.complete();

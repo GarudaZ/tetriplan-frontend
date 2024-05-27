@@ -1,6 +1,4 @@
-<p>
-  task-list works! Mocking only works with GA's UID viU4gxMCWJXdvsEq3az5E7bi2N92
-</p>
+<p>task-list works! Mocking only works with GA's UID</p>
 
 <!-- <div class="task-list">
   <h2>Task List</h2>
@@ -13,14 +11,13 @@
   </div>
 </div> -->
 
-
 <!-- 
 <div id="task-list">
   <app-task-card *ngFor="let task of tasks" [task]="task"></app-task-card>
-</div>   Gareth created this --> 
+</div>   Gareth created this -->
 
 <div id="task-list">
-  <div *ngFor="let task of tasks" (click)="openTaskDetailsDialog(task)">
+  <div *ngFor="let task of filteredTasks" (click)="openTaskDetailsDialog(task)">
     <app-task-card [task]="task"></app-task-card>
   </div>
-</div> 
+</div>
