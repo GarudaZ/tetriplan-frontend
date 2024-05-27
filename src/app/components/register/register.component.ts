@@ -4,27 +4,24 @@ import { AuthService } from '../../services/auth.service'; // Adjust the path if
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrl: './register.component.css'
+  styleUrl: './register.component.css',
 })
 export class RegisterComponent implements OnInit {
-
-  email : string = '';
-  password : string = '';
+  email: string = '';
+  password: string = '';
   displayName: string = '';
 
-  constructor(private auth : AuthService) { }
+  constructor(private auth: AuthService) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
-  register() {
-
-    if(this.email == '') {
+  async register() {
+    if (this.email == '') {
       alert('Please enter email');
       return;
     }
 
-    if(this.password == '') {
+    if (this.password == '') {
       alert('Please enter password');
       return;
     }
@@ -33,12 +30,20 @@ export class RegisterComponent implements OnInit {
       return;
     }
 
-    this.auth.register(this.email, this.password,this.displayName);
-      
-    this.email = '';
-    this.password = '';
-    this.displayName= '';
+    try {
+      await this.auth.register(this.email, this.password, this.displayName);
+      alert('User registered successfully');
 
+      this.email = '';
+      this.password = '';
+      this.displayName = '';
+    } catch (err) {
+      if (err instanceof Error) {
+        alert(err.message);
+      } else {
+        alert('An unexpected error occurred');
+      }
+      // alert('Error registering user');
+    }
   }
-
 }
