@@ -28,13 +28,13 @@ import { CalendarComponent } from '../app/components/home/calendar/calendar.comp
 
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { TaskCardComponent } from '../app/components/home/task-card/task-card.component';
-import { TaskDetailsPopupComponent } from '../app/components/home/task-details-popup/task-details-popup.component';
-
-('./home/task-details-popup/task-details-popup.component');
+import { TaskDetailsPopupComponent } from './components/home/task-details-popup/task-details-popup.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
+import { AddTaskButtonComponent } from './components/add-task-button/add-task-button.component';
+
 
 @NgModule({
   declarations: [
@@ -50,6 +50,8 @@ import { MatButtonModule } from '@angular/material/button';
     CalendarComponent,
     TaskCardComponent,
     TaskDetailsPopupComponent,
+    AddTaskButtonComponent,
+   
   ],
   imports: [
     BrowserModule,

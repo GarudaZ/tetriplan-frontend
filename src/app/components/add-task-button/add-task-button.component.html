@@ -1,0 +1,16 @@
+<button (click)="openTaskPopup()">Add Task</button>
+
+<div class="popup-overlay" *ngIf="showPopup">
+  <div class="popup-content">
+    <h2>Add Task</h2>
+    <input type="text" placeholder="Task Name" [(ngModel)]="taskName">
+    <input type="text" placeholder="Category" [(ngModel)]="category">
+    <input type="text" placeholder="Date" [(ngModel)]="date">
+    <input type="text" placeholder="Start Time" [(ngModel)]="startTime">
+    <input type="text" placeholder="End Time" [(ngModel)]="endTime">
+    <button (click)="submitTask()">Submit</button>
+    <button (click)="closePopup()">Cancel</button>
+  </div>
+</div>
+
+  

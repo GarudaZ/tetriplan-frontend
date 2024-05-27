@@ -9,6 +9,7 @@ import { Draggable } from '@fullcalendar/interaction';
 import { MatDialog } from '@angular/material/dialog';
 import { TaskDetailsPopupComponent } from '../task-details-popup/task-details-popup.component';
 
+
 @Component({
   selector: 'app-task-list',
   templateUrl: './task-list.component.html',
