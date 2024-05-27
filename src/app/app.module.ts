@@ -30,13 +30,11 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 import { TaskCardComponent } from '../app/components/home/task-card/task-card.component';
 import { TaskDetailsPopupComponent } from '../app/components/home/task-details-popup/task-details-popup.component';
 
-'./home/task-details-popup/task-details-popup.component'
+('./home/task-details-popup/task-details-popup.component');
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
-
-
 
 @NgModule({
   declarations: [
@@ -48,13 +46,10 @@ import { MatButtonModule } from '@angular/material/button';
     TaskListComponent,
     RegisterComponent,
     ForgotPasswordComponent,
-
     MiniCalendarComponent,
-
     CalendarComponent,
     TaskCardComponent,
     TaskDetailsPopupComponent,
-   
   ],
   imports: [
     BrowserModule,
@@ -73,6 +68,6 @@ import { MatButtonModule } from '@angular/material/button';
     MatDialogModule,
   ],
   providers: [AuthService, provideAnimationsAsync()],
-  bootstrap: [AppComponent, MiniCalendarComponent],
+  bootstrap: [AppComponent],
 })
 export class AppModule {}
