@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Task } from '../../task.service';
+import { Task } from '../../../services/task.service';
 
 @Component({
   selector: 'app-task-card',

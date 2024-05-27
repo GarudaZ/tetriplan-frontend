@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { TaskService, Task } from '../../task.service';
-import { AuthService } from '../../auth.service';
+import { TaskService, Task } from '../../../services/task.service';
+import { AuthService } from '../../../services/auth.service';
 import firebase from 'firebase/compat/app';
 import { CalendarOptions } from '@fullcalendar/core';
 import timeGridPlugin from '@fullcalendar/timegrid';

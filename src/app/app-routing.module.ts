@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './login/login.component';
-import { AnalyticsComponent } from './analytics/analytics.component';
-import { HomeComponent } from './home/home.component';
-import { authGuard } from './auth.guard';
-import { RegisterComponent } from './register/register.component';
-import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { LoginComponent } from '../app/components/login/login.component';
+import { AnalyticsComponent } from './components/analytics/analytics.component';
+import { HomeComponent } from '../app/components/home/home.component';
+import { authGuard } from './services/auth.guard';
+import { RegisterComponent } from './components/register/register.component';
+import {ForgotPasswordComponent} from '../app/components/forgot-password/forgot-password.component' 
 
 const routes: Routes = [
 
