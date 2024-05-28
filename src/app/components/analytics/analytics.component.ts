@@ -1,7 +1,14 @@
-import { AfterViewInit, Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  Renderer2,
+  ViewChild,
+} from '@angular/core';
 import { Chart, ChartType, registerables } from 'chart.js';
 import { HttpClient } from '@angular/common/http';
-
+import { AuthService } from '../../services/auth.service';
+import firebase from 'firebase/compat/app';
 Chart.register(...registerables);
 
 @Component({
@@ -13,22 +20,34 @@ export class AnalyticsComponent implements AfterViewInit {
   selectedDataSet: string | null = null;
   selectedChartType: ChartType = 'pie';
   chartsRendered = false;
+  user: firebase.User | null = null;
 
-  apiUrl = 'https://tetriplan.onrender.com/api/users/viU4gxMCWJXdvsEq3az5E7bi2N92/tasks'; // need to change this so import the logged in users details
+  // ngOnInit(): void {
+
+  // }
+  // apiUrl =
+  // 'https://tetriplan.onrender.com/api/users'; // need to change this so import the logged in users details
 
   taskData: any[] = [];
 
-  
-
-  @ViewChild('categoriesPieCanvas', { static: false }) categoriesPieCanvas!: ElementRef<HTMLCanvasElement>;
-  @ViewChild('categoriesBarCanvas', { static: false }) categoriesBarCanvas!: ElementRef<HTMLCanvasElement>;
-  @ViewChild('categoriesLineCanvas', { static: false }) categoriesLineCanvas!: ElementRef<HTMLCanvasElement>;
-  @ViewChild('durationsPieCanvas', { static: false }) durationsPieCanvas!: ElementRef<HTMLCanvasElement>;
-  @ViewChild('durationsBarCanvas', { static: false }) durationsBarCanvas!: ElementRef<HTMLCanvasElement>;
-  @ViewChild('durationsLineCanvas', { static: false }) durationsLineCanvas!: ElementRef<HTMLCanvasElement>;
-  @ViewChild('priorityPieCanvas', { static: false }) priorityPieCanvas!: ElementRef<HTMLCanvasElement>;
-  @ViewChild('priorityBarCanvas', { static: false }) priorityBarCanvas!: ElementRef<HTMLCanvasElement>;
-  @ViewChild('priorityLineCanvas', { static: false }) priorityLineCanvas!: ElementRef<HTMLCanvasElement>;
+  @ViewChild('categoriesPieCanvas', { static: false })
+  categoriesPieCanvas!: ElementRef<HTMLCanvasElement>;
+  @ViewChild('categoriesBarCanvas', { static: false })
+  categoriesBarCanvas!: ElementRef<HTMLCanvasElement>;
+  @ViewChild('categoriesLineCanvas', { static: false })
+  categoriesLineCanvas!: ElementRef<HTMLCanvasElement>;
+  @ViewChild('durationsPieCanvas', { static: false })
+  durationsPieCanvas!: ElementRef<HTMLCanvasElement>;
+  @ViewChild('durationsBarCanvas', { static: false })
+  durationsBarCanvas!: ElementRef<HTMLCanvasElement>;
+  @ViewChild('durationsLineCanvas', { static: false })
+  durationsLineCanvas!: ElementRef<HTMLCanvasElement>;
+  @ViewChild('priorityPieCanvas', { static: false })
+  priorityPieCanvas!: ElementRef<HTMLCanvasElement>;
+  @ViewChild('priorityBarCanvas', { static: false })
+  priorityBarCanvas!: ElementRef<HTMLCanvasElement>;
+  @ViewChild('priorityLineCanvas', { static: false })
+  priorityLineCanvas!: ElementRef<HTMLCanvasElement>;
 
   chartInstances: { [key: string]: Chart | null } = {
     categoriesPie: null,
@@ -42,23 +61,36 @@ export class AnalyticsComponent implements AfterViewInit {
     priorityLine: null,
   };
 
-  constructor(private renderer: Renderer2, private http: HttpClient) {}
+  constructor(
+    private renderer: Renderer2,
+    private http: HttpClient,
+    private authService: AuthService
+  ) {}
 
   ngAfterViewInit() {
-
-    this.fetchTaskData();
+    this.authService.getUserInfo().subscribe((user) => {
+      this.user = user;
+      if (this.user) {
+        // this.loadListTasks(this.user.uid);
+        let username = this.user.uid;
+        let apiUrl = `https://tetriplan.onrender.com/api/users/${username}/tasks`; // need to change this so import the logged in users details
+        this.fetchTaskData(apiUrl);
+      }
+    });
   }
 
-  fetchTaskData(): void {
-    this.http.get<any>(this.apiUrl)
-      .subscribe(data => {
-        this.taskData = data.tasks; 
+  fetchTaskData(apiUrl: string): void {
+    this.http.get<any>(apiUrl).subscribe(
+      (data) => {
+        this.taskData = data.tasks;
         console.log(this.taskData);
 
         this.renderChart();
-      }, error => {
+      },
+      (error) => {
         console.error('Error fetching task data:', error);
-      });
+      }
+    );
   }
 
   onDatasetChange(event: Event): void {
@@ -85,41 +117,40 @@ export class AnalyticsComponent implements AfterViewInit {
 
   renderChart(): void {
     console.log('Rendering chart...');
-    
+
     const dataSet = this.getDataSet();
     const labels = dataSet.map((item) => item.category);
     const data = dataSet.map((item) => item.value);
     console.log('Labels:', labels);
     console.log('Data:', data);
-  
+
     const canvas = this.getCanvasElement();
     if (!canvas) {
       console.warn('Canvas element not found');
       return;
     }
-  
+
     const ctx = canvas.getContext('2d');
     if (!ctx) {
       console.warn('Canvas context not available');
       return;
     }
-  
+
     const chartKey = `${this.selectedDataSet}${this.selectedChartType}`;
     if (this.chartInstances[chartKey]) {
       this.chartInstances[chartKey]?.destroy();
     }
-  
+
     const options = {
       scales: {
         y: {
           title: {
             display: true,
-           
-          }
-        }
-      }
+          },
+        },
+      },
     };
-  
+
     this.chartInstances[chartKey] = new Chart(ctx, {
       type: this.selectedChartType,
       data: {
@@ -144,10 +175,10 @@ export class AnalyticsComponent implements AfterViewInit {
           },
         ],
       },
-      options: options 
+      options: options,
     });
   }
-  
+
   private getDataSet(): { category: string; value: number }[] {
     switch (this.selectedDataSet) {
       case 'categories':
@@ -161,21 +192,26 @@ export class AnalyticsComponent implements AfterViewInit {
     }
   }
 
-  private processData(data: any[], property: string): { category: string; value: number }[] {
+  private processData(
+    data: any[],
+    property: string
+  ): { category: string; value: number }[] {
     const aggregatedData: { [key: string]: number } = {};
-    data.forEach(task => {
+    data.forEach((task) => {
       const value = task[property];
       if (value) {
         if (aggregatedData[value]) {
-          aggregatedData[value] += task.duration; 
+          aggregatedData[value] += task.duration;
         } else {
-          aggregatedData[value] = task.duration; 
+          aggregatedData[value] = task.duration;
         }
       }
     });
-    return Object.keys(aggregatedData).map(key => ({ category: key, value: aggregatedData[key] }));
+    return Object.keys(aggregatedData).map((key) => ({
+      category: key,
+      value: aggregatedData[key],
+    }));
   }
-  
 
   private getCanvasElement(): HTMLCanvasElement | null {
     const canvasId = `${this.selectedDataSet}-${this.selectedChartType}-canvas`;
