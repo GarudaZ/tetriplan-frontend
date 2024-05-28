@@ -1,6 +1,9 @@
-import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
 import { Chart, ChartType, registerables } from 'chart.js';
+import { HttpClient } from '@angular/common/http';
+
 Chart.register(...registerables);
+
 @Component({
   selector: 'app-analytics',
   templateUrl: './analytics.component.html',
@@ -9,156 +12,114 @@ Chart.register(...registerables);
 export class AnalyticsComponent implements AfterViewInit {
   selectedDataSet: string | null = null;
   selectedChartType: ChartType = 'pie';
-  priorityData: { category: string; value: number }[] = [
+  chartsRendered = false;
+
+  priorityData = [
     { category: 'High Priority', value: 232 },
     { category: 'Medium Priority', value: 20 },
     { category: 'Low Priority', value: 10 },
   ];
-  categoriesData: { category: string; value: number }[] = [
+  categoriesData = [
     { category: 'Work', value: 43 },
     { category: 'Personal', value: 22 },
     { category: 'Sleep', value: 60 },
     { category: 'Exercise', value: 22 },
   ];
-  durationsData: { category: string; value: number }[] = [
+  durationsData = [
     { category: 'Task 1', value: 60 },
     { category: 'Task 2', value: 90 },
     { category: 'Task 3', value: 120 },
   ];
-  @ViewChild('categoriesPieCanvas')
-  categoriesPieCanvas!: ElementRef<HTMLCanvasElement>;
-  @ViewChild('categoriesBarCanvas')
-  categoriesBarCanvas!: ElementRef<HTMLCanvasElement>;
-  @ViewChild('categoriesLineCanvas')
-  categoriesLineCanvas!: ElementRef<HTMLCanvasElement>;
-  @ViewChild('durationsPieCanvas')
-  durationsPieCanvas!: ElementRef<HTMLCanvasElement>;
-  @ViewChild('durationsBarCanvas')
-  durationsBarCanvas!: ElementRef<HTMLCanvasElement>;
-  @ViewChild('durationsLineCanvas')
-  durationsLineCanvas!: ElementRef<HTMLCanvasElement>;
-  @ViewChild('priorityPieCanvas')
-  priorityPieCanvas!: ElementRef<HTMLCanvasElement>;
-  @ViewChild('priorityBarCanvas')
-  priorityBarCanvas!: ElementRef<HTMLCanvasElement>;
-  @ViewChild('priorityLineCanvas')
-  priorityLineCanvas!: ElementRef<HTMLCanvasElement>;
-  chartsRendered: boolean = false;
-  constructor() {}
-  ngAfterViewInit() {}
+
+  @ViewChild('categoriesPieCanvas', { static: false }) categoriesPieCanvas!: ElementRef<HTMLCanvasElement>;
+  @ViewChild('categoriesBarCanvas', { static: false }) categoriesBarCanvas!: ElementRef<HTMLCanvasElement>;
+  @ViewChild('categoriesLineCanvas', { static: false }) categoriesLineCanvas!: ElementRef<HTMLCanvasElement>;
+  @ViewChild('durationsPieCanvas', { static: false }) durationsPieCanvas!: ElementRef<HTMLCanvasElement>;
+  @ViewChild('durationsBarCanvas', { static: false }) durationsBarCanvas!: ElementRef<HTMLCanvasElement>;
+  @ViewChild('durationsLineCanvas', { static: false }) durationsLineCanvas!: ElementRef<HTMLCanvasElement>;
+  @ViewChild('priorityPieCanvas', { static: false }) priorityPieCanvas!: ElementRef<HTMLCanvasElement>;
+  @ViewChild('priorityBarCanvas', { static: false }) priorityBarCanvas!: ElementRef<HTMLCanvasElement>;
+  @ViewChild('priorityLineCanvas', { static: false }) priorityLineCanvas!: ElementRef<HTMLCanvasElement>;
+
+  chartInstances: { [key: string]: Chart | null } = {
+    categoriesPie: null,
+    categoriesBar: null,
+    categoriesLine: null,
+    durationsPie: null,
+    durationsBar: null,
+    durationsLine: null,
+    priorityPie: null,
+    priorityBar: null,
+    priorityLine: null,
+  };
+
+  constructor(private renderer: Renderer2) {}
+
+  ngAfterViewInit() {
+    // ViewChild elements are available here
+  }
+
   onDatasetChange(event: Event): void {
     const target = event.target as HTMLSelectElement;
     if (target) {
       this.selectedDataSet = target.value;
     }
   }
+
   onChartTypeChange(event: Event): void {
     const target = event.target as HTMLSelectElement;
     if (target) {
       this.selectedChartType = target.value as ChartType;
     }
   }
+
   onRenderClick(): void {
     if (this.selectedDataSet && this.selectedChartType) {
-      this.chartsRendered = false;
       this.renderChart();
     } else {
       console.warn('Please select both a dataset and a chart type');
     }
   }
+
   renderChart(): void {
-    let dataSet: { category: string; value: number }[];
-    switch (this.selectedDataSet) {
-      case 'categories':
-        dataSet = this.categoriesData;
-        break;
-      case 'durations':
-        dataSet = this.durationsData;
-        break;
-      case 'priority':
-        dataSet = this.priorityData;
-        break;
-      default:
-        dataSet = [];
-    }
+    console.log('Rendering chart...');
+    
+    const dataSet = this.getDataSet();
     const labels = dataSet.map((item) => item.category);
     const data = dataSet.map((item) => item.value);
-    if (this.selectedDataSet === 'categories') {
-      this.renderCategoryChart(labels, data);
-    } else if (this.selectedDataSet === 'durations') {
-      this.renderDurationChart(labels, data);
-    } else if (this.selectedDataSet === 'priority') {
-      this.renderPriorityChart(labels, data);
-    }
-  }
-  renderCategoryChart(labels: string[], data: number[]): void {
-    const canvas = this.getCanvasElement(this.selectedChartType, 'categories');
-    const ctx = canvas.getContext('2d');
-    if (ctx) {
-      this.renderChartOnCanvas(ctx, labels, data);
-    }
-  }
-  renderDurationChart(labels: string[], data: number[]): void {
-    const canvas = this.getCanvasElement(this.selectedChartType, 'durations');
-    const ctx = canvas.getContext('2d');
-    if (ctx) {
-      this.renderChartOnCanvas(ctx, labels, data);
-    }
-  }
-  renderPriorityChart(labels: string[], data: number[]): void {
-    const canvas = this.getCanvasElement(this.selectedChartType, 'priority');
-    const ctx = canvas.getContext('2d');
-    if (ctx) {
-      this.renderChartOnCanvas(ctx, labels, data);
-    }
-  }
-  getCanvasElement(chartType: ChartType, dataSet: string): HTMLCanvasElement {
-    let canvas: HTMLCanvasElement;
-    switch (chartType) {
-      case 'pie':
-        canvas =
-          dataSet === 'categories'
-            ? this.categoriesPieCanvas.nativeElement
-            : dataSet === 'durations'
-            ? this.durationsPieCanvas.nativeElement
-            : dataSet === 'priority'
-            ? this.priorityPieCanvas.nativeElement
-            : null!;
-        break;
-      case 'bar':
-        canvas =
-          dataSet === 'categories'
-            ? this.categoriesBarCanvas.nativeElement
-            : dataSet === 'durations'
-            ? this.durationsBarCanvas.nativeElement
-            : dataSet === 'priority'
-            ? this.priorityBarCanvas.nativeElement
-            : null!;
-        break;
-      case 'line':
-        canvas =
-          dataSet === 'categories'
-            ? this.categoriesLineCanvas.nativeElement
-            : dataSet === 'durations'
-            ? this.durationsLineCanvas.nativeElement
-            : dataSet === 'priority'
-            ? this.priorityLineCanvas.nativeElement
-            : null!;
-        break;
-      default:
-        throw new Error('Invalid chart type');
-    }
+    console.log('Labels:', labels);
+    console.log('Data:', data);
+  
+    const canvas = this.getCanvasElement();
     if (!canvas) {
-      throw new Error('Canvas element not found');
+      console.warn('Canvas element not found');
+      return;
     }
-    return canvas;
-  }
-  renderChartOnCanvas(
-    ctx: CanvasRenderingContext2D,
-    labels: string[],
-    data: number[]
-  ): void {
-    new Chart(ctx, {
+  
+    const ctx = canvas.getContext('2d');
+    if (!ctx) {
+      console.warn('Canvas context not available');
+      return;
+    }
+  
+    const chartKey = `${this.selectedDataSet}${this.selectedChartType}`;
+    if (this.chartInstances[chartKey]) {
+      this.chartInstances[chartKey]?.destroy();
+    }
+  
+    // Custom options to include axis labels
+    const options = {
+      scales: {
+        y: {
+          title: {
+            display: true,
+            text: 'Minutes'
+          }
+        }
+      }
+    };
+  
+    this.chartInstances[chartKey] = new Chart(ctx, {
       type: this.selectedChartType,
       data: {
         labels,
@@ -182,6 +143,31 @@ export class AnalyticsComponent implements AfterViewInit {
           },
         ],
       },
+      options: options // Include the options here
     });
+  }
+  
+  private getDataSet(): { category: string; value: number }[] {
+    switch (this.selectedDataSet) {
+      case 'categories':
+        return this.categoriesData;
+      case 'durations':
+        return this.durationsData;
+      case 'priority':
+        return this.priorityData;
+      default:
+        return [];
+    }
+  }
+
+  private getCanvasElement(): HTMLCanvasElement | null {
+    const canvasId = `${this.selectedDataSet}-${this.selectedChartType}-canvas`;
+    const canvasElement = this.renderer.selectRootElement(`#${canvasId}`, true);
+    if (canvasElement instanceof HTMLCanvasElement) {
+      return canvasElement;
+    } else {
+      console.warn('Canvas element not found');
+      return null;
+    }
   }
 }
