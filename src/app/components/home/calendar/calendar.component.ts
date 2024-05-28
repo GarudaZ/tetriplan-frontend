@@ -16,7 +16,8 @@ import { CalendarOptions } from '@fullcalendar/core';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { TaskRefreshService } from '../../../services/task-refresh.service';
-
+import { MatDialog } from '@angular/material/dialog';
+import { TaskDetailsPopupComponent } from '../task-details-popup/task-details-popup.component';
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
@@ -48,14 +49,64 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges {
     eventDrop: this.handleEventDrop.bind(this),
     eventResize: this.handleEventResize.bind(this),
     eventDragStop: this.handleEventDragStop.bind(this),
+    eventClick: this.handleEventClick.bind(this),
   };
   user: firebase.User | null = null;
 
   constructor(
     private taskService: TaskService,
     private authService: AuthService,
-    private taskRefreshService: TaskRefreshService
+    private taskRefreshService: TaskRefreshService,
+    private dialog: MatDialog
   ) {}
+
+  handleEventClick(arg: any): void {
+    const taskId = arg.event.id;
+    const task = this.getTaskById(taskId);
+    if (task) {
+      const taskStart = new Date(task.start);
+      const taskEnd = new Date(task.end);
+
+      const taskData: Task = {
+        _id: task.id,
+        userID: this.user!.uid,
+        taskName: task.title,
+        description: task.description,
+        category: task.category,
+        calendar: task.date,
+        startTime: taskStart.toTimeString().split(' ')[0],
+        endTime: taskEnd.toTimeString().split(' ')[0],
+        duration: task.duration,
+        completionStatus: task.completionStatus,
+        label: task.label,
+        priority: task.priority,
+      };
+
+      const dialogRef = this.dialog.open(TaskDetailsPopupComponent, {
+        width: '600px',
+        data: taskData,
+      });
+
+      const instance = dialogRef.componentInstance as TaskDetailsPopupComponent;
+      instance.taskUpdated.subscribe((updatedTask: Task) => {
+        this.taskService.updateTask(updatedTask).subscribe(
+          (response) => {
+            console.log('Task updated successfully:', response);
+            this.loadCalendarEvents();
+            this.taskRefreshService.triggerReloadTasks();
+          },
+          (error) => {
+            console.error('Error updating task:', error);
+          }
+        );
+      });
+    }
+  }
+  getTaskById(taskId: string): any {
+    const events = this.calendarOptions.events as any[];
+
+    return events.find((task) => task.id === taskId);
+  }
 
   ngOnInit(): void {
     this.authService.getUserInfo().subscribe((user) => {
