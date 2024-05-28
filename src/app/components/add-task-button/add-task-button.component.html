@@ -13,12 +13,10 @@
     />
 
     <label for="category">Category:</label>
-    <input
-      id="category"
-      type="text"
-      placeholder="Enter category (e.g., Work, Personal)"
-      [(ngModel)]="category"
-    />
+    <select id="category" [(ngModel)]="category">
+      <option value="none">None</option>
+      <option value="work">Work</option>
+    </select>
 
     <label for="date">Date:</label>
     <input
@@ -40,6 +38,7 @@
     <input
       id="startTime"
       type="time"
+      step="600"
       placeholder="Select start time"
       [(ngModel)]="startTime"
     />
@@ -48,6 +47,7 @@
     <input
       id="endTime"
       type="time"
+      step="600"
       placeholder="Select end time"
       [(ngModel)]="endTime"
     />
@@ -61,12 +61,12 @@
     />
 
     <label for="priority">Priority:</label>
-    <input
-      id="priority"
-      type="text"
-      placeholder="Enter priority (e.g., High, Medium, Low)"
-      [(ngModel)]="priority"
-    />
+    <select id="priority" [(ngModel)]="priority">
+      <option value="none">None</option>
+      <option value="low">Low</option>
+      <option value="medium">Medium</option>
+      <option value="high">High</option>
+    </select>
 
     <label for="taskDescription">Task Description:</label>
     <textarea

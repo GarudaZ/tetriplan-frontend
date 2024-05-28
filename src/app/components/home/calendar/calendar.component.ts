@@ -56,6 +56,10 @@ export class CalendarComponent implements OnInit, AfterViewInit {
         this.loadCalendarEvents();
       }
     });
+
+    this.taskRefreshService.reloadTasks$.subscribe(() => {
+      this.loadCalendarEvents();
+    });
   }
 
   ngAfterViewInit(): void {

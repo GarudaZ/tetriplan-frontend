@@ -2,6 +2,7 @@ import { Component, Output, EventEmitter } from '@angular/core';
 import axios from 'axios';
 import { AuthService } from '../../services/auth.service';
 import firebase from 'firebase/compat/app';
+import { TaskRefreshService } from '../../services/task-refresh.service';
 
 @Component({
   selector: 'app-add-task-button',
@@ -10,12 +11,15 @@ import firebase from 'firebase/compat/app';
 })
 export class AddTaskButtonComponent {
   user: firebase.User | null = null;
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private taskRefreshService: TaskRefreshService
+  ) {}
 
   showPopup: boolean = false;
 
   taskName: string = '';
-  category: string = '';
+  category: string = 'none';
   taskDescription: string = '';
   date: string = '';
   startTime: string = '';
@@ -26,14 +30,14 @@ export class AddTaskButtonComponent {
   completionStatus: boolean = false;
 
   // not sure this is needed
-  @Output() addTaskClicked = new EventEmitter<{
-    taskName: string;
-    category: string;
-    description: string;
-    date: string;
-    startTime: string;
-    endTime: string;
-  }>();
+  // @Output() addTaskClicked = new EventEmitter<{
+  //   taskName: string;
+  //   category: string;
+  //   description: string;
+  //   date: string;
+  //   startTime: string;
+  //   endTime: string;
+  // }>();
 
   openTaskPopup() {
     this.showPopup = true;
@@ -67,13 +71,12 @@ export class AddTaskButtonComponent {
           .get(`/api/users/${uid}`)
           .then((response) => {
             newTask.userID = response.data.user._id;
-            console.log(newTask);
 
             return axios.post(`/api/users/${uid}/tasks`, newTask);
           })
           .then((response) => {
+            this.taskRefreshService.triggerReloadTasks();
             console.log('Task added successfully:', response.data);
-            // this.addTaskClicked.emit(newTask); // Optionally emit the event if needed
             this.closePopup();
           })
           .catch((error) => {
