@@ -1,5 +1,5 @@
 
-import { Component, Inject } from '@angular/core';
+import { Component, EventEmitter, Inject, Output  } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Task } from '../../../services/task.service';
 
@@ -12,6 +12,8 @@ export class TaskDetailsPopupComponent {
     
   isEditing = false;
   editableTask: Task;
+
+  @Output() taskUpdated = new EventEmitter<Task>();
 
   constructor(
     public dialogRef: MatDialogRef<TaskDetailsPopupComponent>,
@@ -29,10 +31,11 @@ export class TaskDetailsPopupComponent {
   }
 
   saveTask(): void {
-    // Save logic here
+    // Emit the updated task data
+    this.taskUpdated.emit(this.editableTask);
     console.log('Task saved', this.editableTask);
     this.isEditing = false;
-    // Optionally close the dialog or call a service to save the task
+    this.closeDialog(); 
   }
 }
 
