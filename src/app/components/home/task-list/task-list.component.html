@@ -1,22 +1,9 @@
 <p>task-list works! Mocking only works with GA's UID</p>
 
-<!-- <div class="task-list">
-  <h2>Task List</h2>
-  <div *ngIf="user">
-    <p>UID: {{ user.uid }}</p>
+<div class="list-container" id="task-list">
+  <div *ngIf="isLoading" class="loading-overlay">
+    <div class="spinner"></div>
   </div>
-
-  <div *ngFor="let task of tasks" class="fc-event">
-    <app-task-card [task]="task"></app-task-card>
-  </div>
-</div> -->
-
-<!-- 
-<div id="task-list">
-  <app-task-card *ngFor="let task of tasks" [task]="task"></app-task-card>
-</div>   Gareth created this -->
-
-<div id="task-list">
   <div *ngFor="let task of filteredTasks" (click)="openTaskDetailsDialog(task)">
     <app-task-card [task]="task"></app-task-card>
   </div>

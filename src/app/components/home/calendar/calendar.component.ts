@@ -19,6 +19,7 @@ import { TaskRefreshService } from '../../../services/task-refresh.service';
 })
 export class CalendarComponent implements OnInit, AfterViewInit {
   @ViewChild('calendar', { static: false }) calendarComponent!: ElementRef;
+  isLoading = true;
   calendarOptions: CalendarOptions = {
     plugins: [timeGridPlugin, interactionPlugin],
     initialView: 'timeGridDay',
@@ -59,13 +60,20 @@ export class CalendarComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     const calendarEl = this.calendarComponent.nativeElement;
-    // calendarEl.addEventListener('dragleave', this.handleDragLeave.bind(this));
   }
 
   loadCalendarEvents(): void {
-    this.taskService.getCalendarEvents(this.user!.uid).subscribe((events) => {
-      this.calendarOptions.events = events;
-    });
+    this.isLoading = true;
+    this.taskService.getCalendarEvents(this.user!.uid).subscribe(
+      (events) => {
+        this.calendarOptions.events = events;
+        this.isLoading = false;
+      },
+      (err) => {
+        console.log(err);
+        this.isLoading = false;
+      }
+    );
   }
 
   handleDrop(info: {
@@ -87,7 +95,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
       console.error('Task name or task ID is missing.');
       return;
     }
-
+    this.isLoading = true;
     const durationMinutes = taskDuration ? parseInt(taskDuration, 10) : 60; // Default to 60 minutes if taskDuration is invalid or missing
 
     const updatedTask: Task = {
@@ -96,11 +104,11 @@ export class CalendarComponent implements OnInit, AfterViewInit {
       taskName: taskName,
       description: '',
       category: '',
-      date: today.toISOString().split('T')[0], // Extract the date part
-      startTime: today.toTimeString().split(' ')[0], // Extract the time part
+      date: date.toISOString().split('T')[0],
+      startTime: today.toTimeString().split(' ')[0],
       endTime: new Date(today.getTime() + durationMinutes * 60000)
         .toTimeString()
-        .split(' ')[0], // Extract the time part
+        .split(' ')[0],
       duration: durationMinutes,
       completionStatus: false,
       label: '',
@@ -126,6 +134,8 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     const calendarEl = this.calendarComponent.nativeElement;
     const { left, top, width, height } = calendarEl.getBoundingClientRect();
 
+    this.isLoading = true;
+
     if (
       info.jsEvent.clientX < left ||
       info.jsEvent.clientX > left + width ||
@@ -148,7 +158,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
         date: info.event.date,
         startTime: '',
         endTime: '',
-        duration: 0,
+        duration: info.event.duration,
         completionStatus: false,
         label: '',
         priority: '',
@@ -176,6 +186,8 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     const start = info.event.start;
     const end = info.event.end;
 
+    this.isLoading = true;
+
     console.log('Event drop info:', { taskId, start, end });
 
     if (!taskId || !start || !end) {
@@ -189,7 +201,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
       taskName: info.event.title,
       description: '',
       category: '',
-      date: start.toISOString().split('T')[0], // Extract the date part
+      date: start.toISOString().split('T')[0],
       startTime: start.toTimeString().split(' ')[0], // Extract the time part
       endTime: end.toTimeString().split(' ')[0], // Extract the time part
       duration: (end.getTime() - start.getTime()) / 60000, // Calculate duration in minutes

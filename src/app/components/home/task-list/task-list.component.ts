@@ -8,7 +8,6 @@ import { Draggable } from '@fullcalendar/interaction';
 import { MatDialog } from '@angular/material/dialog';
 import { TaskDetailsPopupComponent } from '../task-details-popup/task-details-popup.component';
 
-
 @Component({
   selector: 'app-task-list',
   templateUrl: './task-list.component.html',
@@ -18,7 +17,7 @@ export class TaskListComponent implements OnInit, AfterViewInit {
   tasks: Task[] = [];
   filteredTasks: Task[] = [];
   user: firebase.User | null = null;
-
+  isLoading = true;
   constructor(
     private authService: AuthService,
     private taskService: TaskService,
@@ -30,11 +29,13 @@ export class TaskListComponent implements OnInit, AfterViewInit {
     this.authService.getUserInfo().subscribe((user) => {
       this.user = user;
       if (this.user) {
+        this.isLoading = true;
         this.loadListTasks(this.user.uid);
       }
     });
 
     this.taskRefreshService.reloadTasks$.subscribe(() => {
+      this.isLoading = true;
       if (this.user) {
         this.loadListTasks(this.user.uid);
       }
@@ -66,14 +67,17 @@ export class TaskListComponent implements OnInit, AfterViewInit {
   }
 
   loadListTasks(uid: string): void {
+    this.isLoading = true;
     this.taskService.getTasks(uid).subscribe(
       (tasks) => {
         this.tasks = tasks;
         this.filterTasks();
         console.log('Tasks:', this.filteredTasks);
+        this.isLoading = false;
       },
       (error) => {
         console.error('There was an error fetching the tasks!', error);
+        this.isLoading = false;
       }
     );
   }
