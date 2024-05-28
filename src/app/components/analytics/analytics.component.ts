@@ -14,22 +14,11 @@ export class AnalyticsComponent implements AfterViewInit {
   selectedChartType: ChartType = 'pie';
   chartsRendered = false;
 
-  priorityData = [
-    { category: 'High Priority', value: 232 },
-    { category: 'Medium Priority', value: 20 },
-    { category: 'Low Priority', value: 10 },
-  ];
-  categoriesData = [
-    { category: 'Work', value: 43 },
-    { category: 'Personal', value: 22 },
-    { category: 'Sleep', value: 60 },
-    { category: 'Exercise', value: 22 },
-  ];
-  durationsData = [
-    { category: 'Task 1', value: 60 },
-    { category: 'Task 2', value: 90 },
-    { category: 'Task 3', value: 120 },
-  ];
+  apiUrl = 'https://tetriplan.onrender.com/api/users/viU4gxMCWJXdvsEq3az5E7bi2N92/tasks'; // need to change this so import the logged in users details
+
+  taskData: any[] = [];
+
+  
 
   @ViewChild('categoriesPieCanvas', { static: false }) categoriesPieCanvas!: ElementRef<HTMLCanvasElement>;
   @ViewChild('categoriesBarCanvas', { static: false }) categoriesBarCanvas!: ElementRef<HTMLCanvasElement>;
@@ -53,10 +42,23 @@ export class AnalyticsComponent implements AfterViewInit {
     priorityLine: null,
   };
 
-  constructor(private renderer: Renderer2) {}
+  constructor(private renderer: Renderer2, private http: HttpClient) {}
 
   ngAfterViewInit() {
-    // ViewChild elements are available here
+
+    this.fetchTaskData();
+  }
+
+  fetchTaskData(): void {
+    this.http.get<any>(this.apiUrl)
+      .subscribe(data => {
+        this.taskData = data.tasks; 
+        console.log(this.taskData);
+
+        this.renderChart();
+      }, error => {
+        console.error('Error fetching task data:', error);
+      });
   }
 
   onDatasetChange(event: Event): void {
@@ -107,13 +109,12 @@ export class AnalyticsComponent implements AfterViewInit {
       this.chartInstances[chartKey]?.destroy();
     }
   
-    // Custom options to include axis labels
     const options = {
       scales: {
         y: {
           title: {
             display: true,
-            text: 'Minutes'
+           
           }
         }
       }
@@ -125,7 +126,7 @@ export class AnalyticsComponent implements AfterViewInit {
         labels,
         datasets: [
           {
-            label: 'Task Distribution',
+            label: 'Tasks',
             data,
             backgroundColor: [
               'rgba(54, 162, 235, 0.2)',
@@ -143,22 +144,38 @@ export class AnalyticsComponent implements AfterViewInit {
           },
         ],
       },
-      options: options // Include the options here
+      options: options 
     });
   }
   
   private getDataSet(): { category: string; value: number }[] {
     switch (this.selectedDataSet) {
       case 'categories':
-        return this.categoriesData;
+        return this.processData(this.taskData, 'category');
       case 'durations':
-        return this.durationsData;
+        return this.processData(this.taskData, 'duration');
       case 'priority':
-        return this.priorityData;
+        return this.processData(this.taskData, 'priority');
       default:
         return [];
     }
   }
+
+  private processData(data: any[], property: string): { category: string; value: number }[] {
+    const aggregatedData: { [key: string]: number } = {};
+    data.forEach(task => {
+      const value = task[property];
+      if (value) {
+        if (aggregatedData[value]) {
+          aggregatedData[value] += task.duration; 
+        } else {
+          aggregatedData[value] = task.duration; 
+        }
+      }
+    });
+    return Object.keys(aggregatedData).map(key => ({ category: key, value: aggregatedData[key] }));
+  }
+  
 
   private getCanvasElement(): HTMLCanvasElement | null {
     const canvasId = `${this.selectedDataSet}-${this.selectedChartType}-canvas`;

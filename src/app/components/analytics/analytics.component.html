@@ -17,6 +17,10 @@
   
       <button (click)="onRenderClick()">Render Chart</button>
     </div>
+
+    <div *ngIf="!selectedDataSet || !selectedChartType">
+        <p>Please select options from both dropdown menus to render the chart.</p>
+      </div>
   
     <div *ngIf="selectedDataSet && selectedChartType">
       <canvas *ngIf="selectedDataSet === 'categories' && selectedChartType === 'pie'" 
