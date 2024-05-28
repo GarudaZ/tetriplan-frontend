@@ -1,4 +1,4 @@
-/* Ensure the button outside the popup is styled appropriately */
+/* General button styles */
 button {
   padding: 10px;
   font-size: 1em;
@@ -8,6 +8,7 @@ button {
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s;
+  margin-right: 10px; /* Space between the buttons */
 }
 
 button:hover {
@@ -23,6 +24,18 @@ button[ngSubmit] {
   align-self: center;
 }
 
+button:last-child {
+  margin-right: 0;
+}
+
+button.cancel-button {
+  background-color: #dc3545; /* Red color for cancel button */
+}
+
+button.cancel-button:hover {
+  background-color: #c82333;
+}
+
 /* Styles for the popup overlay */
 .popup-overlay {
   position: fixed;
@@ -35,16 +48,16 @@ button[ngSubmit] {
   align-items: center;
   background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
   z-index: 9999; /* Ensure it appears above other content */
-} 
+}
 
 /* Styles for the popup content */
 .popup-content {
   background-color: white;
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Box shadow for a slight depth effect */
-  max-width: 500px; /* Set the maximum width of the popup */
-  width: 100%; /* Make sure the popup takes up the full width up to the max-width */
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); /* Box shadow for a slight depth effect */
+  max-width: 800px; /* Set the maximum width of the popup */
+  width: 90%; /* Make the content responsive */
 }
 
 .popup-content h2 {
@@ -52,47 +65,56 @@ button[ngSubmit] {
   font-size: 1.5em;
   color: #333;
   text-align: center;
+  margin-bottom: 20px;
+}
+
+.popup-content label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #555;
 }
 
 .popup-content input[type="text"],
-.popup-content textarea {
+.popup-content input[type="date"],
+.popup-content input[type="time"],
+.popup-content input[type="number"],
+.popup-content textarea,
+.popup-content select {
   width: 100%;
-  margin-bottom: 10px;
   padding: 10px;
   font-size: 1em;
   border: 1px solid #ccc;
   border-radius: 5px;
+  margin-bottom: 15px; /* Add spacing between form elements */
   box-sizing: border-box; /* Ensure padding and border are included in the element's total width and height */
+  transition: border-color 0.3s;
 }
 
 .popup-content textarea {
   height: 100px; /* Set the height of the textarea */
 }
 
-.popup-content button {
-  padding: 10px 20px;
-  font-size: 1em;
-  color: #fff;
-  background-color: #007bff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-  margin-right: 10px; /* Space between the buttons */
+.popup-content input:focus,
+.popup-content textarea:focus,
+.popup-content select:focus {
+  border-color: #007bff;
+  outline: none;
 }
 
-.popup-content button:hover {
-  background-color: #0056b3;
+/* Host container styles */
+:host {
+  display: block;
+  max-width: 800px; /* Adjust the max-width as needed */
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 }
 
-.popup-content button:last-child {
-  margin-right: 0;
-}
-
-.popup-content .cancel-button {
-  background-color: #dc3545; /* Red color for cancel button */
-}
-
-.popup-content .cancel-button:hover {
-  background-color: #c82333;
+.mat-dialog-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
 }
