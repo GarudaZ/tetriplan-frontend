@@ -3,15 +3,79 @@
 <div class="popup-overlay" *ngIf="showPopup">
   <div class="popup-content">
     <h2>Add Task</h2>
-    <input type="text" placeholder="Task Name" [(ngModel)]="taskName">
-    <input type="text" placeholder="Category" [(ngModel)]="category">
-    <input type="text" placeholder="Date" [(ngModel)]="date">
-    <input type="text" placeholder="Start Time" [(ngModel)]="startTime">
-    <input type="text" placeholder="End Time" [(ngModel)]="endTime">
-    <textarea placeholder="Task Description" [(ngModel)]="taskDescription"></textarea>
+
+    <label for="taskName">Task Name:</label>
+    <input
+      id="taskName"
+      type="text"
+      placeholder="Enter task name"
+      [(ngModel)]="taskName"
+    />
+
+    <label for="category">Category:</label>
+    <input
+      id="category"
+      type="text"
+      placeholder="Enter category (e.g., Work, Personal)"
+      [(ngModel)]="category"
+    />
+
+    <label for="date">Date:</label>
+    <input
+      id="date"
+      type="date"
+      placeholder="Select a date"
+      [(ngModel)]="date"
+    />
+
+    <label for="estimate">Estimate:</label>
+    <input
+      id="estimate"
+      type="number"
+      placeholder="Estimated duration in minutes"
+      [(ngModel)]="estimate"
+    />
+
+    <label for="startTime">Start Time:</label>
+    <input
+      id="startTime"
+      type="time"
+      placeholder="Select start time"
+      [(ngModel)]="startTime"
+    />
+
+    <label for="endTime">End Time:</label>
+    <input
+      id="endTime"
+      type="time"
+      placeholder="Select end time"
+      [(ngModel)]="endTime"
+    />
+
+    <label for="label">Label:</label>
+    <input
+      id="label"
+      type="text"
+      placeholder="Enter label (optional)"
+      [(ngModel)]="label"
+    />
+
+    <label for="priority">Priority:</label>
+    <input
+      id="priority"
+      type="text"
+      placeholder="Enter priority (e.g., High, Medium, Low)"
+      [(ngModel)]="priority"
+    />
+
+    <label for="taskDescription">Task Description:</label>
+    <textarea
+      id="taskDescription"
+      placeholder="Enter task description"
+      [(ngModel)]="taskDescription"
+    ></textarea>
+
     <button (click)="submitTask()">Submit</button>
     <button (click)="closePopup()">Cancel</button>
   </div>
 </div>
-
-  
