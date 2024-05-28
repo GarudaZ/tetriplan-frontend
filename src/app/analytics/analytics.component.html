@@ -1,1 +1,33 @@
 <p>analytics works!</p>
+<div class="chart-container">
+  <div>
+    <label for="dataset-select">Select Dataset:</label>
+    <select id="dataset-select" (change)="onDatasetChange($event)">
+      <option value="" disabled selected>Select a dataset</option>
+      <option value="categories">Categories</option>
+      <option value="durations">Durations</option>
+      <option value="priority">Priority</option>
+    </select>
+
+    <label for="chart-type-select">Select Chart Type:</label>
+    <select id="chart-type-select" (change)="onChartTypeChange($event)">
+      <option value="pie">Pie</option>
+      <option value="bar">Bar</option>
+      <option value="line">Line</option>
+    </select>
+
+    <button (click)="onRenderClick()">Render Chart</button>
+  </div>
+
+  <div *ngIf="chartsRendered">
+    <canvas #categoriesPieCanvas></canvas>
+    <canvas #categoriesBarCanvas></canvas>
+    <canvas #categoriesLineCanvas></canvas>
+    <canvas #durationsPieCanvas></canvas>
+    <canvas #durationsBarCanvas></canvas>
+    <canvas #durationsLineCanvas></canvas>
+    <canvas #priorityPieCanvas></canvas>
+    <canvas #priorityBarCanvas></canvas>
+    <canvas #priorityLineCanvas></canvas>
+  </div>
+</div>
