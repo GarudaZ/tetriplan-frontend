@@ -4,10 +4,14 @@ import {
   ViewChild,
   ElementRef,
   AfterViewInit,
+  Input,
+  OnChanges,
+  SimpleChanges,
 } from '@angular/core';
 import { TaskService, Task } from '../../../services/task.service';
 import { AuthService } from '../../../services/auth.service';
 import firebase from 'firebase/compat/app';
+import { FullCalendarComponent } from '@fullcalendar/angular';
 import { CalendarOptions } from '@fullcalendar/core';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
@@ -18,8 +22,11 @@ import { TaskRefreshService } from '../../../services/task-refresh.service';
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.css'],
 })
-export class CalendarComponent implements OnInit, AfterViewInit {
+export class CalendarComponent implements OnInit, AfterViewInit, OnChanges {
   @ViewChild('calendar', { static: false }) calendarComponent!: ElementRef;
+  @ViewChild(FullCalendarComponent) fullCalendar!: FullCalendarComponent;
+  @Input() isExpanded: boolean = false;
+
   isLoading = true;
   calendarOptions: CalendarOptions = {
     plugins: [timeGridPlugin, interactionPlugin],
@@ -65,6 +72,19 @@ export class CalendarComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     const calendarEl = this.calendarComponent.nativeElement;
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['isExpanded']) {
+      this.updateCalendarView();
+    }
+  }
+
+  updateCalendarView(): void {
+    if (this.fullCalendar && this.fullCalendar.getApi) {
+      const calendarApi = this.fullCalendar.getApi();
+      calendarApi.changeView(this.isExpanded ? 'timeGridWeek' : 'timeGridDay');
+    }
   }
 
   loadCalendarEvents(): void {
