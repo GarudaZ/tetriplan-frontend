@@ -46,23 +46,21 @@ export class TaskDetailsPopupComponent {
       }
     );
   }
-  handleTaskCompleted() {
-    // Emit event when "Complete Task" button is clicked
-    this.editableTask.completionStatus = true;
-    this.completeTask.emit(true);
-    // this.dialogRef.close();
+
+  handleTaskCompleted(): void {
+    // Toggle the task's completion status
+    this.editableTask.completionStatus = !this.editableTask.completionStatus;
 
     this.taskService.updateTask(this.editableTask).subscribe(
       (response) => {
-        console.log('Task completed', response);
-        // console.log('Task updated successfully:', response);
-        this.taskUpdated.emit(this.editableTask); // Emit the updated task
+        console.log('Task completion status updated:', response);
+        this.completeTask.emit(this.editableTask.completionStatus);
+        this.taskUpdated.emit(this.editableTask);
         this.taskRefreshService.triggerReloadTasks();
-        this.isEditing = false;
         this.closeDialog();
       },
       (error) => {
-        console.error('Error updating task:', error);
+        console.error('Error updating task completion status:', error);
       }
     );
   }

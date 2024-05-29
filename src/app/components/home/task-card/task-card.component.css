@@ -9,7 +9,7 @@
 }
 
 .completed {
-  background-color: green; /* Change to desired color for completed tasks */
+  background-color: rgb(181, 242, 181); /* Change to desired color for completed tasks */
 }
 
 .task-card p {
