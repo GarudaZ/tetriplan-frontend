@@ -22,6 +22,7 @@ export class TaskDetailsPopupComponent {
     @Inject(MAT_DIALOG_DATA) public data: Task
   ) {
     this.editableTask = { ...data };
+    console.log(this.editableTask);
   }
 
   closeDialog(): void {
@@ -33,7 +34,14 @@ export class TaskDetailsPopupComponent {
   }
 
   saveTask(): void {
-    this.taskService.updateTask(this.editableTask).subscribe(
+    console.log(this.editableTask);
+    const { calendar, ...rest } = this.editableTask;
+    const taskUpdateData = {
+      ...rest,
+      date: calendar,
+    };
+
+    this.taskService.updateTask(taskUpdateData).subscribe(
       (response) => {
         console.log('Task updated successfully:', response);
         // this.taskUpdated.emit(this.editableTask); // Emit the updated task
