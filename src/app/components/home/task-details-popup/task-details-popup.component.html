@@ -22,7 +22,18 @@
       Task Name: <input [(ngModel)]="editableTask.taskName" type="text" />
     </p>
     <p class="task-detail">
-      Category: <input [(ngModel)]="editableTask.category" type="text" />
+      Category: <input list="categories" id="category"placeholder="select/add category" [(ngModel)]="editableTask.category" type="text" />
+      <!-- [(ngModel)]="category" -->
+      <!-- name="category" -->
+      <!-- type="category" -->
+
+      
+    
+    <datalist id="categories">
+      <option *ngFor="let category of categories" [value]="category">
+        {{ category }}
+      </option>
+    </datalist>
     </p>
     <p class="task-detail">
       Description: <input [(ngModel)]="editableTask.description" type="text" />

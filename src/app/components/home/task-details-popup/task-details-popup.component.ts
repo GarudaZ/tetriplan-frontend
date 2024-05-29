@@ -11,6 +11,7 @@ import { TaskRefreshService } from '../../../services/task-refresh.service';
 export class TaskDetailsPopupComponent {
   isEditing = false;
   editableTask: Task;
+  categories: string[] = [];
 
   @Output() taskUpdated = new EventEmitter<Task>();
   @Output() completeTask: EventEmitter<boolean> = new EventEmitter<boolean>();
@@ -23,6 +24,13 @@ export class TaskDetailsPopupComponent {
   ) {
     this.editableTask = { ...data };
     console.log(this.editableTask);
+  }
+
+  ngOnInit(): void {
+    this.taskService.categories$.subscribe((categories) => {
+      this.categories = categories;
+      console.log('Task categories:', this.categories);
+    });
   }
 
   closeDialog(): void {

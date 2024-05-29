@@ -2,6 +2,7 @@ import { Component, Output, EventEmitter } from '@angular/core';
 import axios from 'axios';
 import { AuthService } from '../../services/auth.service';
 import firebase from 'firebase/compat/app';
+import { TaskService } from '../../services/task.service';
 import { TaskRefreshService } from '../../services/task-refresh.service';
 @Component({
   selector: 'app-add-task-button',
@@ -10,15 +11,24 @@ import { TaskRefreshService } from '../../services/task-refresh.service';
 })
 export class AddTaskButtonComponent {
   user: firebase.User | null = null;
+  categories: string[] = [];
   constructor(
     private authService: AuthService,
+    private taskService: TaskService,
     private taskRefreshService: TaskRefreshService
   ) {}
+
+  ngOnInit(): void {
+    this.taskService.categories$.subscribe((categories) => {
+      this.categories = categories;
+      console.log('Task categories:', this.categories);
+    });
+  }
 
   showPopup: boolean = false;
 
   taskName: string = '';
-  category: string = 'none';
+  category: string = '';
   taskDescription: string = '';
   date: string = '';
   startTime: string = '';
@@ -27,16 +37,6 @@ export class AddTaskButtonComponent {
   label: string = 'none';
   priority: string = 'none';
   completionStatus: boolean = false;
-
-  // not sure this is needed
-  // @Output() addTaskClicked = new EventEmitter<{
-  //   taskName: string;
-  //   category: string;
-  //   description: string;
-  //   date: string;
-  //   startTime: string;
-  //   endTime: string;
-  // }>();
 
   openTaskPopup() {
     this.showPopup = true;
