@@ -1,5 +1,5 @@
 <h2 mat-dialog-title>Task Details</h2>
-<div mat-dialog-content>
+<div mat-dialog-content [ngClass]="{ 'completed': editableTask.completionStatus }">
   <div *ngIf="!isEditing; else editMode">
     <p class="task-detail">Task Name: {{ data.taskName }}</p>
     <p class="task-detail">Category: {{ data.category }}</p>
@@ -52,6 +52,9 @@
   <button mat-button (click)="closeDialog()">Close</button>
   <button mat-button *ngIf="!isEditing" (click)="toggleEdit()">Edit</button>
   <button mat-button *ngIf="isEditing" (click)="saveTask()">Save</button>
-  <button mat-button (click)="handleTaskCompleted()">Completed Task</button>
+  <button mat-button (click)="handleTaskCompleted()">
+    {{ editableTask.completionStatus ? 'Mark as Incomplete' : 'Complete Task' }}
+  </button>
   <button mat-button (click)="handleTaskDelete()">Delete</button>
 </div>
+
