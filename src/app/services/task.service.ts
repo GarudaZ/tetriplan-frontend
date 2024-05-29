@@ -26,7 +26,9 @@ export interface Task {
 })
 export class TaskService {
   private categoriesSubject = new BehaviorSubject<string[]>([]);
+  private labelsSubject = new BehaviorSubject<string[]>([]);
   categories$ = this.categoriesSubject.asObservable();
+  labels$ = this.labelsSubject.asObservable();
 
   constructor() {}
 
@@ -48,9 +50,13 @@ export class TaskService {
           const categories: string[] = [
             ...new Set(tasks.map((task: Task) => task.category)),
           ];
-
           this.categoriesSubject.next(categories);
-          console.log(categories);
+
+          const labels: string[] = [
+            ...new Set(tasks.map((task: Task) => task.label)),
+          ];
+          this.labelsSubject.next(labels);
+          console.log(labels);
 
           observer.next(response.data.tasks);
           observer.complete();

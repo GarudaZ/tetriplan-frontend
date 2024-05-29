@@ -12,6 +12,8 @@ import { TaskRefreshService } from '../../services/task-refresh.service';
 export class AddTaskButtonComponent {
   user: firebase.User | null = null;
   categories: string[] = [];
+  labels: string[] = [];
+
   constructor(
     private authService: AuthService,
     private taskService: TaskService,
@@ -21,7 +23,9 @@ export class AddTaskButtonComponent {
   ngOnInit(): void {
     this.taskService.categories$.subscribe((categories) => {
       this.categories = categories;
-      console.log('Task categories:', this.categories);
+    });
+    this.taskService.labels$.subscribe((labels) => {
+      this.labels = labels;
     });
   }
 
@@ -34,7 +38,7 @@ export class AddTaskButtonComponent {
   startTime: string = '';
   endTime: string = '';
   estimate: number = 30;
-  label: string = 'none';
+  label: string = '';
   priority: string = 'none';
   completionStatus: boolean = false;
 
