@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import axios from 'axios';
-import MockAdapter from 'axios-mock-adapter';
+// import MockAdapter from 'axios-mock-adapter';
 
 // Setup mock data
 // const mock = new MockAdapter(axios);
@@ -210,7 +210,7 @@ export class TaskService {
 
     return new Observable((observer) => {
       axios
-        .get(`/api/users/${uid}/tasks`)
+        .get(`https://tetriplan.onrender.com/api/users/${uid}/tasks`)
         // .get(`https://tetriplan.onrender.com/api/users/${uid}/tasks`)
         .then((response) => {
           console.log(response.data.tasks);
@@ -264,7 +264,7 @@ export class TaskService {
 
     return new Observable((observer) => {
       axios
-        .patch(`/api/tasks/${task._id}`, taskUpdateData)
+        .patch(`https://tetriplan.onrender.com/api/tasks/${task._id}`, taskUpdateData)
         .then((response) => {
           observer.next(response.data);
           observer.complete();

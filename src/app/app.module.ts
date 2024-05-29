@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms'; // Import FormsModule
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { HttpClientModule } from '@angular/common/http'; 
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -29,7 +29,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { AddTaskButtonComponent } from './components/add-task-button/add-task-button.component';
 import{TaskCompletedButtonComponent} from './components/task-completed-button/task-completed-button.component'
-
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -55,7 +55,7 @@ import{TaskCompletedButtonComponent} from './components/task-completed-button/ta
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     HttpClientModule,
-    FormsModule, // Include FormsModule in the imports array
+    FormsModule, 
     BsDatepickerModule.forRoot(), // Come back to this again
     NgbModule,
 
@@ -63,6 +63,7 @@ import{TaskCompletedButtonComponent} from './components/task-completed-button/ta
     FullCalendarModule,
     BrowserAnimationsModule,
     MatButtonModule,
+    MatTooltipModule,
     MatDialogModule,
   ],
   providers: [AuthService, provideAnimationsAsync()],

@@ -4,22 +4,30 @@ import {
   ViewChild,
   ElementRef,
   AfterViewInit,
+  Input,
+  OnChanges,
+  SimpleChanges,
 } from '@angular/core';
 import { TaskService, Task } from '../../../services/task.service';
 import { AuthService } from '../../../services/auth.service';
 import firebase from 'firebase/compat/app';
+import { FullCalendarComponent } from '@fullcalendar/angular';
 import { CalendarOptions } from '@fullcalendar/core';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { TaskRefreshService } from '../../../services/task-refresh.service';
-
+import { MatDialog } from '@angular/material/dialog';
+import { TaskDetailsPopupComponent } from '../task-details-popup/task-details-popup.component';
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.css'],
 })
-export class CalendarComponent implements OnInit, AfterViewInit {
+export class CalendarComponent implements OnInit, AfterViewInit, OnChanges {
   @ViewChild('calendar', { static: false }) calendarComponent!: ElementRef;
+  @ViewChild(FullCalendarComponent) fullCalendar!: FullCalendarComponent;
+  @Input() isExpanded: boolean = false;
+
   isLoading = true;
   calendarOptions: CalendarOptions = {
     plugins: [timeGridPlugin, interactionPlugin],
@@ -41,14 +49,64 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     eventDrop: this.handleEventDrop.bind(this),
     eventResize: this.handleEventResize.bind(this),
     eventDragStop: this.handleEventDragStop.bind(this),
+    eventClick: this.handleEventClick.bind(this),
   };
   user: firebase.User | null = null;
 
   constructor(
     private taskService: TaskService,
     private authService: AuthService,
-    private taskRefreshService: TaskRefreshService
+    private taskRefreshService: TaskRefreshService,
+    private dialog: MatDialog
   ) {}
+
+  handleEventClick(arg: any): void {
+    const taskId = arg.event.id;
+    const task = this.getTaskById(taskId);
+    if (task) {
+      const taskStart = new Date(task.start);
+      const taskEnd = new Date(task.end);
+
+      const taskData: Task = {
+        _id: task.id,
+        userID: this.user!.uid,
+        taskName: task.title,
+        description: task.description,
+        category: task.category,
+        calendar: task.date,
+        startTime: taskStart.toTimeString().split(' ')[0],
+        endTime: taskEnd.toTimeString().split(' ')[0],
+        duration: task.duration,
+        completionStatus: task.completionStatus,
+        label: task.label,
+        priority: task.priority,
+      };
+
+      const dialogRef = this.dialog.open(TaskDetailsPopupComponent, {
+        width: '600px',
+        data: taskData,
+      });
+
+      const instance = dialogRef.componentInstance as TaskDetailsPopupComponent;
+      instance.taskUpdated.subscribe((updatedTask: Task) => {
+        this.taskService.updateTask(updatedTask).subscribe(
+          (response) => {
+            console.log('Task updated successfully:', response);
+            this.loadCalendarEvents();
+            this.taskRefreshService.triggerReloadTasks();
+          },
+          (error) => {
+            console.error('Error updating task:', error);
+          }
+        );
+      });
+    }
+  }
+  getTaskById(taskId: string): any {
+    const events = this.calendarOptions.events as any[];
+
+    return events.find((task) => task.id === taskId);
+  }
 
   ngOnInit(): void {
     this.authService.getUserInfo().subscribe((user) => {
@@ -65,6 +123,19 @@ export class CalendarComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     const calendarEl = this.calendarComponent.nativeElement;
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['isExpanded']) {
+      this.updateCalendarView();
+    }
+  }
+
+  updateCalendarView(): void {
+    if (this.fullCalendar && this.fullCalendar.getApi) {
+      const calendarApi = this.fullCalendar.getApi();
+      calendarApi.changeView(this.isExpanded ? 'timeGridWeek' : 'timeGridDay');
+    }
   }
 
   loadCalendarEvents(): void {

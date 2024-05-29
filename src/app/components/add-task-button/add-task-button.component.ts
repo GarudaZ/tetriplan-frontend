@@ -3,7 +3,6 @@ import axios from 'axios';
 import { AuthService } from '../../services/auth.service';
 import firebase from 'firebase/compat/app';
 import { TaskRefreshService } from '../../services/task-refresh.service';
-
 @Component({
   selector: 'app-add-task-button',
   templateUrl: './add-task-button.component.html',
@@ -68,11 +67,14 @@ export class AddTaskButtonComponent {
         };
 
         axios
-          .get(`/api/users/${uid}`)
+          .get(`https://tetriplan.onrender.com/api/users/${uid}`)
           .then((response) => {
             newTask.userID = response.data.user._id;
 
-            return axios.post(`/api/users/${uid}/tasks`, newTask);
+            return axios.post(
+              `https://tetriplan.onrender.com/api/users/${uid}/tasks`,
+              newTask
+            );
           })
           .then((response) => {
             this.taskRefreshService.triggerReloadTasks();

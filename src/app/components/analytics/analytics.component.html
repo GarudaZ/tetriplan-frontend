@@ -1,74 +1,34 @@
 <div class="chart-container">
-    <div>
-      <label for="dataset-select">Select Dataset:</label>
-      <select id="dataset-select" (change)="onDatasetChange($event)">
-        <option value="" disabled selected>Select a dataset</option>
-        <option value="categories">Categories</option>
-        <option value="durations">Durations</option>
-        <option value="priority">Priority</option>
-      </select>
-  
-      <label for="chart-type-select">Select Chart Type:</label>
-      <select id="chart-type-select" (change)="onChartTypeChange($event)">
-        <option value="pie">Pie</option>
-        <option value="bar">Bar</option>
-        <option value="line">Line</option>
-      </select>
-  
-      <button (click)="onRenderClick()">Render Chart</button>
-    </div>
-
-    <div *ngIf="!selectedDataSet || !selectedChartType">
-        <p>Please select options from both dropdown menus to render the chart.</p>
+        <p class="instructions">Select a dataset and a chart type, then click "Generate Chart" to visualize your Tetriplan data.</p>
+        
+        <div class="controls">
+          <label for="dataset-select">Select Dataset:</label>
+          <select id="dataset-select" (change)="onDatasetChange($event)">
+            <option value="" disabled selected>Select a dataset</option>
+            <option value="categories">Task Categories</option>
+            <option value="durations">Task Durations</option>
+            <option value="priority">Task Priority</option>
+          </select>
+      
+          <label for="chart-type-select">Select Chart Type:</label>
+          <select id="chart-type-select" (change)="onChartTypeChange($event)">
+            <option value="pie">Pie</option>
+            <option value="bar">Bar</option>
+            <option value="line">Line</option>
+          </select>
+      
+          <button (click)="onRenderClick()">Generate Chart</button>
+        </div>
+      
+        <div *ngIf="chartConfigurations.length === 0">
+          <p>Please select options from both dropdown menus to render the chart.</p>
+        </div>
+      
+        <div class="grid-container">
+          <div *ngFor="let config of chartConfigurations">
+            <div class="chart-title">{{ getTitleCase(config.dataset) }} - {{ config.chartType | titlecase }}</div>
+            <canvas #chartCanvas id="{{config.dataset}}-{{config.chartType}}-canvas" width="400" height="400"></canvas>
+          </div>
+        </div>
       </div>
-  
-    <div *ngIf="selectedDataSet && selectedChartType">
-      <canvas *ngIf="selectedDataSet === 'categories' && selectedChartType === 'pie'" 
-              id="categories-pie-canvas" 
-              width="400" 
-              height="400" 
-              style="width: 400px; height: 400px;"></canvas>
-      <canvas *ngIf="selectedDataSet === 'categories' && selectedChartType === 'bar'" 
-              id="categories-bar-canvas" 
-              width="400" 
-              height="400" 
-              style="width: 400px; height: 400px;"></canvas>
-      <canvas *ngIf="selectedDataSet === 'categories' && selectedChartType === 'line'" 
-              id="categories-line-canvas" 
-              width="400" 
-              height="400" 
-              style="width: 400px; height: 400px;"></canvas>
-  
-      <canvas *ngIf="selectedDataSet === 'durations' && selectedChartType === 'pie'" 
-              id="durations-pie-canvas" 
-              width="400" 
-              height="400" 
-              style="width: 400px; height: 400px;"></canvas>
-      <canvas *ngIf="selectedDataSet === 'durations' && selectedChartType === 'bar'" 
-              id="durations-bar-canvas" 
-              width="400" 
-              height="400" 
-              style="width: 400px; height: 400px;"></canvas>
-      <canvas *ngIf="selectedDataSet === 'durations' && selectedChartType === 'line'" 
-              id="durations-line-canvas" 
-              width="400" 
-              height="400" 
-              style="width: 400px; height: 400px;"></canvas>
-  
-      <canvas *ngIf="selectedDataSet === 'priority' && selectedChartType === 'pie'" 
-              id="priority-pie-canvas" 
-              width="400" 
-              height="400" 
-              style="width: 400px; height: 400px;"></canvas>
-      <canvas *ngIf="selectedDataSet === 'priority' && selectedChartType === 'bar'" 
-              id="priority-bar-canvas" 
-              width="400" 
-              height="400" 
-              style="width: 400px; height: 400px;"></canvas>
-      <canvas *ngIf="selectedDataSet === 'priority' && selectedChartType === 'line'" 
-              id="priority-line-canvas" 
-              width="400" 
-              height="400" 
-              style="width: 400px; height: 400px;"></canvas>
-    </div>
-</div>
+      
