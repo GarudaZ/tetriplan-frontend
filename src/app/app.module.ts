@@ -28,6 +28,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { AddTaskButtonComponent } from './components/add-task-button/add-task-button.component';
+import{TaskCompletedButtonComponent} from './components/task-completed-button/task-completed-button.component'
 
 
 @NgModule({
@@ -45,6 +46,7 @@ import { AddTaskButtonComponent } from './components/add-task-button/add-task-bu
     TaskCardComponent,
     TaskDetailsPopupComponent,
     AddTaskButtonComponent,
+    TaskCompletedButtonComponent,
    
   ],
   imports: [

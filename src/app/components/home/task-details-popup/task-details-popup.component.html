@@ -35,4 +35,6 @@
     <button mat-button (click)="closeDialog()">Close</button>
     <button mat-button *ngIf="!isEditing" (click)="toggleEdit()">Edit</button>
     <button mat-button *ngIf="isEditing" (click)="saveTask()">Save</button>
+    <button mat-button (click)="handleTaskCompleted()">Completed Task</button>
+
   </div>

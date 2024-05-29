@@ -1,0 +1,7 @@
+<p>task-completed-button works!</p>
+<div *ngFor="let task of tasks" (click)="openTaskDetails(task)">
+    <app-task-card [task]="task" [isTaskCompleted]="task.completionStatus"></app-task-card>
+  </div>
+  
+
+

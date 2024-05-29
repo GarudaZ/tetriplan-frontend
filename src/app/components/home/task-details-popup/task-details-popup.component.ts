@@ -9,23 +9,24 @@ import { Task } from '../../../services/task.service';
   styleUrls: ['./task-details-popup.component.css'] 
 })
 export class TaskDetailsPopupComponent {
-    
+
   isEditing = false;
   editableTask: Task;
 
   @Output() taskUpdated = new EventEmitter<Task>();
+  @Output() completeTask: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   constructor(
     public dialogRef: MatDialogRef<TaskDetailsPopupComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Task
   ) {
-
     this.editableTask = { ...data }; // Make a copy of the task data
   }
 
   closeDialog(): void {
     this.dialogRef.close();
   }
+
   toggleEdit(): void {
     this.isEditing = !this.isEditing;
   }
@@ -35,7 +36,15 @@ export class TaskDetailsPopupComponent {
     this.taskUpdated.emit(this.editableTask);
     console.log('Task saved', this.editableTask);
     this.isEditing = false;
-    this.closeDialog(); 
+    this.closeDialog();
+  }
+
+  handleTaskCompleted() {
+    // Emit event when "Complete Task" button is clicked
+    this.editableTask.completionStatus = true;
+    this.completeTask.emit(true);
+    console.log('Task completed');
+    this.dialogRef.close();
   }
 }
 
