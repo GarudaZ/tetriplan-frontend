@@ -12,6 +12,7 @@ export class TaskDetailsPopupComponent {
   isEditing = false;
   editableTask: Task;
   categories: string[] = [];
+  labels: string[] = [];
 
   @Output() taskUpdated = new EventEmitter<Task>();
   @Output() completeTask: EventEmitter<boolean> = new EventEmitter<boolean>();
@@ -42,7 +43,6 @@ export class TaskDetailsPopupComponent {
   }
 
   saveTask(): void {
-    console.log(this.editableTask);
     const { calendar, ...rest } = this.editableTask;
     const taskUpdateData = {
       ...rest,

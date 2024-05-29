@@ -20,8 +20,10 @@ export class TaskListComponent implements OnInit, AfterViewInit {
   user: firebase.User | null = null;
   isLoading = true;
   selectedDate: NgbDateStruct | null = null;
-  filterType: string = 'all';
+  categoryFilterType: string = 'all';
+  labelFilterType: string = 'all';
   categories: string[] = [];
+  labels: string[] = [];
 
   constructor(
     private authService: AuthService,
@@ -54,13 +56,21 @@ export class TaskListComponent implements OnInit, AfterViewInit {
 
     this.taskService.categories$.subscribe((categories) => {
       this.categories = categories;
-      console.log('Task categories:', this.categories);
+    });
+
+    this.taskService.labels$.subscribe((labels) => {
+      this.labels = labels;
+      console.log('Task labels:', this.labels);
     });
   }
 
-  onFilterChange(event: Event): void {
-    this.filterType = (event.target as HTMLSelectElement).value;
-    console.log(this.filterType);
+  onCategoryFilterChange(event: Event): void {
+    this.categoryFilterType = (event.target as HTMLSelectElement).value;
+    this.filterTasks();
+  }
+
+  onLabelFilterChange(event: Event): void {
+    this.labelFilterType = (event.target as HTMLSelectElement).value;
     this.filterTasks();
   }
 
@@ -128,10 +138,17 @@ export class TaskListComponent implements OnInit, AfterViewInit {
         if (taskDate !== selectedDate) return false;
       }
 
-      // Filter based on category
-      console.log(this.filterType);
+      if (
+        this.categoryFilterType !== 'all' &&
+        task.category !== this.categoryFilterType
+      ) {
+        return false;
+      }
 
-      if (this.filterType !== 'all' && task.category !== this.filterType) {
+      if (
+        this.labelFilterType !== 'all' &&
+        task.label !== this.labelFilterType
+      ) {
         return false;
       }
 

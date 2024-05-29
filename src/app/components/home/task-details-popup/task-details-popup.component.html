@@ -22,18 +22,19 @@
       Task Name: <input [(ngModel)]="editableTask.taskName" type="text" />
     </p>
     <p class="task-detail">
-      Category: <input list="categories" id="category"placeholder="select/add category" [(ngModel)]="editableTask.category" type="text" />
-      <!-- [(ngModel)]="category" -->
-      <!-- name="category" -->
-      <!-- type="category" -->
-
-      
-    
-    <datalist id="categories">
-      <option *ngFor="let category of categories" [value]="category">
-        {{ category }}
-      </option>
-    </datalist>
+      Category: 
+      <input
+        list="categories"
+        id="category"
+        placeholder="select/add category"
+        [(ngModel)]="editableTask.category"
+        type="text"
+      />
+      <datalist id="categories">
+        <option *ngFor="let category of categories" [value]="category">
+          {{ category }}
+        </option>
+      </datalist>
     </p>
     <p class="task-detail">
       Description: <input [(ngModel)]="editableTask.description" type="text" />
@@ -56,10 +57,28 @@
       <input [(ngModel)]="editableTask.completionStatus" type="text" />
     </p>
     <p class="task-detail">
-      Label: <input [(ngModel)]="editableTask.label" type="text" />
+      Label: 
+      <input
+        list="labels"
+        id="label"
+        placeholder="select/add label"
+        [(ngModel)]="editableTask.label"
+        type="text"
+      />
+      <datalist id="labels">
+        <option *ngFor="let label of labels" [value]="label">
+          {{ label }}
+        </option>
+      </datalist>
     </p>
     <p class="task-detail">
-      Priority: <input [(ngModel)]="editableTask.priority" type="text" />
+      Priority: 
+      <select [(ngModel)]="editableTask.priority">
+        <option value="none">None</option>
+        <option value="low">Low</option>
+        <option value="medium">Medium</option>
+        <option value="high">High</option>
+      </select>
     </p>
   </ng-template>
 </div>
