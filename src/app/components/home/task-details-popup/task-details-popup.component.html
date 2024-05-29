@@ -1,19 +1,60 @@
-<h2 mat-dialog-title>Task Details</h2>
-<div mat-dialog-content>
-  <p class="task-detail">Task Name: {{ data.taskName }}</p>
-  <p class="task-detail">Category: {{ data.category }}</p>
-  <p class="task-detail">Date: {{ data.date }}</p>
-  <p class="task-detail">Start: {{ data.startTime }}</p>
-  <p class="task-detail">End: {{ data.endTime }}</p>
-  <p class="task-detail" *ngIf="data.duration !== undefined">Estimate: {{ data.duration }}m</p>
-  <p class="task-detail">Complete: {{ data.completionStatus }}</p>
-  <!-- <p class="task-detail">Tags:</p>
+<!-- <p class="task-detail">Tags:</p>
   <ul class="tag-list">
     <li *ngFor="let tag of data.tags" class="tag-item">{{ tag }}</li>
   </ul> -->
-  <p class="task-detail">Label: {{ data.label }}</p>
-  <p class="task-detail">Priority: {{ data.priority }}</p>
+
+<h2 mat-dialog-title>Task Details</h2>
+<div mat-dialog-content>
+  <div *ngIf="!isEditing; else editMode">
+    <p class="task-detail">Task Name: {{ data.taskName }}</p>
+    <p class="task-detail">Category: {{ data.category }}</p>
+    <p class="task-detail">Description: {{ data.description }}</p>
+    <p class="task-detail">Date: {{ data.calendar }}</p>
+    <p class="task-detail">Start: {{ data.startTime }}</p>
+    <p class="task-detail">End: {{ data.endTime }}</p>
+    <p class="task-detail" *ngIf="data.duration !== undefined">
+      Estimate: {{ data.duration }}m
+    </p>
+    <p class="task-detail">Complete: {{ data.completionStatus }}</p>
+    <p class="task-detail">Label: {{ data.label }}</p>
+    <p class="task-detail">Priority: {{ data.priority }}</p>
+  </div>
+  <ng-template #editMode>
+    <p class="task-detail">
+      Task Name: <input [(ngModel)]="editableTask.taskName" type="text" />
+    </p>
+    <p class="task-detail">
+      Category: <input [(ngModel)]="editableTask.category" type="text" />
+    </p>
+    <p class="task-detail">
+      Description: <input [(ngModel)]="editableTask.description" type="text" />
+    </p>
+    <p class="task-detail">
+      Date: <input [(ngModel)]="editableTask.date" type="date" />
+    </p>
+    <p class="task-detail">
+      Start: <input [(ngModel)]="editableTask.startTime" type="time" />
+    </p>
+    <p class="task-detail">
+      End: <input [(ngModel)]="editableTask.endTime" type="time" />
+    </p>
+    <p class="task-detail" *ngIf="editableTask.duration !== undefined">
+      Estimate: <input [(ngModel)]="editableTask.duration" type="number" />m
+    </p>
+    <p class="task-detail">
+      Complete:
+      <input [(ngModel)]="editableTask.completionStatus" type="text" />
+    </p>
+    <p class="task-detail">
+      Label: <input [(ngModel)]="editableTask.label" type="text" />
+    </p>
+    <p class="task-detail">
+      Priority: <input [(ngModel)]="editableTask.priority" type="text" />
+    </p>
+  </ng-template>
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="closeDialog()">Close</button>
+  <button mat-button *ngIf="!isEditing" (click)="toggleEdit()">Edit</button>
+  <button mat-button *ngIf="isEditing" (click)="saveTask()">Save</button>
 </div>

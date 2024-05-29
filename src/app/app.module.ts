@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms'; // Import FormsModule
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { HttpClientModule } from '@angular/common/http'; 
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -29,7 +29,6 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { AddTaskButtonComponent } from './components/add-task-button/add-task-button.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,7 +44,6 @@ import { AddTaskButtonComponent } from './components/add-task-button/add-task-bu
     TaskCardComponent,
     TaskDetailsPopupComponent,
     AddTaskButtonComponent,
-   
   ],
   imports: [
     BrowserModule,

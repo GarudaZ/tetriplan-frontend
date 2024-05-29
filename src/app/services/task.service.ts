@@ -186,7 +186,8 @@ export interface Task {
   taskName: string;
   description: string;
   category: string;
-  date: string;
+  calendar?: string;
+  date?: string;
   startTime: string;
   endTime: string;
   duration: number;
@@ -210,7 +211,12 @@ export class TaskService {
         .get(`/api/users/${uid}/tasks`)
         // .get(`https://tetriplan.onrender.com/api/users/${uid}/tasks`)
         .then((response) => {
-          // console.log(response.data.tasks);
+          console.log(response.data.tasks);
+          // converts calendar key to date
+          const tasks = response.data.tasks.map((task: any) => ({
+            ...task,
+            date: task.calendar,
+          }));
 
           observer.next(response.data.tasks);
           observer.complete();
@@ -224,26 +230,33 @@ export class TaskService {
   // convert tasks to FullCalendar events
   getCalendarEvents(uid: string): Observable<any[]> {
     return this.getTasks(uid).pipe(
-      map((tasks) =>
-        tasks.map((task) => ({
+      map((tasks) => {
+        const events = tasks.map((task) => ({
           id: task._id,
           title: task.taskName,
-          start: `${task.date}T${task.startTime}`,
-          end: `${task.date}T${task.endTime}`,
+          date: task.calendar,
+          start: `${task.calendar}T${task.startTime}`,
+          end: `${task.calendar}T${task.endTime}`,
           description: task.description,
           category: task.category,
           duration: task.duration,
           completionStatus: task.completionStatus,
           label: task.label,
           priority: task.priority,
-        }))
-      )
+        }));
+        console.log('FullCalendar events:', events);
+        return events;
+      })
     );
   }
 
   // update task on the server
   updateTask(task: Task): Observable<any> {
-    const { _id, userID, ...taskUpdateData } = task;
+    const { _id, userID, date, ...rest } = task;
+    const taskUpdateData = {
+      ...rest,
+      calendar: date,
+    };
 
     console.log('Updating task:', taskUpdateData);
 

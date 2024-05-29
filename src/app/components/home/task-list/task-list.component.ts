@@ -43,9 +43,21 @@ export class TaskListComponent implements OnInit, AfterViewInit {
   }
 
   openTaskDetailsDialog(task: Task): void {
-    this.dialog.open(TaskDetailsPopupComponent, {
+    const dialogRef = this.dialog.open(TaskDetailsPopupComponent, {
       width: '600px',
       data: task,
+    });
+
+    // Subscribe to the taskUpdated event emitted by the TaskDetailsPopupComponent
+    dialogRef.componentInstance.taskUpdated.subscribe((updatedTask: Task) => {
+      // Find the index of the updated task in the tasks array
+      const index = this.tasks.findIndex(t => t._id === updatedTask._id);
+      if (index !== -1) {
+        // Update the task in the tasks array
+        this.tasks[index] = updatedTask;
+        // Optionally, filter the tasks again
+        this.filterTasks();
+      }
     });
   }
 
