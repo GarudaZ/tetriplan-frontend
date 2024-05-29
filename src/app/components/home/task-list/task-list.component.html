@@ -3,17 +3,23 @@
     <div class="spinner"></div>
   </div>
   <div>
-    <label>Filter</label>
-    <select>
-      <option>Work</option>
+    <label>Categories</label>
+    <select (change)="onFilterChange($event)">
+      <option value="all">all</option>
+      <option *ngFor="let category of categories" [value]="category">
+        {{ category }}
+      </option>
     </select>
   </div>
   <div>
     <button mat-button (click)="toggleHideCompletedTasks()">
-      {{ hideCompletedTasks ? 'Show' : 'Hide' }} Completed Tasks
+      {{ hideCompletedTasks ? "Show" : "Hide" }} Completed Tasks
     </button>
   </div>
   <div *ngFor="let task of filteredTasks" (click)="openTaskDetailsDialog(task)">
-    <app-task-card [task]="task" [hideCompletedTasks]="hideCompletedTasks"></app-task-card>
+    <app-task-card
+      [task]="task"
+      [hideCompletedTasks]="hideCompletedTasks"
+    ></app-task-card>
   </div>
 </div>

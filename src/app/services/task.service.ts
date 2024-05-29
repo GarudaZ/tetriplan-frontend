@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import axios from 'axios';
@@ -25,9 +25,11 @@ export interface Task {
   providedIn: 'root',
 })
 export class TaskService {
+  private categoriesSubject = new BehaviorSubject<string[]>([]);
+  categories$ = this.categoriesSubject.asObservable();
+
   constructor() {}
 
-  // fetch tasks from the server using axios
   getTasks(uid: string): Observable<Task[]> {
     console.log('loading tasks');
 
@@ -38,10 +40,17 @@ export class TaskService {
         .then((response) => {
           console.log(response.data.tasks);
           // converts calendar key to date
-          const tasks = response.data.tasks.map((task: any) => ({
+          const tasks: Task[] = response.data.tasks.map((task: any) => ({
             ...task,
             date: task.calendar,
           }));
+
+          const categories: string[] = [
+            ...new Set(tasks.map((task: Task) => task.category)),
+          ];
+
+          this.categoriesSubject.next(categories);
+          console.log(categories);
 
           observer.next(response.data.tasks);
           observer.complete();

@@ -20,6 +20,8 @@ export class TaskListComponent implements OnInit, AfterViewInit {
   user: firebase.User | null = null;
   isLoading = true;
   selectedDate: NgbDateStruct | null = null;
+  filterType: string = 'all';
+  categories: string[] = [];
 
   constructor(
     private authService: AuthService,
@@ -49,6 +51,17 @@ export class TaskListComponent implements OnInit, AfterViewInit {
       this.selectedDate = date;
       this.filterTasks();
     });
+
+    this.taskService.categories$.subscribe((categories) => {
+      this.categories = categories;
+      console.log('Task categories:', this.categories);
+    });
+  }
+
+  onFilterChange(event: Event): void {
+    this.filterType = (event.target as HTMLSelectElement).value;
+    console.log(this.filterType);
+    this.filterTasks();
   }
 
   openTaskDetailsDialog(task: Task): void {
@@ -99,27 +112,37 @@ export class TaskListComponent implements OnInit, AfterViewInit {
     );
   }
 
+  toggleHideCompletedTasks(): void {
+    this.hideCompletedTasks = !this.hideCompletedTasks;
+    this.filterTasks();
+  }
+
   filterTasks(): void {
     this.filteredTasks = this.tasks.filter((task) => {
-      //date picker filtering
+      // Date picker filtering
       if (this.selectedDate) {
-        console.log(this.selectedDate);
-
         const taskDate = task.calendar;
         const selectedDate = `${this.selectedDate.year}-${String(
           this.selectedDate.month
         ).padStart(2, '0')}-${String(this.selectedDate.day).padStart(2, '0')}`;
-
         if (taskDate !== selectedDate) return false;
       }
-      // shows only tasks not in main cal
+
+      // Filter based on category
+      console.log(this.filterType);
+
+      if (this.filterType !== 'all' && task.category !== this.filterType) {
+        return false;
+      }
+
+      if (this.hideCompletedTasks && task.completionStatus) {
+        return false;
+      }
+
+      // Show only tasks not in the main cal
       return !task.startTime || !task.endTime || !task.calendar;
     });
   }
 
   hideCompletedTasks: boolean = false;
-
-  toggleHideCompletedTasks() {
-    this.hideCompletedTasks = !this.hideCompletedTasks;
-  }
 }

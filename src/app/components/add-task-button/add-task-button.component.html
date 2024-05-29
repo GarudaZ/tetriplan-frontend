@@ -16,10 +16,19 @@
     />
 
     <label for="category">Category:</label>
-    <select id="category" [(ngModel)]="category">
-      <option value="none">None</option>
-      <option value="work">Work</option>
-    </select>
+    <input
+      list="categories"
+      [(ngModel)]="category"
+      name="category"
+      type="category"
+      id="category"
+      placeholder="select/add category"
+    />
+    <datalist id="categories">
+      <option *ngFor="let category of categories" [value]="category">
+        {{ category }}
+      </option>
+    </datalist>
 
     <label for="date">Date:</label>
     <input
