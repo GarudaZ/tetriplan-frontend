@@ -1,5 +1,7 @@
-
 <div class="calendar-container">
-    <ngb-datepicker [(ngModel)]="selectedDate" (ngModelChange)="onDateSelect($event)"></ngb-datepicker>
-  </div>
-  
+  <button (click)="resetDateFilter()">All Dates</button>
+  <ngb-datepicker
+    [(ngModel)]="selectedDate"
+    (ngModelChange)="onDateSelect($event)"
+  ></ngb-datepicker>
+</div>
