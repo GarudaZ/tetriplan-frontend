@@ -19,9 +19,52 @@ export class AuthService {
     return this.user$;
   }
 
-  loginWithGoogle() {
+  async loginWithGoogle() {
     const provider = new firebase.auth.GoogleAuthProvider();
-    return this.afAuth.signInWithPopup(provider);
+    const credential = await this.afAuth.signInWithPopup(provider);
+
+    if (credential.user) {
+      const token = await credential.user.getIdToken();
+      await this.registerUserIfNew(credential.user, token);
+    }
+  }
+
+  private async registerUserIfNew(user: firebase.User, token: string) {
+    console.log('registering');
+
+    const userCheckUrl = `https://tetriplan.onrender.com/api/users/${user.uid}`;
+
+    try {
+      await axios.get(userCheckUrl);
+      console.log('User exists on server');
+      this.router.navigate(['/home']);
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response?.status === 404) {
+        console.log('adding user');
+
+        const userData = {
+          username: user.uid,
+          email: user.email,
+          fullName: user.displayName,
+        };
+
+        try {
+          await axios.post(
+            `https://tetriplan.onrender.com/api/users/${userData.username}`,
+            userData
+            // {
+            //   headers: { Authorization: `Bearer ${token}` },
+            // }
+          );
+          console.log('User registered on server');
+          this.router.navigate(['/home']);
+        } catch (registrationError) {
+          console.error('Registration error', registrationError);
+        }
+      } else {
+        console.error('Error checking user existence', error);
+      }
+    }
   }
 
   async register(email: string, password: string, fullName: string) {
@@ -39,7 +82,10 @@ export class AuthService {
           fullName: fullName,
         };
 
-        await axios.post(`/api/users/${userData.username}`, userData);
+        await axios.post(
+          `https://tetriplan.onrender.com/api/users/${userData.username}`,
+          userData
+        );
 
         this.router.navigate(['/login']);
       }

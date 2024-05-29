@@ -28,7 +28,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { AddTaskButtonComponent } from './components/add-task-button/add-task-button.component';
-
+import { MatTooltipModule } from '@angular/material/tooltip';
 @NgModule({
   declarations: [
     AppComponent,
@@ -59,6 +59,7 @@ import { AddTaskButtonComponent } from './components/add-task-button/add-task-bu
     FullCalendarModule,
     BrowserAnimationsModule,
     MatButtonModule,
+    MatTooltipModule,
     MatDialogModule,
   ],
   providers: [AuthService, provideAnimationsAsync()],

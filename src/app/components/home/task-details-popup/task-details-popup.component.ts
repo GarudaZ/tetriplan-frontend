@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Inject, Output } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Task } from '../../../services/task.service';
+import { TaskService, Task } from '../../../services/task.service';
+import { TaskRefreshService } from '../../../services/task-refresh.service';
 
 @Component({
   selector: 'app-task-details-popup',
@@ -14,6 +15,8 @@ export class TaskDetailsPopupComponent {
   @Output() taskUpdated = new EventEmitter<Task>();
 
   constructor(
+    private taskService: TaskService,
+    private taskRefreshService: TaskRefreshService,
     public dialogRef: MatDialogRef<TaskDetailsPopupComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Task
   ) {
@@ -23,15 +26,23 @@ export class TaskDetailsPopupComponent {
   closeDialog(): void {
     this.dialogRef.close();
   }
+
   toggleEdit(): void {
     this.isEditing = !this.isEditing;
   }
 
   saveTask(): void {
-    // Emit the updated task data
-    this.taskUpdated.emit(this.editableTask);
-    console.log('Task saved', this.editableTask);
-    this.isEditing = false;
-    this.closeDialog();
+    this.taskService.updateTask(this.editableTask).subscribe(
+      (response) => {
+        console.log('Task updated successfully:', response);
+        // this.taskUpdated.emit(this.editableTask); // Emit the updated task
+        this.taskRefreshService.triggerReloadTasks();
+        this.isEditing = false;
+        this.closeDialog();
+      },
+      (error) => {
+        console.error('Error updating task:', error);
+      }
+    );
   }
 }
