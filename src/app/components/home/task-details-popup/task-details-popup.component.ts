@@ -9,7 +9,6 @@ import { TaskRefreshService } from '../../../services/task-refresh.service';
   styleUrls: ['./task-details-popup.component.css'],
 })
 export class TaskDetailsPopupComponent {
-
   isEditing = false;
   editableTask: Task;
 
@@ -46,7 +45,6 @@ export class TaskDetailsPopupComponent {
         console.error('Error updating task:', error);
       }
     );
-    
   }
   handleTaskCompleted() {
     // Emit event when "Complete Task" button is clicked
@@ -54,4 +52,5 @@ export class TaskDetailsPopupComponent {
     this.completeTask.emit(true);
     console.log('Task completed');
     this.dialogRef.close();
+  }
 }
