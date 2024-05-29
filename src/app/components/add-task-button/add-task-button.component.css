@@ -53,11 +53,13 @@ button.cancel-button:hover {
 /* Styles for the popup content */
 .popup-content {
   background-color: white;
-  padding: 20px;
+  padding: 10px;
   border-radius: 10px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); /* Box shadow for a slight depth effect */
-  max-width: 800px; /* Set the maximum width of the popup */
-  width: 90%; /* Make the content responsive */
+  max-width: 600px; /* Set the maximum width of the popup */
+  max-height: 90vh;
+  width: 80%; /* Make the content responsive */
+  overflow-y: auto; /* Ensure content is scrollable if it overflows */
 }
 
 .popup-content h2 {
@@ -92,7 +94,7 @@ button.cancel-button:hover {
 }
 
 .popup-content textarea {
-  height: 100px; /* Set the height of the textarea */
+  height: 65px; /* Set the height of the textarea */
 }
 
 .popup-content input:focus,
@@ -117,4 +119,37 @@ button.cancel-button:hover {
   display: flex;
   justify-content: center;
   margin-top: 20px;
+}
+
+/* Responsive styles */
+@media (max-width: 600px) {
+  button {
+    padding: 8px;
+    font-size: 0.9em;
+    margin-right: 5px; /* Reduce space between the buttons */
+  }
+
+  .popup-content {
+    width: 90%; /* Increase width for smaller screens */
+    padding: 20px; /* Add more padding */
+  }
+
+  .popup-content h2 {
+    font-size: 1.3em; /* Adjust heading size */
+  }
+
+  .popup-content label {
+    font-size: 0.9em; /* Adjust label size */
+  }
+
+  .popup-content input[type="text"],
+  .popup-content input[type="date"],
+  .popup-content input[type="time"],
+  .popup-content input[type="number"],
+  .popup-content textarea,
+  .popup-content select {
+    padding: 8px;
+    font-size: 0.9em;
+    margin-bottom: 10px; /* Reduce spacing between form elements */
+  }
 }

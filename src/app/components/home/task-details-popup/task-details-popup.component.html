@@ -1,8 +1,3 @@
-<!-- <p class="task-detail">Tags:</p>
-  <ul class="tag-list">
-    <li *ngFor="let tag of data.tags" class="tag-item">{{ tag }}</li>
-  </ul> -->
-
 <h2 mat-dialog-title>Task Details</h2>
 <div mat-dialog-content>
   <div *ngIf="!isEditing; else editMode">
@@ -18,6 +13,7 @@
     <p class="task-detail">Complete: {{ data.completionStatus }}</p>
     <p class="task-detail">Label: {{ data.label }}</p>
     <p class="task-detail">Priority: {{ data.priority }}</p>
+
   </div>
   <ng-template #editMode>
     <p class="task-detail">
@@ -57,4 +53,5 @@
   <button mat-button (click)="closeDialog()">Close</button>
   <button mat-button *ngIf="!isEditing" (click)="toggleEdit()">Edit</button>
   <button mat-button *ngIf="isEditing" (click)="saveTask()">Save</button>
+  <button mat-button (click)="handleTaskCompleted()">Completed Task</button>
 </div>
