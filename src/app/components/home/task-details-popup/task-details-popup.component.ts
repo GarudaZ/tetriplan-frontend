@@ -64,4 +64,19 @@ export class TaskDetailsPopupComponent {
       }
     );
   }
+
+  handleTaskDelete() {
+    this.taskService.deleteTask(this.editableTask._id).subscribe(
+      (response) => {
+        console.log('Task updated successfully:', response);
+        // this.taskUpdated.emit(this.editableTask); // Emit the updated task
+        this.taskRefreshService.triggerReloadTasks();
+        this.isEditing = false;
+        this.closeDialog();
+      },
+      (error) => {
+        console.error('Error updating task:', error);
+      }
+    );
+  }
 }
