@@ -1,7 +1,7 @@
 <button matTooltip="Add a new task" (click)="openTaskPopup()">Add Task</button>
-<!-- <button matTooltip="Use AI to add your most frequent tasks">
+<button matTooltip="Use AI to add your most frequent tasks">
   AI: Favourite Tasks
-</button> -->
+</button>
 
 <div class="popup-overlay" *ngIf="showPopup">
   <div class="popup-content">
@@ -13,37 +13,11 @@
       type="text"
       placeholder="Enter task name"
       [(ngModel)]="taskName"
+      (blur)="suggestLabel()"
     />
-
-    <label for="category">Category:</label>
-    <input
-      list="categories"
-      [(ngModel)]="category"
-      name="category"
-      type="category"
-      id="category"
-      placeholder="Select/add category"
-    />
-    <datalist id="categories">
-      <option *ngFor="let category of categories" [value]="category">
-        {{ category }}
-      </option>
-    </datalist>
-
-    <label for="label">Label:</label>
-    <input
-      list="labels"
-      [(ngModel)]="label"
-      name="label"
-      type="label"
-      id="label"
-      placeholder="Select/add label"
-    />
-    <datalist id="labels">
-      <option *ngFor="let label of labels" [value]="label">
-        {{ label }}
-      </option>
-    </datalist>
+    <p *ngIf="isLoadingLabel" class="loading-text">
+      Loading AI suggestion for label...
+    </p>
 
     <label for="date">Date:</label>
     <input
@@ -78,6 +52,38 @@
       placeholder="Select end time"
       [(ngModel)]="endTime"
     />
+
+    <label for="category">Category:</label>
+    <input
+      list="categories"
+      [(ngModel)]="category"
+      name="category"
+      id="category"
+      placeholder="Select/add category"
+      (blur)="suggestCategory()"
+    />
+    <datalist id="categories">
+      <option *ngFor="let category of categories" [value]="category">
+        {{ category }}
+      </option>
+    </datalist>
+    <p *ngIf="isLoadingCategory" class="loading-text">
+      Loading AI suggestion for category...
+    </p>
+
+    <label for="label">Label:</label>
+    <input
+      list="labels"
+      [(ngModel)]="label"
+      name="label"
+      id="label"
+      placeholder="Select/add label"
+    />
+    <datalist id="labels">
+      <option *ngFor="let label of labels" [value]="label">
+        {{ label }}
+      </option>
+    </datalist>
 
     <label for="priority">Priority:</label>
     <select id="priority" [(ngModel)]="priority">

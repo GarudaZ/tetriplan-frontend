@@ -13,7 +13,8 @@ export class AddTaskButtonComponent {
   user: firebase.User | null = null;
   categories: string[] = [];
   labels: string[] = [];
-
+  isLoadingLabel: boolean = false;
+  isLoadingCategory: boolean = false;
   constructor(
     private authService: AuthService,
     private taskService: TaskService,
@@ -41,6 +42,74 @@ export class AddTaskButtonComponent {
   label: string = '';
   priority: string = 'none';
   completionStatus: boolean = false;
+
+  async suggestLabel(): Promise<void> {
+    if (!this.taskName.trim()) {
+      return;
+    }
+    this.isLoadingLabel = true;
+    const data = {
+      inputs: this.taskName,
+      parameters: {
+        candidate_labels: this.labels,
+      },
+    };
+
+    try {
+      const response = await fetch(
+        'https://api-inference.huggingface.co/models/facebook/bart-large-mnli',
+        {
+          headers: {
+            Authorization: 'Bearer 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',
+          },
+          method: 'POST',
+          body: JSON.stringify(data),
+        }
+      );
+      const result = await response.json();
+
+      if (result && result.labels && result.labels.length > 0) {
+        this.label = result.labels[0];
+      }
+    } catch (error) {
+      console.error('Error suggesting label:', error);
+    }
+    this.isLoadingLabel = false;
+  }
+
+  async suggestCategory(): Promise<void> {
+    if (!this.taskName.trim()) {
+      return;
+    }
+    this.isLoadingCategory = true;
+    const data = {
+      inputs: this.taskName,
+      parameters: {
+        candidate_labels: this.categories,
+      },
+    };
+
+    try {
+      const response = await fetch(
+        'https://api-inference.huggingface.co/models/facebook/bart-large-mnli',
+        {
+          headers: {
+            Authorization: 'Bearer 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',
+          },
+          method: 'POST',
+          body: JSON.stringify(data),
+        }
+      );
+      const result = await response.json();
+
+      if (result && result.labels && result.labels.length > 0) {
+        this.category = result.labels[0];
+      }
+    } catch (error) {
+      console.error('Error suggesting category:', error);
+    }
+    this.isLoadingCategory = false;
+  }
 
   openTaskPopup() {
     this.showPopup = true;
