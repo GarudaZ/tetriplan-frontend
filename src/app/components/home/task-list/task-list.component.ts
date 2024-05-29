@@ -51,7 +51,7 @@ export class TaskListComponent implements OnInit, AfterViewInit {
     // Subscribe to the taskUpdated event emitted by the TaskDetailsPopupComponent
     dialogRef.componentInstance.taskUpdated.subscribe((updatedTask: Task) => {
       // Find the index of the updated task in the tasks array
-      const index = this.tasks.findIndex(t => t._id === updatedTask._id);
+      const index = this.tasks.findIndex((t) => t._id === updatedTask._id);
       if (index !== -1) {
         // Update the task in the tasks array
         this.tasks[index] = updatedTask;
@@ -84,7 +84,7 @@ export class TaskListComponent implements OnInit, AfterViewInit {
       (tasks) => {
         this.tasks = tasks;
         this.filterTasks();
-        console.log('Tasks:', this.filteredTasks);
+        console.log('Filtered Tasks:', this.filteredTasks);
         this.isLoading = false;
       },
       (error) => {
@@ -96,7 +96,7 @@ export class TaskListComponent implements OnInit, AfterViewInit {
 
   filterTasks(): void {
     this.filteredTasks = this.tasks.filter(
-      (task) => !task.startTime || !task.endTime
+      (task) => !task.startTime || !task.endTime || !task.calendar
     );
   }
 }
