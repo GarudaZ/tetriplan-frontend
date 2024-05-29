@@ -2,6 +2,12 @@
   <div *ngIf="isLoading" class="loading-overlay">
     <div class="spinner"></div>
   </div>
+  <div>
+    <label>Filter</label>
+    <select>
+      <option>Work</option>
+    </select>
+  </div>
   <div *ngFor="let task of filteredTasks" (click)="openTaskDetailsDialog(task)">
     <app-task-card [task]="task"></app-task-card>
   </div>

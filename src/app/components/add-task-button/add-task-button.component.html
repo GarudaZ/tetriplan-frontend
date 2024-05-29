@@ -1,4 +1,7 @@
-<button (click)="openTaskPopup()">Add Task</button>
+<button matTooltip="Add a new task" (click)="openTaskPopup()">Add Task</button>
+<button matTooltip="Use AI to add your most frequent tasks">
+  AI: Favourite Tasks
+</button>
 
 <div class="popup-overlay" *ngIf="showPopup">
   <div class="popup-content">
