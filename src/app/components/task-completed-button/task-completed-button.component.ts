@@ -1,17 +1,14 @@
-import { Component, ChangeDetectorRef} from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { TaskDetailsPopupComponent } from '../home/task-details-popup/task-details-popup.component'
-import { Task } from '../../services/task.service'
-
-
+import { TaskDetailsPopupComponent } from '../home/task-details-popup/task-details-popup.component';
+import { Task } from '../../services/task.service';
 
 @Component({
   selector: 'app-task-completed-button',
   templateUrl: './task-completed-button.component.html',
-  styleUrls: ['./task-completed-button.component.css']
+  styleUrls: ['./task-completed-button.component.css'],
 })
 export class TaskCompletedButtonComponent {
-
   tasks: Task[] = [
     {
       _id: '1',
@@ -25,25 +22,24 @@ export class TaskCompletedButtonComponent {
       completionStatus: false,
       category: 'Work',
       label: 'Urgent',
-      priority: 'High'
-    }
+      priority: 'High',
+    },
   ];
 
   constructor(public dialog: MatDialog, private cdr: ChangeDetectorRef) {}
 
   openTaskDetails(task: Task) {
     const dialogRef = this.dialog.open(TaskDetailsPopupComponent, {
-      data: task
+      data: task,
     });
 
-    dialogRef.componentInstance.completeTask.subscribe((isCompleted: boolean) => {
-      if (isCompleted) {
-        task.completionStatus = true;
-        this.cdr.detectChanges(); // Force change detection
+    dialogRef.componentInstance.completeTask.subscribe(
+      (isCompleted: boolean) => {
+        if (isCompleted) {
+          task.completionStatus = true;
+          this.cdr.detectChanges(); // Force change detection
+        }
       }
-    });
+    );
   }
 }
-
-
-

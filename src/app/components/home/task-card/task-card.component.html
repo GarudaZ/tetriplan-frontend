@@ -28,7 +28,7 @@
 <!-- task-card.component.html -->
 <div
   class="task-card fc-event"
-  [ngClass]="{ 'completed': isTaskCompleted }"
+  [ngClass]="{ completed: isTaskCompleted }"
   *ngIf="task"
   [attr.data-taskName]="task.taskName"
   [attr.data-id]="task._id"
@@ -46,7 +46,5 @@
   <p>Category: {{ task.category }}</p>
   <p>Date: {{ task.date }}</p>
   <p *ngIf="task.duration !== undefined">Estimate: {{ task.duration }}m</p>
-  <p *ngIf="isTaskCompleted" class="completed">Completed Task</p>
+  <p *ngIf="task.completionStatus === true" class="completed">Completed Task</p>
 </div>
-
-

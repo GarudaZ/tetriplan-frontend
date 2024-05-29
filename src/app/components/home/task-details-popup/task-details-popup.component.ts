@@ -50,7 +50,20 @@ export class TaskDetailsPopupComponent {
     // Emit event when "Complete Task" button is clicked
     this.editableTask.completionStatus = true;
     this.completeTask.emit(true);
-    console.log('Task completed');
-    this.dialogRef.close();
+    // this.dialogRef.close();
+
+    this.taskService.updateTask(this.editableTask).subscribe(
+      (response) => {
+        console.log('Task completed', response);
+        // console.log('Task updated successfully:', response);
+        this.taskUpdated.emit(this.editableTask); // Emit the updated task
+        this.taskRefreshService.triggerReloadTasks();
+        this.isEditing = false;
+        this.closeDialog();
+      },
+      (error) => {
+        console.error('Error updating task:', error);
+      }
+    );
   }
 }
