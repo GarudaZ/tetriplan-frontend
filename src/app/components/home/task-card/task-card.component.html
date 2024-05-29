@@ -1,35 +1,9 @@
-<!-- <p>task-card works!</p> -->
-
-<!-- task-card.component.html -->
-
-<!-- <div
-  class="task-card fc-event"
-  [ngClass]="{ 'completed': isTaskCompleted }"
-  *ngIf="task"
-  [attr.data-taskName]="task.taskName"
-  [attr.data-id]="task._id"
-  [attr.data-date]="task.date"
-  [attr.data-duration]="task.duration ? task.duration.toString() : '60'"
-  [attr.data-startTime]="task.startTime"
-  [attr.data-endTime]="task.endTime"
-  [attr.data-description]="task.description"
-  [attr.data-category]="task.category"
-  [attr.data-label]="task.label"
-  [attr.data-priority]="task.priority"
-  [attr.data-completionStatus]="task.completionStatus.toString()"
 >
-  <p>Task Name: {{ task.taskName }}</p>
-  <p>Category: {{ task.category }}</p>
-  <p>Date: {{ task.calendar }}</p>
-  
-  <p *ngIf="task.duration !== undefined">Estimate: {{ task.duration }}m</p>
-  <p *ngIf="isTaskCompleted">Completed Task</p>
-</div> -->
 <!-- task-card.component.html -->
 <div
   class="task-card fc-event"
   [ngClass]="{ completed: isTaskCompleted }"
-  *ngIf="task"
+  *ngIf="task && (!task.completionStatus || !hideCompletedTasks)"
   [attr.data-taskName]="task.taskName"
   [attr.data-id]="task._id"
   [attr.data-date]="task.date"

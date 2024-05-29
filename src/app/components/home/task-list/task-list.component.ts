@@ -116,4 +116,10 @@ export class TaskListComponent implements OnInit, AfterViewInit {
       return !task.startTime || !task.endTime || !task.calendar;
     });
   }
+
+  hideCompletedTasks: boolean = false;
+
+  toggleHideCompletedTasks() {
+    this.hideCompletedTasks = !this.hideCompletedTasks;
+  }
 }

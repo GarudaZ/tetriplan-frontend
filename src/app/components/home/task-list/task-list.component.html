@@ -8,7 +8,12 @@
       <option>Work</option>
     </select>
   </div>
+  <div>
+    <button mat-button (click)="toggleHideCompletedTasks()">
+      {{ hideCompletedTasks ? 'Show' : 'Hide' }} Completed Tasks
+    </button>
+  </div>
   <div *ngFor="let task of filteredTasks" (click)="openTaskDetailsDialog(task)">
-    <app-task-card [task]="task"></app-task-card>
+    <app-task-card [task]="task" [hideCompletedTasks]="hideCompletedTasks"></app-task-card>
   </div>
 </div>
