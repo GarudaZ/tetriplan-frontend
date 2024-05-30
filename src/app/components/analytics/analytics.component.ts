@@ -90,7 +90,7 @@ export class AnalyticsComponent implements AfterViewInit {
         const dataSet = this.getDataSet(config.dataset);
         const labels = dataSet.map((item) => item.taskName);
         let data: number[];
-        let label: string = this.getTitleCase(config.dataset); // Set dynamic label based on dataset
+        let label: string = this.getTitleCase(config.dataset); 
         let options: any;
 
         if (config.chartType === 'pie') {
@@ -102,10 +102,14 @@ export class AnalyticsComponent implements AfterViewInit {
           options = {
             scales: {
               x: {
-                display: true, // Hide x-axis
+                display: true, 
               },
               y: {
-                display: true, // Hide y-axis
+                display: true, 
+                title: {
+                  display: true,
+                  text: 'Minutes Spent'
+                }
               },
             },
           };
