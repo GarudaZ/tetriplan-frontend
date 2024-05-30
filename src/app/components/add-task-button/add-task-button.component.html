@@ -1,9 +1,12 @@
-<button matTooltip="Add a new task" (click)="openTaskPopup()"><img class="login-image" src="../../../assets/addTask.png" alt="Logo"/>add task</button>
+<button matTooltip="Add a new task" (click)="openTaskPopup()">
+  <img class="login-image" src="../../../assets/addTask.png" alt="Logo" />add
+  task
+</button>
 <app-ai-favourite-tasks></app-ai-favourite-tasks>
 
 <div class="popup-overlay" *ngIf="showPopup">
   <div class="popup-content">
-    <h2> Add Task</h2>
+    <h2>Add Task</h2>
 
     <label for="taskName">Task Name:</label>
     <input
@@ -12,6 +15,7 @@
       placeholder="Enter task name"
       [(ngModel)]="taskName"
       (blur)="suggestLabel()"
+      (blur)="suggestCategory()"
     />
     <p *ngIf="isLoadingLabel" class="loading-text">
       Loading AI suggestion for label...
@@ -59,7 +63,6 @@
       type="text"
       id="category"
       placeholder="Select/add category"
-      (blur)="suggestCategory()"
     />
     <datalist id="categories">
       <option *ngFor="let category of categories" [value]="category">
@@ -100,8 +103,7 @@
       [(ngModel)]="taskDescription"
     ></textarea>
 
-    <button class='submit-button' (click)="submitTask()">Submit</button>
-    <button class='cancel-button' (click)="closePopup()">Cancel</button>
+    <button class="submit-button" (click)="submitTask()">Submit</button>
+    <button class="cancel-button" (click)="closePopup()">Cancel</button>
   </div>
 </div>
-
