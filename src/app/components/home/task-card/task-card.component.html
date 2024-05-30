@@ -14,16 +14,18 @@
   [attr.data-priority]="task.priority"
   [attr.data-completionStatus]="task.completionStatus.toString()"
 >
-  <div
-    class="task-card"
-    [ngClass]="{ completed: task.completionStatus === true }"
-  >
-    <p>Task Name: {{ task.taskName }}</p>
-    <p>Category: {{ task.category }}</p>
-    <p>Date: {{ task.calendar }}</p>
-    <p *ngIf="task.duration !== undefined">Estimate: {{ task.duration }}m</p>
-    <p *ngIf="task.completionStatus === true" class="completed">
-      Completed Task
-    </p>
+  <div class="card">
+    <div
+      class="task-card"
+      [ngClass]="{ completed: task.completionStatus === true }"
+    >
+      <p>Task Name: {{ task.taskName }}</p>
+      <p>Category: {{ task.category }}</p>
+      <p>Date: {{ task.calendar }}</p>
+      <p *ngIf="task.duration !== undefined">Estimate: {{ task.duration }}m</p>
+      <p *ngIf="task.completionStatus === true" class="completed">
+        Completed Task
+      </p>
+    </div>
   </div>
 </div>

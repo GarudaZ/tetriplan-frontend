@@ -12,9 +12,23 @@ button {
   font-family: Virgil;
 }
 
+h2 {
+  font-family: Virgil;
+}
+
 
 button:hover {
   background-color: #cfd9e3;
+}
+
+.submit-button:hover {
+  background-color: #3ab399;
+  color: white;
+}
+
+.cancel-button:hover {
+  background-color: #3ab399;
+  color: white;
 }
 
 button:disabled {
@@ -55,19 +69,20 @@ button.cancel-button:hover {
 /* Styles for the popup content */
 .popup-content {
   background-color: white;
-  padding: 10px;
+  padding: 20px;
   border-radius: 10px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); /* Box shadow for a slight depth effect */
   max-width: 600px; /* Set the maximum width of the popup */
   max-height: 90vh;
   width: 80%; /* Make the content responsive */
   overflow-y: auto; /* Ensure content is scrollable if it overflows */
+
 }
 
 .popup-content h2 {
   margin-top: 0;
   font-size: 1.5em;
-  color: #333;
+  color: #000000;
   text-align: center;
   margin-bottom: 20px;
 }
@@ -76,7 +91,7 @@ button.cancel-button:hover {
   display: block;
   font-weight: bold;
   margin-bottom: 5px;
-  color: #555;
+  color: #000000;
 }
 
 .popup-content input[type="text"],
@@ -89,10 +104,11 @@ button.cancel-button:hover {
   padding: 10px;
   font-size: 1em;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 25px;
   margin-bottom: 15px; /* Add spacing between form elements */
   box-sizing: border-box; /* Ensure padding and border are included in the element's total width and height */
   transition: border-color 0.3s;
+  background-color: #e0e2e3;
 }
 
 .popup-content textarea {
@@ -114,6 +130,7 @@ button.cancel-button:hover {
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
   width: fit-content;
   margin: auto;
+  font-family: Virgil;
 }
 
 .login-image {

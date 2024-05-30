@@ -7,15 +7,35 @@
   position: fixed;
   top: 90%;
   left: 10%;
+  padding: 5px;
   transform: translate(-50%, -50%);
-  background-color: rgba(249, 193, 193, 0.801);
-  padding: 15px 30px; /* Adjust padding to make it wider */
-  width: 380px; /* Increase the max-width value */
-  height: 80px; /* Remove fixed height */
+  background-color: rgba(193, 249, 207, 0.801);
+  width: 200px; /* Increase the max-width value */
+  height: 50px; /* Remove fixed height */
   border-radius: 5px;
   color: rgb(55, 50, 50);
   cursor: pointer;
   z-index: 9999;
+  text-align: center;
+}
+
+.popup-overlay:hover::after {
+  content: "Want a productivity boost?";
+  position: absolute;
+  background-color: rgba(238, 255, 1, 0.7);
+  color: rgb(18, 18, 18);
+  padding: 10px;
+  border-radius: 3px;
+  top: 100%;
+  left: 50%;
+  translate: -60px -140px;
+
+  font-family: 'Courier New', Courier, monospace;
+}
+
+h3 {
+  font-size: 1em;
+  color: #3ab399;
 }
 
 .popup-content {
@@ -89,7 +109,7 @@
   border: none;
   font-size: 20px;
   cursor: pointer;
-  color: red;
+  color: rgb(250, 244, 244);
 }
 .spinner {
   position: absolute;
