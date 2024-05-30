@@ -4,17 +4,21 @@ import { AuthService } from '../../services/auth.service';
 import firebase from 'firebase/compat/app';
 import { TaskService } from '../../services/task.service';
 import { TaskRefreshService } from '../../services/task-refresh.service';
+
 @Component({
   selector: 'app-add-task-button',
   templateUrl: './add-task-button.component.html',
   styleUrls: ['./add-task-button.component.css'],
 })
+
 export class AddTaskButtonComponent {
   user: firebase.User | null = null;
   categories: string[] = [];
   labels: string[] = [];
   isLoadingLabel: boolean = false;
   isLoadingCategory: boolean = false;
+  showPopup: boolean = false;
+
   constructor(
     private authService: AuthService,
     private taskService: TaskService,
@@ -29,8 +33,6 @@ export class AddTaskButtonComponent {
       this.labels = labels;
     });
   }
-
-  showPopup: boolean = false;
 
   taskName: string = '';
   category: string = '';
@@ -160,8 +162,8 @@ export class AddTaskButtonComponent {
       }
     });
   }
-
-  resetForm() {
+  
+   resetForm() {
     this.taskName = '';
     this.category = '';
     this.taskDescription = '';
@@ -174,6 +176,4 @@ export class AddTaskButtonComponent {
     const [hours, minutes] = time.split(':');
     return `${hours}:${minutes}:00`;
   }
-
-
 }

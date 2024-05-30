@@ -50,7 +50,7 @@ export class AIFavouriteTasksComponent {
     if (event) {
       event.stopPropagation();
     }
-    this.showPopup = false;
+    this.showPopup = false
   }
 
   openBigPopup() {
@@ -63,16 +63,16 @@ export class AIFavouriteTasksComponent {
     this.showBigPopup = false;
   }
 
-  taskName: string = '';
-  category: string = 'none';
-  taskDescription: string = '';
-  date: string = '';
-  startTime: string = '';
-  endTime: string = '';
-  estimate: number = 30;
-  label: string = 'none';
-  priority: string = 'none';
-  completionStatus: boolean = false;
+  // taskName: string = '';
+  // category: string = 'none';
+  // taskDescription: string = '';
+  // date: string = '';
+  // startTime: string = '';
+  // endTime: string = '';
+  // estimate: number = 30;
+  // label: string = 'none';
+  // priority: string = 'none';
+  // completionStatus: boolean = false;
 
   submitAiTask(task: any) {
     if (this.isProcessingTask) return; 
@@ -86,10 +86,12 @@ export class AIFavouriteTasksComponent {
           taskName: task.taskName,
           category: task.category || 'none',
           description: task.description || '',
+
           calendar: task.date || '',
           startTime: task.startTime || '',
           endTime: task.endTime || '',
           duration: task.estimate || 30,
+
           userID: '',
           label: task.label || 'none',
           priority: task.priority || 'none',
@@ -126,6 +128,7 @@ this.isLoading = false;
     this.authService.getUserInfo().subscribe((user) => {
       this.user = user;
       if (this.user) {
+
         const uid = this.user.uid;
 
         axios

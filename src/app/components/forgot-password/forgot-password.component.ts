@@ -8,6 +8,7 @@ import firebase from 'firebase/compat/app';
   templateUrl: './forgot-password.component.html',
   styleUrl: './forgot-password.component.css'
 })
+
 export class ForgotPasswordComponent  implements OnInit {
   user$!: Observable<firebase.User | null>;
   email : string = '';

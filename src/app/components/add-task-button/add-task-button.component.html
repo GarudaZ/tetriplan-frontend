@@ -1,9 +1,5 @@
-
-
 <button matTooltip="Add a new task" (click)="openTaskPopup()">Add Task</button>
 <app-ai-favourite-tasks></app-ai-favourite-tasks>
-
-
 
 <div class="popup-overlay" *ngIf="showPopup">
   <div class="popup-content">
@@ -60,6 +56,7 @@
       list="categories"
       [(ngModel)]="category"
       name="category"
+      type="text"
       id="category"
       placeholder="Select/add category"
       (blur)="suggestCategory()"
@@ -78,6 +75,7 @@
       list="labels"
       [(ngModel)]="label"
       name="label"
+      type="text"
       id="label"
       placeholder="Select/add label"
     />
