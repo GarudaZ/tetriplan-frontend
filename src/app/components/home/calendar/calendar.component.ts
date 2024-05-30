@@ -24,7 +24,6 @@ import { TaskDetailsPopupComponent } from '../task-details-popup/task-details-po
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.css'],
 })
-
 export class CalendarComponent implements OnInit, AfterViewInit, OnChanges {
   @ViewChild('calendar', { static: false }) calendarComponent!: ElementRef;
   @ViewChild(FullCalendarComponent) fullCalendar!: FullCalendarComponent;
@@ -47,6 +46,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges {
     nowIndicator: true,
     editable: true,
     droppable: true,
+    eventColor: '#3ab399',
     drop: this.handleDrop.bind(this),
     eventDrop: this.handleEventDrop.bind(this),
     eventResize: this.handleEventResize.bind(this),
@@ -360,4 +360,3 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges {
     return false;
   }
 }
-

@@ -2,6 +2,9 @@
   font-size: 32px; /* Adjust size as needed */
   margin-bottom: 25px; /* Add spacing between icon and heading */
 }
+.scheme {
+  color: #3ab399 !important;
+}
 
 .popup-overlay {
   position: fixed;

@@ -1,8 +1,5 @@
-
-
 <div class="container">
   <div class="sidebar" *ngIf="user">
-
     <h3>{{ user.displayName }}</h3>
     <h3>{{ user.email }}</h3>
 
@@ -15,7 +12,6 @@
   </div>
   <div class="calendar" [class.expanded]="isExpanded">
     <app-calendar [isExpanded]="isExpanded"></app-calendar>
-    <button (click)="toggleCalendar()">Expand</button>
+    <button (click)="toggleCalendar()"></button>
   </div>
 </div>
-

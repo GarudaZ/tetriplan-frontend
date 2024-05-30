@@ -31,3 +31,23 @@
     transform: rotate(360deg);
   }
 }
+
+:host ::ng-deep .fc-timegrid .fc-col-header-cell.fc-day-today {
+  background-color: #3ab399 !important;
+  color: #ffffff !important;
+}
+
+:host ::ng-deep .fc-timegrid .fc-day-today {
+  background-color: rgba(58, 179, 153, 0.1) !important;
+}
+
+:host ::ng-deep .fc-timegrid .fc-day-today .fc-timegrid-col-frame {
+  background-color: rgba(58, 179, 153, 0.1) !important;
+}
+
+:host ::ng-deep .fc .fc-col-header-cell-cushion {
+  color: #ffffff !important;
+}
+:host ::ng-deep {
+  --fc-now-indicator-color: #093949 !important; /* Color for the now indicator */
+}

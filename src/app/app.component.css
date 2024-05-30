@@ -10,7 +10,7 @@ header {
   column-span: all;
   position: relative;
   border-bottom: ridge rgb(212, 210, 210);
-  margin-bottom: 8px;;
+  margin-bottom: 8px;
 }
 
 h1 {
@@ -21,7 +21,6 @@ h1 {
   font-family: Virgil;
   margin-bottom: 0;
 }
-
 
 .login-image {
   width: 50px;
@@ -48,4 +47,3 @@ nav li a.active {
   text-decoration: underline;
   text-decoration-color: orange;
 }
-
