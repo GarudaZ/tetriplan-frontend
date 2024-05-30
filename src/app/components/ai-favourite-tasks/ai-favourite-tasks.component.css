@@ -1,64 +1,111 @@
+.lamp-icon {
+  font-size: 32px; /* Adjust size as needed */
+  margin-bottom: 25px; /* Add spacing between icon and heading */
+}
 
-  .lamp-icon {
-    font-size: 32px; /* Adjust size as needed */
-    margin-bottom: 25px; /* Add spacing between icon and heading */
-  }
-  
-  .popup-overlay {
-    position: fixed;
-    top: 90%;
-    left: 85%;
-    transform: translate(-50%, -50%);
-    background-color: rgba(249, 193, 193, 0.5);
-    padding: 15px 30px; /* Adjust padding to make it wider */
-    width: 380px; /* Increase the max-width value */
-    height: 80px; /* Remove fixed height */
-    border-radius: 5px;
-    color: rgb(55, 50, 50);
-  }
-  
-  .popup-content {
-    display: fixed;
-    align-items: center; /* Align items vertically in center */
-    justify-content: center; /* Align items horizontally in center */
-  }
-  
-  .popup-content h2 {
-    margin-top: 0;
-  }
+.popup-overlay {
+  position: fixed;
+  top: 90%;
+  left: 10%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(249, 193, 193, 0.801);
+  padding: 15px 30px; /* Adjust padding to make it wider */
+  width: 380px; /* Increase the max-width value */
+  height: 80px; /* Remove fixed height */
+  border-radius: 5px;
+  color: rgb(55, 50, 50);
+  cursor: pointer;
+  z-index: 9999;
+}
 
-  /* Styles for the big popup overlay */
+.popup-content {
+  display: flex;
+  align-items: center; /* Align items vertically in center */
+  justify-content: center; /* Align items horizontally in center */
+}
+
+.popup-content h2 {
+  margin-top: 0;
+}
+
+/* Styles for the big popup overlay */
 .big-popup-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); /* Box shadow for a slight depth effect */
-    color: rgb(55, 50, 50);
-    z-index: 9999; /* Ensure it appears above other content */
-    background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); /* Box shadow for a slight depth effect */
+  color: rgb(55, 50, 50);
+  z-index: 9999; /* Ensure it appears above other content */
+  background-color: rgba(0, 0, 0, 0.5);
+}
 
-  }
-  
-  /* Styles for the big popup content */
-  .big-popup-content {
-    text-align: center;
-  }
-  .big-popup-content {
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); /* Box shadow for a slight depth effect */
-    max-width: 600px; /* Set the maximum width of the popup */
-    width: 80%; /* Make the content responsive */
-    overflow-y: auto; /* Ensure content is scrollable if it overflows */
-  }
-  
+.big-popup-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); /* Box shadow for a slight depth effect */
+  max-width: 600px; /* Set the maximum width of the popup */
+  width: 80%; /* Make the content responsive */
+  overflow-y: auto; /* Ensure content is scrollable if it overflows */
+  text-align: center;
+}
 
-  
+.ai-task-box {
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px;
+  margin: 10px 0;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.ai-task-box:hover {
+  background-color: #e0e0e0;
+}
+
+.ai-task-name {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.ai-task-category,
+.ai-task-description {
+  margin: 0;
+}
+
+.close-button {
+  position: absolute;
+  top: 0px;
+  right: -18px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: red;
+}
+.spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background-color: rgba(255, 255, 255, 0.8);
+  z-index: 1000;
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-left-color: #000;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
