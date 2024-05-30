@@ -2,17 +2,19 @@
 button {
   padding: 10px;
   font-size: 1em;
-  color: #fff;
-  background-color: #007bff;
+  color: #171717;
+  background-color: #eff3f6;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s;
   margin-right: 10px; /* Space between the buttons */
+  font-family: Virgil;
 }
 
+
 button:hover {
-  background-color: #0056b3;
+  background-color: #cfd9e3;
 }
 
 button:disabled {
@@ -107,12 +109,17 @@ button.cancel-button:hover {
 /* Host container styles */
 :host {
   display: block;
-  max-width: 800px; /* Adjust the max-width as needed */
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  background-color: #f9f9f9;
+  padding: 10px;
+  background-color: #ffffff;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  width: fit-content;
+  margin: auto;
+}
+
+.login-image {
+  width: 20px;
+  height: 20px;
+  padding: 2px;
 }
 
 .mat-dialog-actions {

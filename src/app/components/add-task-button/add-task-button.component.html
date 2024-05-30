@@ -1,11 +1,11 @@
-<button matTooltip="Add a new task" (click)="openTaskPopup()">Add Task</button>
+<button matTooltip="Add a new task" (click)="openTaskPopup()"><img class="login-image" src="../../../assets/addTask.png" alt="Logo"/>add task</button>
 <button matTooltip="Use AI to add your most frequent tasks">
   AI: Favourite Tasks
 </button>
 
 <div class="popup-overlay" *ngIf="showPopup">
   <div class="popup-content">
-    <h2>Add Task</h2>
+    <h2> Add Task</h2>
 
     <label for="taskName">Task Name:</label>
     <input

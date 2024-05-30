@@ -1,5 +1,5 @@
 
-<div *ngIf="user$ | async as user; else loginTemplate">
+<div *ngIf="user$ | async as user; else loginTemplate" class="logged-in">
     <h1> Profile </h1>
     <h2> Account overview </h2>
     <img class="profile-pic" src="{{ user.photoURL }}" />
@@ -14,7 +14,7 @@
   <ng-template #loginTemplate>
       <div class="loginPage">
         <h1>Welcome to Tetriplan
-        <img class="login-image" src="../../../assets/logo.png" alt="Logo"/> </h1>
+        <img class="login-image" src="../../../assets/logo2.png" alt="Logo"/> </h1>
 
         <p>Get started - it's free. No credit card needed.</p>
         
@@ -67,6 +67,6 @@
       </div>
 
       <div class="wallpaper">
-        <img src="../../../assets/wallpaper.png">
+        <img src="../../../assets/wallpaper2.png">
       </div>
     </ng-template>
