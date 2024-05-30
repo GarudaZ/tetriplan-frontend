@@ -10,19 +10,19 @@ import { ForgotPasswordComponent } from '../app/components/forgot-password/forgo
 const routes: Routes = [
   { path: '', component: LoginComponent },
 
-  { path: '/login', component: LoginComponent },
+  { path: 'login', component: LoginComponent },
 
-  { path: '/register', component: RegisterComponent },
+  { path: 'register', component: RegisterComponent },
 
-  { path: '/forgot-password', component: ForgotPasswordComponent },
+  { path: 'forgot-password', component: ForgotPasswordComponent },
 
   {
-    path: '/home',
+    path: 'home',
     component: HomeComponent,
     canActivate: [authGuard],
   },
   {
-    path: '/analytics',
+    path: 'analytics',
     component: AnalyticsComponent,
     canActivate: [authGuard],
   },
