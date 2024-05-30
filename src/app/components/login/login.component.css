@@ -23,16 +23,16 @@ h2 {
   height: 50px;
 }
 
-/* .logged-in {
+.logged-in {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   grid-column: 2/ 6;
   grid-row: 2/ 4;
   background-color: #dbebe8;
   border-radius: 25px;
-} */
+}
 
 .loginPage {
   display: flex;

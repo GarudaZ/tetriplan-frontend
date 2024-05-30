@@ -1,8 +1,11 @@
+
+
 <div class="container">
   <div class="sidebar" *ngIf="user">
-    <p>Username: {{ user.displayName }}</p>
-    <p>Email: {{ user.email }}</p>
-    <!-- <p>UID: {{ user.uid }}</p> -->
+
+    <h3>{{ user.displayName }}</h3>
+    <h3>{{ user.email }}</h3>
+
     <app-mini-calendar></app-mini-calendar>
   </div>
   <div class="task-list">

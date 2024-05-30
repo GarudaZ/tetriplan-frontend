@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Poiret+One&display=swap');
+
 .list-container {
   position: relative;
   height: 100%;
@@ -15,6 +17,25 @@
   justify-content: center;
   align-items: center;
   z-index: 1000; 
+}
+
+.filter {
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
+
+.filter label{
+  margin-left: 10%;
+  margin-right: 10%;
+  font-family: Virgil;
+}
+
+
+.hide-button {
+  padding: 5px;
+  margin-left: 30%;
+  margin-right: 30%;
+  font-family: "Poiret One", sans-serif;
 }
 
 .spinner {
