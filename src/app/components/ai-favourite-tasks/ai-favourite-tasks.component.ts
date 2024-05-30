@@ -35,24 +35,24 @@ export class AIFavouriteTasksComponent {
 
   closePopup() {
     this.showPopup = false;
-    this.showBigPopup = true;
-    this.fetchApiEndpoint();  // Open the big popup when small popup is closed
+    this.showBigPopup = true;// Open the big popup when small popup is closed
+    this.fetchApiEndpoint(); // fetch API when small popup is closed
   }
 
   closeBigPopup() {
     this.showBigPopup = false;
   }
 
-  taskName: string = '';
-  category: string = 'none';
-  taskDescription: string = '';
-  date: string = '';
-  startTime: string = '';
-  endTime: string = '';
-  estimate: number = 30;
-  label: string = 'none';
-  priority: string = 'none';
-  completionStatus: boolean = false;
+  // taskName: string = '';
+  // category: string = 'none';
+  // taskDescription: string = '';
+  // date: string = '';
+  // startTime: string = '';
+  // endTime: string = '';
+  // estimate: number = 30;
+  // label: string = 'none';
+  // priority: string = 'none';
+  // completionStatus: boolean = false;
 
   
   submitAiTask(task: any) {
@@ -63,10 +63,10 @@ export class AIFavouriteTasksComponent {
           taskName: task.taskName,
           category: task.category || 'none',
           description: task.description || '',
-          calendar: task.date || '', // Set to appropriate default or fetched value
-          startTime: task.startTime || '', // Set to appropriate default or fetched value
-          endTime: task.endTime || '', // Set to appropriate default or fetched value
-          duration: task.estimate || 30, // Set to appropriate default or fetched value
+          calendar: task.date || '', 
+          startTime: task.startTime || '', 
+          endTime: task.endTime || '', 
+          duration: task.estimate || 30, 
           userID: '',
           label: task.label || 'none',
           priority: task.priority || 'none',
@@ -99,16 +99,12 @@ export class AIFavouriteTasksComponent {
     this.authService.getUserInfo().subscribe((user) => {
       this.user = user;
       if (this.user) {
-      const uid = this.user.uid 
-   console.log(uid)
-      
-      
-    axios.get(`https://tetriplan.onrender.com/api/users/${uid}/recommended-tasks`)
+      const uid = this.user.uid  
+
+    axios
+    .get(`https://tetriplan.onrender.com/api/users/${uid}/recommended-tasks`)
       .then(response => {
-        console.log(response)
-        // this.apiEndpoint = response.data.user._id.recommended-tasks; 
         this.aiTasks = response.data.recommendedTasks
-        console.log(this.aiTasks)
       })
       .catch(error => {
         console.error('Error fetching API endpoint:', error);
@@ -117,5 +113,3 @@ export class AIFavouriteTasksComponent {
     });
   }
 }
-
-// .map((task: any)=> task.taskName);

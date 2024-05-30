@@ -8,7 +8,7 @@ import firebase from 'firebase/compat/app';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  title = 'tetraplan';
+  title = 'tetriplan';
   user: firebase.User | null = null;
 
   constructor(private authService: AuthService) {}

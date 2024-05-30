@@ -9,9 +9,7 @@
 <div class="big-popup-overlay" *ngIf="showBigPopup">
   <div class="big-popup-content">
     <h2>API Endpoint</h2>
-    <div *ngFor="let aiTask of aiTasks"> <p (click)="submitAiTask(aiTask)">{{ aiTask.taskName }}</p></div>
-    <!-- <p>{{ apiEndpoint }}</p> -->
-   
+    <div *ngFor="let aiTask of aiTasks"> <p (click)="submitAiTask(aiTask)">{{ aiTask.taskName }}</p></div>  
     <button mat-button color="primary" (click)="closeBigPopup()">Close</button>
   </div>
 </div>

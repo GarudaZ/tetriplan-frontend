@@ -58,7 +58,7 @@ import { AIFavouriteTasksComponent } from './components/ai-favourite-tasks/ai-fa
     AngularFireAuthModule,
     HttpClientModule,
     FormsModule, 
-    BsDatepickerModule.forRoot(), // Come back to this again
+    BsDatepickerModule.forRoot(), 
     NgbModule,
 
     FormsModule,
