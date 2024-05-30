@@ -8,7 +8,7 @@ button {
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s;
-  margin-right: 10px; /* Space between the buttons */
+  margin-right: 10px; 
   font-family: Virgil;
 }
 
