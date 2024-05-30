@@ -30,6 +30,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { AddTaskButtonComponent } from './components/add-task-button/add-task-button.component';
 import{TaskCompletedButtonComponent} from './components/task-completed-button/task-completed-button.component'
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { AIFavouriteTasksComponent } from './components/ai-favourite-tasks/ai-favourite-tasks.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     TaskDetailsPopupComponent,
     AddTaskButtonComponent,
     TaskCompletedButtonComponent,
+    AIFavouriteTasksComponent,
    
   ],
   imports: [
@@ -56,7 +58,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     AngularFireAuthModule,
     HttpClientModule,
     FormsModule, 
-    BsDatepickerModule.forRoot(), // Come back to this again
+    BsDatepickerModule.forRoot(), 
     NgbModule,
 
     FormsModule,

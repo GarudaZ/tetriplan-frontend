@@ -18,11 +18,13 @@ import interactionPlugin from '@fullcalendar/interaction';
 import { TaskRefreshService } from '../../../services/task-refresh.service';
 import { MatDialog } from '@angular/material/dialog';
 import { TaskDetailsPopupComponent } from '../task-details-popup/task-details-popup.component';
+
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.css'],
 })
+
 export class CalendarComponent implements OnInit, AfterViewInit, OnChanges {
   @ViewChild('calendar', { static: false }) calendarComponent!: ElementRef;
   @ViewChild(FullCalendarComponent) fullCalendar!: FullCalendarComponent;
@@ -216,7 +218,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges {
     const { left, top, width, height } = calendarEl.getBoundingClientRect();
 
     this.isLoading = true;
-
     if (
       info.jsEvent.clientX < left ||
       info.jsEvent.clientX > left + width ||
@@ -224,7 +225,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges {
       info.jsEvent.clientY > top + height
     ) {
       const taskId = info.event.id;
-      console.log(info.event.id);
 
       if (!taskId) {
         console.error('Event drag stop missing task ID.');
@@ -360,3 +360,4 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges {
     return false;
   }
 }
+

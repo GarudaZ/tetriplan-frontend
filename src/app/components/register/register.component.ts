@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../services/auth.service'; // Adjust the path if necessary
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -43,7 +43,6 @@ export class RegisterComponent implements OnInit {
       } else {
         alert('An unexpected error occurred');
       }
-      // alert('Error registering user');
     }
   }
 }
