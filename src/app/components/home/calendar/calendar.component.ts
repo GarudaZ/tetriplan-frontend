@@ -360,3 +360,4 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges {
     return false;
   }
 }
+
