@@ -101,4 +101,6 @@ export class AddTaskButtonComponent {
     const [hours, minutes] = time.split(':');
     return `${hours}:${minutes}:00`;
   }
+
+
 }
