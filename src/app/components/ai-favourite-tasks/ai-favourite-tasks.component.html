@@ -1,18 +1,39 @@
-<button mat-raised-button color="primary" (click)="openPopup()">AI: Favourite Tasks</button>
+<button mat-raised-button color="primary" (click)="openBigPopup()">
+  AI: Favourite Tasks
+</button>
 
-<div class="popup-overlay" *ngIf="showPopup">
-  <div class="popup-content" (click)="closePopup()">
-    <h3><span class="material-icons lamp-icon">lightbulb</span>Want a productivity boost? Click here</h3>
+<div class="popup-overlay" (click)="openBigPopup()" *ngIf="showPopup">
+  <div class="popup-content">
+    <h3>
+      <span class="material-icons lamp-icon">lightbulb</span>Want a productivity
+      boost? Click here
+    </h3>
   </div>
+  <button
+    class="close-button"
+    mat-button
+    color="warn"
+    (click)="closePopup($event)"
+  >
+    X
+  </button>
 </div>
 
 <div class="big-popup-overlay" *ngIf="showBigPopup">
   <div class="big-popup-content">
-    <h2>API Endpoint</h2>
-    <div *ngFor="let aiTask of aiTasks"> <p (click)="submitAiTask(aiTask)">{{ aiTask.taskName }}</p></div>
-    <!-- <p>{{ apiEndpoint }}</p> -->
-   
+    <h2>AI Task Suggestions</h2>
+    <div *ngIf="isLoading" class="spinner-overlay">
+      <div class="spinner"></div>
+    </div>
+    <div
+      *ngFor="let aiTask of aiTasks"
+      class="ai-task-box"
+      (click)="submitAiTask(aiTask)"
+    >
+      <p class="ai-task-name">{{ aiTask.taskName }}</p>
+      <p class="ai-task-category">{{ aiTask.category }}</p>
+      <p class="ai-task-description">{{ aiTask.label }}</p>
+    </div>
     <button mat-button color="primary" (click)="closeBigPopup()">Close</button>
   </div>
 </div>
-
