@@ -1,10 +1,8 @@
-<!-- <p class="task-detail">Tags:</p>
-  <ul class="tag-list">
-    <li *ngFor="let tag of data.tags" class="tag-item">{{ tag }}</li>
-  </ul> -->
-
 <h2 mat-dialog-title>Task Details</h2>
-<div mat-dialog-content>
+<div
+  mat-dialog-content
+  [ngClass]="{ completed: editableTask.completionStatus }"
+>
   <div *ngIf="!isEditing; else editMode">
     <p class="task-detail">Task Name: {{ data.taskName }}</p>
     <p class="task-detail">Category: {{ data.category }}</p>
@@ -24,13 +22,26 @@
       Task Name: <input [(ngModel)]="editableTask.taskName" type="text" />
     </p>
     <p class="task-detail">
-      Category: <input [(ngModel)]="editableTask.category" type="text" />
+      Category: 
+      <input
+        list="categories"
+        id="category"
+        placeholder="select/add category"
+        [(ngModel)]="editableTask.category"
+        type="text"
+      />
+      <datalist id="categories">
+        <option *ngFor="let category of categories" [value]="category">
+          {{ category }}
+        </option>
+      </datalist>
     </p>
     <p class="task-detail">
       Description: <input [(ngModel)]="editableTask.description" type="text" />
     </p>
     <p class="task-detail">
-      Date: <input [(ngModel)]="editableTask.date" type="date" />
+      Date:
+      <input [(ngModel)]="editableTask.calendar" type="date" />
     </p>
     <p class="task-detail">
       Start: <input [(ngModel)]="editableTask.startTime" type="time" />
@@ -46,10 +57,28 @@
       <input [(ngModel)]="editableTask.completionStatus" type="text" />
     </p>
     <p class="task-detail">
-      Label: <input [(ngModel)]="editableTask.label" type="text" />
+      Label: 
+      <input
+        list="labels"
+        id="label"
+        placeholder="select/add label"
+        [(ngModel)]="editableTask.label"
+        type="text"
+      />
+      <datalist id="labels">
+        <option *ngFor="let label of labels" [value]="label">
+          {{ label }}
+        </option>
+      </datalist>
     </p>
     <p class="task-detail">
-      Priority: <input [(ngModel)]="editableTask.priority" type="text" />
+      Priority: 
+      <select [(ngModel)]="editableTask.priority">
+        <option value="none">None</option>
+        <option value="low">Low</option>
+        <option value="medium">Medium</option>
+        <option value="high">High</option>
+      </select>
     </p>
   </ng-template>
 </div>
@@ -57,4 +86,8 @@
   <button mat-button (click)="closeDialog()">Close</button>
   <button mat-button *ngIf="!isEditing" (click)="toggleEdit()">Edit</button>
   <button mat-button *ngIf="isEditing" (click)="saveTask()">Save</button>
+  <button mat-button (click)="handleTaskCompleted()">
+    {{ editableTask.completionStatus ? "Mark as Incomplete" : "Complete Task" }}
+  </button>
+  <button mat-button (click)="handleTaskDelete()">Delete</button>
 </div>

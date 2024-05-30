@@ -1,5 +1,5 @@
+// task-card.component.spec.ts
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { TaskCardComponent } from './task-card.component';
 
 describe('TaskCardComponent', () => {
@@ -9,8 +9,7 @@ describe('TaskCardComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [TaskCardComponent]
-    })
-    .compileComponents();
+    }).compileComponents();
     
     fixture = TestBed.createComponent(TaskCardComponent);
     component = fixture.componentInstance;
@@ -21,3 +20,4 @@ describe('TaskCardComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+

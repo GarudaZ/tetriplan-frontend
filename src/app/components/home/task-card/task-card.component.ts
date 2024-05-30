@@ -7,5 +7,9 @@ import { Task } from '../../../services/task.service';
   styleUrls: ['./task-card.component.css']
 })
 export class TaskCardComponent {
+
   @Input() task: Task | undefined;
+  @Input() isTaskCompleted: boolean = false;
+  @Input() hideCompletedTasks: boolean = false;
+
 }

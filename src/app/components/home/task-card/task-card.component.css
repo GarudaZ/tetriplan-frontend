@@ -1,3 +1,4 @@
+/* task-card.component.css */
 .task-card {
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -7,6 +8,12 @@
   cursor: pointer;
 }
 
+.completed {
+  background-color: rgb(181, 242, 181); /* Change to desired color for completed tasks */
+}
+
 .task-card p {
   margin: 5px 0;
 }
+
+
