@@ -4,6 +4,7 @@ import { AuthService } from '../../services/auth.service';
 import firebase from 'firebase/compat/app';
 import { Chart, ChartType, registerables } from 'chart.js';
 Chart.register(...registerables);
+
 @Component({
   selector: 'app-analytics',
   templateUrl: './analytics.component.html',
@@ -17,11 +18,13 @@ export class AnalyticsComponent implements AfterViewInit {
   taskData: any[] = [];
   chartInstances: Chart[] = [];
   @ViewChildren('chartCanvas') chartCanvases!: QueryList<ElementRef<HTMLCanvasElement>>;
+
   constructor(
     private renderer: Renderer2,
     private http: HttpClient,
     private authService: AuthService
   ) {}
+
   ngAfterViewInit() {
     this.authService.getUserInfo().subscribe((user) => {
       this.user = user;
@@ -32,6 +35,7 @@ export class AnalyticsComponent implements AfterViewInit {
       }
     });
   }
+
   fetchTaskData(apiUrl: string): void {
     this.http.get<any>(apiUrl).subscribe(
       (data) => {
@@ -43,18 +47,21 @@ export class AnalyticsComponent implements AfterViewInit {
       }
     );
   }
+
   onDatasetChange(event: Event): void {
     const target = event.target as HTMLSelectElement;
     if (target) {
       this.selectedDataSet = target.value;
     }
   }
+
   onChartTypeChange(event: Event): void {
     const target = event.target as HTMLSelectElement;
     if (target) {
       this.selectedChartType = target.value as ChartType;
     }
   }
+
   onRenderClick(): void {
     if (this.selectedDataSet && this.selectedChartType) {
       this.chartConfigurations.unshift({
@@ -66,9 +73,11 @@ export class AnalyticsComponent implements AfterViewInit {
       console.warn('Please select both a dataset and a chart type');
     }
   }
+
   renderCharts(): void {
     this.chartInstances.forEach(chart => chart.destroy());
     this.chartInstances = [];
+
     setTimeout(() => {
       this.chartConfigurations.forEach((config, index) => {
         const canvasElement = this.chartCanvases.toArray()[index].nativeElement;
@@ -77,34 +86,31 @@ export class AnalyticsComponent implements AfterViewInit {
           console.warn('Canvas context not available');
           return;
         }
+
         const dataSet = this.getDataSet(config.dataset);
         const labels = dataSet.map((item) => item.taskName);
         let data: number[];
-        let label: string;
+        let label: string = this.getTitleCase(config.dataset); // Set dynamic label based on dataset
         let options: any;
+
         if (config.chartType === 'pie') {
-          // Calculate percentages for pie chart
           const total = dataSet.reduce((acc, cur) => acc + cur.value, 0);
           data = dataSet.map((item) => (item.value / total) * 100);
-          label = '% of Total Tasks';
-          options = {
-            // Add options for pie chart here
-          };
+          options = {};
         } else {
-          // For other chart types, use original values
           data = dataSet.map((item) => item.value);
-          label = 'Task Name';
           options = {
             scales: {
+              x: {
+                display: true, // Hide x-axis
+              },
               y: {
-                title: {
-                  display: true,
-                  text: config.chartType === 'line' ? 'minutes spent' : 'Task Name',
-                },
+                display: true, // Hide y-axis
               },
             },
           };
         }
+
         const chart = new Chart(ctx, {
           type: config.chartType,
           data: {
@@ -131,10 +137,12 @@ export class AnalyticsComponent implements AfterViewInit {
           },
           options,
         });
+
         this.chartInstances.push(chart);
       });
     }, 0);
   }
+
   getTitleCase(dataset: string): string {
     switch(dataset) {
       case 'categories':
@@ -147,6 +155,7 @@ export class AnalyticsComponent implements AfterViewInit {
         return dataset;
     }
   }
+
   private getDataSet(selectedDataSet: string): { taskName: string; value: number }[] {
     switch (selectedDataSet) {
       case 'categories':
@@ -159,6 +168,7 @@ export class AnalyticsComponent implements AfterViewInit {
         return [];
     }
   }
+
   private processData(data: any[], property: string): { taskName: string; value: number }[] {
     const aggregatedData: { [key: string]: number } = {};
     data.forEach((task) => {
