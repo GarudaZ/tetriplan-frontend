@@ -1,41 +1,72 @@
-<div *ngIf="user$ | async as user; else loginTemplate">
-  <p>Username: {{ user.displayName }}</p>
-  <p>Email: {{ user.email }}</p>
-  <p>UID: {{ user.uid }}</p>
-  <img src="{{ user.photoURL }}" />
-  <button (click)="logOut()">Log Out</button>
-</div>
-<ng-template #loginTemplate>
-  <p>Please log in.</p>
 
-  <form>
-    <div>
-      <label for="email">Email:</label>
-      <input id="email" name="email" type="email" [(ngModel)]="email" required />
-    </div>
-    <div>
-      <label for="password">Password:</label>
-      <input id="password" name="password" type="password" [(ngModel)]="password" required />
-    </div>
-   
-    <button type="button" (click)="login()">Sign in with Email/Password</button>
-    <a href="/register" style="text-decoration: none;">Need Account? <span class="text-danger">Register</span></a>
-    <a href="/forgot-password" class="text-dark" style="text-decoration: none;">Forgot Password?</a>
-    <button type="button" class="gsi-material-button" (click)="loginWithGoogle()">
-      <div class="gsi-material-button-state"></div>
-      <div class="gsi-material-button-content-wrapper">
-        <div class="gsi-material-button-icon">
-          <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" xmlns:xlink="http://www.w3.org/1999/xlink" style="display: block;">
-            <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"></path>
-            <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"></path>
-            <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"></path>
-            <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"></path>
-            <path fill="none" d="M0 0h48v48H0z"></path>
-          </svg>
-        </div>
-        <span class="gsi-material-button-contents">Sign in with Google</span>
-        <span style="display: none;">Sign in with Google</span>
+<div *ngIf="user$ | async as user; else loginTemplate">
+    <h1> Profile </h1>
+    <h2> Account overview </h2>
+    <img class="profile-pic" src="{{ user.photoURL }}" />
+    <p>{{ user.displayName }}</p>
+    <p>{{ user.email }}</p>
+    <p>{{ user.uid }}</p>
+    <button (click)="logOut()">Log Out</button>
+  </div>
+
+
+
+  <ng-template #loginTemplate>
+      <div class="loginPage">
+        <h1>Welcome to Tetriplan
+        <img class="login-image" src="../../../assets/logo.png" alt="Logo"/> </h1>
+
+        <p>Get started - it's free. No credit card needed.</p>
+        
+        <form>
+          <div>
+            <button type="button" class="gsi-material-button" (click)="loginWithGoogle()">
+              <div class="gsi-material-button-state"></div>
+              <div class="gsi-material-button-content-wrapper">
+                <div class="gsi-material-button-icon">
+                  <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" xmlns:xlink="http://www.w3.org/1999/xlink" style="display: block;">
+                    <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"></path>
+                    <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"></path>
+                    <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"></path>
+                    <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"></path>
+                    <path fill="none" d="M0 0h48v48H0z"></path>
+                  </svg>
+                </div>
+                <span class="gsi-material-button-contents">Sign in with Google</span>
+                <span style="display: none;">Sign in with Google</span>
+              </div>
+            </button>
+
+            <div class="divider">
+            <p> ------------------ or -------------------</p>
+            </div>
+
+            <label for="email">Email:</label>
+            <input id="email" name="email" type="email" [(ngModel)]="email" required />
+          </div>
+          <div>
+            <label for="password">Password:</label>
+            <input id="password" name="password" type="password" [(ngModel)]="password" required />
+          </div>
+
+          <div class="small-text">
+            <p>By proceeding, you agree to the<span style="color: rgb(9, 95, 243);"> Terms of Service </span>and<span style="color: rgb(9, 95, 243);"> Privacy Policy</span></p>
+          </div>
+        
+          <div class='sign-in-button'>
+            <button type="button" (click)="login()">Sign in</button>
+          </div>
+        </form>
       </div>
-    </button>
-  </form>
-</ng-template>
+
+      <div class="bottom-login-section">    
+        <div class="register-section">
+            <a href="/register" style="text-decoration: none;">Don't have an account? <span class="text-danger">Register</span></a>
+        </div>
+        <a href="/forgot-password" class="text-dark" style="text-decoration: none;">Forgot Password?</a>
+      </div>
+
+      <div class="wallpaper">
+        <img src="../../../assets/wallpaper.png">
+      </div>
+    </ng-template>
