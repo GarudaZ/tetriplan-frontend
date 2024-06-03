@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import firebase from 'firebase/compat/app';
 import { Router } from '@angular/router';
 import axios from 'axios';
+import { environment } from '../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -136,5 +137,9 @@ export class AuthService {
 
   logOut() {
     this.afAuth.signOut();
+  }
+
+  getHuggingFaceToken(): string {
+    return environment.huggingFaceApiToken;
   }
 }
