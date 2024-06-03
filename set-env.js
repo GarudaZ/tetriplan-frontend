@@ -1,6 +1,9 @@
 const fs = require("fs");
 const targetPath = "./src/environments/environment.ts";
 
+console.log("HUGGING_FACE_API_TOKEN:", process.env.HUGGING_FACE_API_TOKEN);
+console.log("FIREBASE_API_KEY:", process.env.FIREBASE_API_KEY);
+
 const envConfigFile = `export const environment = {
   production: ${process.env.NODE_ENV === "production"},
   huggingFaceApiToken: '${process.env.HUGGING_FACE_API_TOKEN || ""}',
