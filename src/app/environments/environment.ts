@@ -1,6 +1,5 @@
 export const environment = {
-
-  production: true,
+  production: false,
   huggingFaceApiToken: '',
   firebase: {
     apiKey: '',
@@ -8,8 +7,6 @@ export const environment = {
     projectId: '',
     storageBucket: '',
     messagingSenderId: '',
-    appId: '',
-    measurementId: '',
-  },
+    appId: ''
+  }
 };
-
