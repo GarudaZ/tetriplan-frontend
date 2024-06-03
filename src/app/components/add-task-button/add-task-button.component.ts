@@ -10,7 +10,6 @@ import { TaskRefreshService } from '../../services/task-refresh.service';
   templateUrl: './add-task-button.component.html',
   styleUrls: ['./add-task-button.component.css'],
 })
-
 export class AddTaskButtonComponent {
   user: firebase.User | null = null;
   categories: string[] = [];
@@ -62,7 +61,7 @@ export class AddTaskButtonComponent {
         'https://api-inference.huggingface.co/models/facebook/bart-large-mnli',
         {
           headers: {
-            Authorization: 'Bearer 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',
+            Authorization: `Bearer ${this.authService.getHuggingFaceToken()}`,
           },
           method: 'POST',
           body: JSON.stringify(data),
@@ -162,8 +161,8 @@ export class AddTaskButtonComponent {
       }
     });
   }
-  
-   resetForm() {
+
+  resetForm() {
     this.taskName = '';
     this.category = '';
     this.taskDescription = '';
