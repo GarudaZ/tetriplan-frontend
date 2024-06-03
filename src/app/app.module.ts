@@ -8,7 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
-import { environment } from './environments/environment';
+import { environment } from '../app/environments/environment';
 import { LoginComponent } from '../app/components/login/login.component';
 import { GoogleSsoDirective } from './services/google-sso.directive';
 import { HomeComponent } from '../app/components/home/home.component';

@@ -1,4 +1,15 @@
 export const environment = {
+
   production: true,
-  huggingFaceApiToken: process.env['HUGGING_FACE_API_TOKEN'],
+  huggingFaceApiToken: '',
+  firebase: {
+    apiKey: '',
+    authDomain: '',
+    projectId: '',
+    storageBucket: '',
+    messagingSenderId: '',
+    appId: '',
+    measurementId: '',
+  },
 };
+
