@@ -45,4 +45,4 @@ Thumbs.db
 # Local Netlify folder
 .netlify
 
-environment.ts
+environment.prod.ts
