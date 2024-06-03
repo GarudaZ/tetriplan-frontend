@@ -140,6 +140,12 @@ export class AuthService {
   }
 
   getHuggingFaceToken(): string {
-    return environment.huggingFaceApiToken;
+    const token = environment.huggingFaceApiToken;
+    if (!token) {
+      throw new Error(
+        'Hugging Face API token is not set in environment variables'
+      );
+    }
+    return token;
   }
 }
