@@ -63,17 +63,6 @@ export class AIFavouriteTasksComponent {
     this.showBigPopup = false;
   }
 
-  // taskName: string = '';
-  // category: string = 'none';
-  // taskDescription: string = '';
-  // date: string = '';
-  // startTime: string = '';
-  // endTime: string = '';
-  // estimate: number = 30;
-  // label: string = 'none';
-  // priority: string = 'none';
-  // completionStatus: boolean = false;
-
   submitAiTask(task: any) {
     if (this.isProcessingTask) return; 
     this.isProcessingTask = true;

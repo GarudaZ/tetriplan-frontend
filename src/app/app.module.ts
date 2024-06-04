@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms'; // Import FormsModule
+import { FormsModule } from '@angular/forms'; 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -17,7 +17,7 @@ import { TaskListComponent } from '../app/components/home/task-list/task-list.co
 import { RegisterComponent } from './components/register/register.component';
 import { AuthService } from './services/auth.service';
 import { ForgotPasswordComponent } from '../app/components/forgot-password/forgot-password.component';
-import { MiniCalendarComponent } from '../app/components/home/mini-calendar/mini-calendar.component'; // Import your AuthService
+import { MiniCalendarComponent } from '../app/components/home/mini-calendar/mini-calendar.component'; 
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { CalendarComponent } from '../app/components/home/calendar/calendar.component';
