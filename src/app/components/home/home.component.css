@@ -16,7 +16,7 @@ html {
   display: flex;
   flex-direction: row;
   width: 100vw;
-  height: 85vh; /* Adjusted to a shorter height */
+  height: 88vh; /* Adjusted to a shorter height */
   overflow: hidden;
 }
 
@@ -84,6 +84,7 @@ html {
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  z-index: 9999;
 }
 
 .calendar button:hover {
@@ -102,7 +103,6 @@ html {
   background-color: white;
 }
 
-/* Responsive design */
 @media (max-width: 1000px) {
   .sidebar {
     display: none;

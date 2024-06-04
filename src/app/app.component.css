@@ -11,11 +11,12 @@ header {
   position: relative;
   border-bottom: ridge rgb(212, 210, 210);
   margin-bottom: 8px;
+  height: 8vh;
 }
 
 h1 {
   float: left;
-  padding: 2%;
+  padding: 14px 20px;
   font-size: 3em;
   color: #3ab399;
   font-family: Virgil;
