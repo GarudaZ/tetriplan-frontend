@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poiret+One&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poiret+One&display=swap");
 
 .list-container {
   position: relative;
@@ -16,20 +16,20 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000; 
+  z-index: 1000;
 }
 
 .filter {
   margin-top: 5%;
   margin-bottom: 5%;
+  text-align: center;
 }
 
-.filter label{
-  margin-left: 10%;
-  margin-right: 10%;
+.filter label {
+  margin-left: 5%;
+  margin-right: 5%;
   font-family: Virgil;
 }
-
 
 .hide-button {
   padding: 5px;

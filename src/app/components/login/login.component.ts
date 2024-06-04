@@ -10,7 +10,7 @@ import firebase from 'firebase/compat/app';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-  user$!: Observable<firebase.User | null>; // Use firebase.User for correct typing
+  user$!: Observable<firebase.User | null>; 
   email: string = '';
   password: string = '';
 

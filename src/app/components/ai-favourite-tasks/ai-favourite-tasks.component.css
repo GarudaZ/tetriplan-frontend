@@ -1,6 +1,6 @@
 .lamp-icon {
-  font-size: 32px; /* Adjust size as needed */
-  margin-bottom: 25px; /* Add spacing between icon and heading */
+  font-size: 32px;
+  margin-bottom: 25px;
 }
 .scheme {
   color: #3ab399 !important;
@@ -13,8 +13,8 @@
   padding: 5px;
   transform: translate(-50%, -50%);
   background-color: rgba(193, 249, 207, 0.801);
-  width: 200px; /* Increase the max-width value */
-  height: 50px; /* Remove fixed height */
+  width: 200px;
+  height: 50px;
   border-radius: 5px;
   color: rgb(55, 50, 50);
   cursor: pointer;
@@ -33,7 +33,7 @@
   left: 50%;
   translate: -60px -140px;
 
-  font-family: 'Courier New', Courier, monospace;
+  font-family: "Courier New", Courier, monospace;
 }
 
 h3 {
@@ -43,15 +43,14 @@ h3 {
 
 .popup-content {
   display: flex;
-  align-items: center; /* Align items vertically in center */
-  justify-content: center; /* Align items horizontally in center */
+  align-items: center;
+  justify-content: center;
 }
 
 .popup-content h2 {
   margin-top: 0;
 }
 
-/* Styles for the big popup overlay */
 .big-popup-overlay {
   position: fixed;
   top: 0;
@@ -63,9 +62,9 @@ h3 {
   align-items: center;
   padding: 20px;
   border-radius: 5px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); /* Box shadow for a slight depth effect */
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
   color: rgb(55, 50, 50);
-  z-index: 9999; /* Ensure it appears above other content */
+  z-index: 9999;
   background-color: rgba(0, 0, 0, 0.5);
 }
 
@@ -73,10 +72,10 @@ h3 {
   background-color: white;
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); /* Box shadow for a slight depth effect */
-  max-width: 600px; /* Set the maximum width of the popup */
-  width: 80%; /* Make the content responsive */
-  overflow-y: auto; /* Ensure content is scrollable if it overflows */
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  max-width: 600px;
+  width: 80%;
+  overflow-y: auto;
   text-align: center;
 }
 
