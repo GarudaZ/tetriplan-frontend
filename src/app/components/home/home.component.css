@@ -16,11 +16,10 @@ html {
   display: flex;
   flex-direction: row;
   width: 100vw;
-  height: 85vh; /* Adjusted to a shorter height */
+  height: 88vh; /* Adjusted to a shorter height */
   overflow: hidden;
 }
 
-/* Sidebar styling */
 .sidebar {
   flex: 0.5;
   background-color: #a9d4cb;

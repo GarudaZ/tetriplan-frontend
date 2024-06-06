@@ -129,7 +129,7 @@ export class TaskListComponent implements OnInit, AfterViewInit {
 
   filterTasks(): void {
     this.filteredTasks = this.tasks.filter((task) => {
-      // Date picker filtering
+      
       if (this.selectedDate) {
         const taskDate = task.calendar;
         const selectedDate = `${this.selectedDate.year}-${String(

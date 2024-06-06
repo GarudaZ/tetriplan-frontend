@@ -37,7 +37,7 @@ export class TaskCompletedButtonComponent {
       (isCompleted: boolean) => {
         if (isCompleted) {
           task.completionStatus = true;
-          this.cdr.detectChanges(); // Force change detection
+          this.cdr.detectChanges(); 
         }
       }
     );

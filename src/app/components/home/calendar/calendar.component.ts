@@ -245,7 +245,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges {
         priority: info.event.extendedProps.priority,
       };
 
-      // Update the server
       this.taskService.updateTask(updatedTask).subscribe(
         (response) => {
           this.loadCalendarEvents();
@@ -288,7 +287,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges {
       priority: info.event.extendedProps.priority,
     };
 
-    // Update the server
     this.taskService.updateTask(updatedTask).subscribe(
       (response) => {
         console.log('Task updated successfully:', response);
@@ -326,7 +324,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges {
       priority: info.event.extendedProps.priority,
     };
 
-    // Update the server
     this.taskService.updateTask(updatedTask).subscribe(
       (response) => {
         console.log('Task updated successfully:', response);

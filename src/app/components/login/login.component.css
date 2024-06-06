@@ -137,7 +137,7 @@ button[ngSubmit] {
 .gsi-material-button-icon {
   display: flex;
   justify-content: flex-start;
-  margin-right: 8px; /* Adjust the spacing as needed */
+  margin-right: 8px; 
 }
 
 .gsi-material-button-icon svg {
@@ -203,7 +203,7 @@ button[ngSubmit] {
   background-size: cover; 
 }
 
-/* this is for once you're logged in */
+
 
 
 

@@ -20,7 +20,10 @@ header {
   align-items: center;
 }
 
+
 h1 {
+  float: left;
+  padding: 14px 20px;
   font-size: 3em;
   color: #3ab399;
   font-family: Virgil;

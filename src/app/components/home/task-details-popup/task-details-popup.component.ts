@@ -60,7 +60,7 @@ export class TaskDetailsPopupComponent {
   }
 
   handleTaskCompleted(): void {
-    // Toggle the task's completion status
+    
     this.editableTask.completionStatus = !this.editableTask.completionStatus;
 
     this.taskService.updateTask(this.editableTask).subscribe(
