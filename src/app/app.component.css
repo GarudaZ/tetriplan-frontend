@@ -20,7 +20,6 @@ header {
   align-items: center;
 }
 
-
 h1 {
   float: left;
   padding: 14px 20px;
@@ -66,19 +65,26 @@ nav li a.active {
   header {
     flex-direction: column;
     height: auto;
+    margin: 0;
   }
 
+  h1 {
+    padding: 0;
+  }
   .header-content {
     flex-direction: column;
   }
 
   ul {
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
   }
 
   nav li {
-    margin: 10px 0;
+    margin: 8px 8px;
+  }
+  nav li a {
+    padding: 0;
   }
 
   h1 {
