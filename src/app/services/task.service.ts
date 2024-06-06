@@ -38,9 +38,7 @@ export class TaskService {
     return new Observable((observer) => {
       axios
         .get(`https://tetriplan.onrender.com/api/users/${uid}/tasks`)
-        // .get(`https://tetriplan.onrender.com/api/users/${uid}/tasks`)
         .then((response) => {
-          console.log(response.data.tasks);
           // converts calendar key to date
           const tasks: Task[] = response.data.tasks.map((task: any) => ({
             ...task,
@@ -56,7 +54,6 @@ export class TaskService {
             ...new Set(tasks.map((task: Task) => task.label)),
           ];
           this.labelsSubject.next(labels);
-          console.log(labels);
 
           observer.next(response.data.tasks);
           observer.complete();
@@ -84,21 +81,17 @@ export class TaskService {
           label: task.label,
           priority: task.priority,
         }));
-        console.log('FullCalendar events:', events);
         return events;
       })
     );
   }
 
-  // update task on the server
   updateTask(task: Task): Observable<any> {
     const { _id, userID, date, ...rest } = task;
     const taskUpdateData = {
       ...rest,
       calendar: date,
     };
-
-    console.log('Updating task:', taskUpdateData);
 
     return new Observable((observer) => {
       axios
@@ -117,8 +110,6 @@ export class TaskService {
   }
 
   deleteTask(taskID: string): Observable<any> {
-    console.log('Deleting task:', taskID);
-
     return new Observable((observer) => {
       axios
         .delete(`https://tetriplan.onrender.com/api/tasks/${taskID}`)

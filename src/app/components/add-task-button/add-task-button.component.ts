@@ -86,7 +86,7 @@ export class AddTaskButtonComponent {
     const data = {
       inputs: this.taskName,
       parameters: {
-        candidate_labels: this.categories,
+        candidate_categories: this.categories,
       },
     };
 
@@ -95,7 +95,7 @@ export class AddTaskButtonComponent {
         'https://api-inference.huggingface.co/models/facebook/bart-large-mnli',
         {
           headers: {
-            Authorization: 'Bearer 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',
+            Authorization: `Bearer ${this.authService.getHuggingFaceToken()}`,
           },
           method: 'POST',
           body: JSON.stringify(data),
@@ -103,8 +103,8 @@ export class AddTaskButtonComponent {
       );
       const result = await response.json();
 
-      if (result && result.labels && result.labels.length > 0) {
-        this.category = result.labels[0];
+      if (result && result.categories && result.categories.length > 0) {
+        this.category = result.categories[0];
       }
     } catch (error) {
       console.error('Error suggesting category:', error);

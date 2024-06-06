@@ -200,7 +200,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges {
 
     this.taskService.updateTask(updatedTask).subscribe(
       (response) => {
-        console.log('Task updated successfully:', response);
         this.loadCalendarEvents();
         this.taskRefreshService.triggerReloadTasks();
       },
@@ -208,8 +207,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges {
         console.error('Error updating task:', error);
       }
     );
-
-    console.log('Dropped event:', info);
   }
 
   handleEventDragStop(info: { event: any; jsEvent: MouseEvent }): void {
@@ -326,7 +323,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges {
 
     this.taskService.updateTask(updatedTask).subscribe(
       (response) => {
-        console.log('Task updated successfully:', response);
         this.loadCalendarEvents();
         this.taskRefreshService.triggerReloadTasks();
       },
