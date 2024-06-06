@@ -115,7 +115,7 @@ html {
   .calendar {
     order: 1;
     min-width: 100%;
-    min-height: 85vh;
+    /* min-height: 85vh; */
     margin-bottom: 10px;
   }
 

@@ -60,7 +60,6 @@ export class TaskListComponent implements OnInit, AfterViewInit {
 
     this.taskService.labels$.subscribe((labels) => {
       this.labels = labels;
-      console.log('Task labels:', this.labels);
     });
   }
 
@@ -112,7 +111,6 @@ export class TaskListComponent implements OnInit, AfterViewInit {
       (tasks) => {
         this.tasks = tasks;
         this.filterTasks();
-        console.log('Filtered Tasks:', this.filteredTasks);
         this.isLoading = false;
       },
       (error) => {

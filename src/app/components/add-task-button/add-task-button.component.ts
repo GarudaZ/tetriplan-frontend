@@ -103,8 +103,8 @@ export class AddTaskButtonComponent {
       );
       const result = await response.json();
 
-      if (result && result.categories && result.categories.length > 0) {
-        this.category = result.categories[0];
+      if (result && result.labels && result.labels.length > 0) {
+        this.category = result.labels[0];
       }
     } catch (error) {
       console.error('Error suggesting category:', error);
