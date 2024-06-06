@@ -86,7 +86,7 @@ export class AddTaskButtonComponent {
     const data = {
       inputs: this.taskName,
       parameters: {
-        candidate_categories: this.categories,
+        candidate_labels: this.categories,
       },
     };
 
