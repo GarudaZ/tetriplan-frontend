@@ -24,13 +24,11 @@ export class TaskDetailsPopupComponent {
     @Inject(MAT_DIALOG_DATA) public data: Task
   ) {
     this.editableTask = { ...data };
-    console.log(this.editableTask);
   }
 
   ngOnInit(): void {
     this.taskService.categories$.subscribe((categories) => {
       this.categories = categories;
-      console.log('Task categories:', this.categories);
     });
   }
 
@@ -51,7 +49,6 @@ export class TaskDetailsPopupComponent {
 
     this.taskService.updateTask(taskUpdateData).subscribe(
       (response) => {
-        console.log('Task updated successfully:', response);
         this.taskRefreshService.triggerReloadTasks();
         this.isEditing = false;
         this.closeDialog();
@@ -68,7 +65,6 @@ export class TaskDetailsPopupComponent {
 
     this.taskService.updateTask(this.editableTask).subscribe(
       (response) => {
-        console.log('Task completion status updated:', response);
         this.completeTask.emit(this.editableTask.completionStatus);
         this.taskUpdated.emit(this.editableTask);
         this.taskRefreshService.triggerReloadTasks();
@@ -83,7 +79,6 @@ export class TaskDetailsPopupComponent {
   handleTaskDelete() {
     this.taskService.deleteTask(this.editableTask._id).subscribe(
       (response) => {
-        console.log('Task updated successfully:', response);
         this.taskRefreshService.triggerReloadTasks();
         this.isEditing = false;
         this.closeDialog();

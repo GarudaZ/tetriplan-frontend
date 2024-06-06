@@ -1,4 +1,3 @@
-html,
 body {
   height: 100%;
   margin: 0;
@@ -7,34 +6,46 @@ body {
 }
 
 header {
-  column-span: all;
   position: relative;
   border-bottom: ridge rgb(212, 210, 210);
   margin-bottom: 8px;
+  height: 8vh;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
 }
 
 h1 {
-  float: left;
-  padding: 2%;
   font-size: 3em;
   color: #3ab399;
   font-family: Virgil;
-  margin-bottom: 0;
+  margin: 0;
 }
 
 .login-image {
   width: 50px;
   height: 50px;
+  margin-left: 10px;
 }
 
 ul {
   list-style-type: none;
   padding: 0;
+  display: flex;
+  margin: 0;
+}
+
+nav li {
+  margin-left: 20px;
 }
 
 nav li a {
   color: #0b0c0c !important;
-  float: right;
   text-align: center;
   padding: 14px 20px;
   text-decoration: none;
@@ -46,4 +57,33 @@ nav li a.active {
   color: #060606 !important;
   text-decoration: underline;
   text-decoration-color: orange;
+}
+
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .header-content {
+    flex-direction: column;
+  }
+
+  ul {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  nav li {
+    margin: 10px 0;
+  }
+
+  h1 {
+    font-size: 2em;
+    text-align: center;
+  }
+
+  .login-image {
+    margin-left: 0;
+  }
 }
