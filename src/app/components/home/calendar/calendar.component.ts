@@ -93,7 +93,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges {
       instance.taskUpdated.subscribe((updatedTask: Task) => {
         this.taskService.updateTask(updatedTask).subscribe(
           (response) => {
-            console.log('Task updated successfully:', response);
             this.loadCalendarEvents();
             this.taskRefreshService.triggerReloadTasks();
           },
@@ -248,7 +247,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges {
 
       this.taskService.updateTask(updatedTask).subscribe(
         (response) => {
-          console.log('Task updated successfully:', response);
           this.loadCalendarEvents();
           this.taskRefreshService.triggerReloadTasks();
         },
@@ -268,8 +266,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges {
     const end = info.event.end;
 
     this.isLoading = true;
-
-    console.log('Event drop info:', { taskId, start, end });
 
     if (!taskId || !start || !end) {
       console.error('Event drop missing information.');
@@ -301,16 +297,12 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges {
         console.error('Error updating task:', error);
       }
     );
-
-    console.log('Event dropped:', info);
   }
 
   handleEventResize(info: { event: any }): void {
     const taskId = info.event.id;
     const start = info.event.start;
     const end = info.event.end;
-
-    console.log('Event resize info:', { taskId, start, end });
 
     if (!taskId || !start || !end) {
       console.error('Event resize missing information.');
@@ -342,8 +334,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges {
         console.error('Error updating task:', error);
       }
     );
-
-    console.log('Event resized:', info);
   }
 
   isDescendant(child: HTMLElement, parent: HTMLElement): boolean {

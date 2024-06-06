@@ -47,7 +47,7 @@ html {
   background-color: white;
   margin: 0 10px;
   overflow-y: auto;
-  max-height: calc(80vh - 40px); /* Adjusted to fit within container height */
+  max-height: calc(85vh - 40px);
   box-shadow: 0 0 20px rgba(92, 92, 92, 0.1);
   padding: 30px;
   border-radius: 10px;
@@ -90,7 +90,6 @@ html {
   background-color: #5ba49b;
 }
 
-/* Expanded calendar styling */
 .expanded {
   max-width: none;
   top: 0;
@@ -103,15 +102,28 @@ html {
 }
 
 @media (max-width: 1000px) {
+  .container {
+    flex-direction: column;
+    align-items: center;
+    overflow: scroll;
+  }
+
   .sidebar {
     display: none;
   }
 
-  .task-list {
+  .calendar {
+    order: 1;
     min-width: 100%;
+    min-height: 85vh;
+    margin-bottom: 10px;
   }
 
-  .calendar {
-    max-width: 100%;
+  .task-list {
+    order: 2;
+    min-width: 100%;
+    min-height: 300px;
+    margin-top: 10px;
+    overflow: visible;
   }
 }

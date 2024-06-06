@@ -16,6 +16,7 @@
       [(ngModel)]="taskName"
       (blur)="suggestLabel()"
       (blur)="suggestCategory()"
+      required
     />
     <p *ngIf="isLoadingLabel" class="loading-text">
       Loading AI suggestion for label...
@@ -101,6 +102,7 @@
       id="taskDescription"
       placeholder="Enter task description"
       [(ngModel)]="taskDescription"
+      required
     ></textarea>
 
     <button class="submit-button" (click)="submitTask()">Submit</button>
